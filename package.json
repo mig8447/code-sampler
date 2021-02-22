@@ -1,0 +1,24 @@
+{
+  "name": "code-sampler",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.2",
+    "next": "10.0.7",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "remark": "^13.0.0",
+    "remark-react": "^8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-plugin-react": "^7.22.0",
+    "gh-pages": "^3.1.0"
+  }
+}
