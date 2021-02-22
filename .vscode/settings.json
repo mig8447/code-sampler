@@ -1,0 +1,14 @@
+{
+    "editor.rulers": [
+        80
+    ],
+    "cSpell.words": [
+    ],
+    "cSpell.ignoreWords": [],
+    "cSpell.language": "en",
+    "files.exclude": {
+        "**/node_modules": true
+    },
+    // See: https://stackoverflow.com/a/57919527/1714951
+    "editor.maxTokenizationLineLength": 1000,
+}
