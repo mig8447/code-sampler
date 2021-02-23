@@ -13,6 +13,7 @@
     "next": "10.0.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-syntax-highlighter": "^15.4.3",
     "remark": "^13.0.0",
     "remark-react": "^8.0.0"
   },

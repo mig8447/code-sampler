@@ -1,65 +1,84 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Tabs from '../components/Tabs';
+import Tab from '../components/Tab';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { a11yDark, a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { useState } from 'react';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+const Index = () => {
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+    const [selected, setSelected] = useState("javascript");
+    const [theme, setTheme] = useState(a11yDark);
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+    const javascriptCode = `var rows = prompt("How many rows for your multiplication table?");
+    var cols = prompt("How many columns for your multiplication table?");
+    if(rows == "" || rows == null)
+            rows = 10;
+    if(cols== "" || cols== null)
+            cols = 10;
+    createTable(rows, cols);
+    function createTable(rows, cols)
+    {
+        var j=1;
+        var output = "<table border='1' width='500' cellspacing='0'cellpadding='5'>";
+        for(i=1;i<=rows;i++)
+        {
+        output = output + "<tr>";
+        while(j<=cols)
+        {
+            output = output + "<td>" + i*j + "</td>";
+            j = j+1;
+        }
+            output = output + "</tr>";
+            j = 1;
+    }
+    output = output + "</table>";
+    document.write(output);
+    }`
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+    const pythonCode = `# Python Program to convert temperature in celsius to fahrenheit
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+    # change this value for a different result
+    celsius = 37.5
+    
+    # calculate fahrenheit
+    fahrenheit = (celsius * 1.8) + 32
+    print('%0.1f degree Celsius is equal to %0.1f degree Fahrenheit' %(celsius,fahrenheit))`;
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+    const highlighterStyle = {
+        marginTop: "0",
+        border: "1px black solid",
+        borderTop: "none",
+        borderBottomLeftRadius: "8px",
+        borderBottomRightRadius: "8px"
+    };
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+    const toogleTheme = () => {
+        theme === a11yDark ? setTheme(a11yLight) : setTheme(a11yDark);
+    }
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+
+    return (
+        <>
+            <h1>Hello world</h1>
+            <button onClick={toogleTheme}>Change </button>
+            <Tabs tabs={["javascript", "python"]} selected={selected} setSelected={setSelected} >
+
+                <Tab isSelected={selected === "javascript"}>
+                    <button onClick={()=>navigator.clipboard.writeText(javascriptCode)}>Copy to clipboard</button>
+                    <SyntaxHighlighter language="javascript" style={theme} customStyle={highlighterStyle} showLineNumbers={true}>
+                        {javascriptCode}
+                    </SyntaxHighlighter>
+                </Tab>
+                <Tab isSelected={selected === "python"}>
+                <button onClick={()=>navigator.clipboard.writeText(pythonCode)}>Copy to clipboard</button>
+                    <SyntaxHighlighter language="python" style={theme} customStyle={highlighterStyle} showLineNumbers={true}>
+                        {pythonCode}
+                    </SyntaxHighlighter>
+                </Tab>
+            </Tabs>
+
+        </>
+    )
 }
+
+export default Index;
