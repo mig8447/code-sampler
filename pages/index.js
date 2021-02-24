@@ -3,12 +3,12 @@ import Tab from '../components/Tab';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark, a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { useState } from 'react';
+import Clipboard from 'react-clipboard.js';
 
 const Index = () => {
 
     const [selected, setSelected] = useState("javascript");
     const [theme, setTheme] = useState(a11yDark);
-
     const javascriptCode = `var rows = prompt("How many rows for your multiplication table?");
     var cols = prompt("How many columns for your multiplication table?");
     if(rows == "" || rows == null)
@@ -64,13 +64,13 @@ const Index = () => {
             <Tabs tabs={["javascript", "python"]} selected={selected} setSelected={setSelected} >
 
                 <Tab isSelected={selected === "javascript"}>
-                    <button onClick={()=>navigator.clipboard.writeText(javascriptCode)}>Copy to clipboard</button>
+                    <Clipboard data-clipboard-text={javascriptCode}>Copy to clipboard</Clipboard>
                     <SyntaxHighlighter language="javascript" style={theme} customStyle={highlighterStyle} showLineNumbers={true}>
                         {javascriptCode}
                     </SyntaxHighlighter>
                 </Tab>
                 <Tab isSelected={selected === "python"}>
-                <button onClick={()=>navigator.clipboard.writeText(pythonCode)}>Copy to clipboard</button>
+                <Clipboard data-clipboard-text={pythonCode}>Copy to clipboard</Clipboard>
                     <SyntaxHighlighter language="python" style={theme} customStyle={highlighterStyle} showLineNumbers={true}>
                         {pythonCode}
                     </SyntaxHighlighter>
