@@ -9,7 +9,7 @@ import remark2react from 'remark-react';
 
 const Post = ({metaData, content}) => {
     const markDownContent = unified().use(parse).use(remark2react).processSync(content).result;
-    
+    console.log(metaData)
     return (
     <> 
     <Head>
@@ -17,6 +17,7 @@ const Post = ({metaData, content}) => {
         <meta title='description' content={metaData.description}></meta>
     </Head>
     {markDownContent}
+    
     </>  
     )      
 };
@@ -39,10 +40,18 @@ export const getStaticProps = async ({params: {slug} }) => {
 
     const markdownWithMetadata = fs.readFileSync(path.join('posts', slug + ".md")).toString();
     const parsedMarkwdown = matter(markdownWithMetadata);
-    
+    console.log(parsedMarkwdown.data);
+    const metaData = {
+        title: parsedMarkwdown.data.title,
+        created: parsedMarkwdown.data.created.toString(),
+        lastUpdated: parsedMarkwdown.data.lastUpdated.toString(),
+        tags: parsedMarkwdown.data.tags,
+        published: parsedMarkwdown.data.published
+    }
+
     return {
         props: {
-            metaData: parsedMarkwdown.data,
+            metaData,
             content: parsedMarkwdown.content
         }
     }
