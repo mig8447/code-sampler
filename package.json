@@ -31,7 +31,7 @@
   "husky": {
     "hooks": {
       // "pre-commit": "npm run cache-posts && git add cache/data.js"
-      "pre-commit": "echo \“echo ”[Husky] pre-commit”",
+      "pre-commit": "echo \"[Husky] pre-commit\" "
     }
     
   }
