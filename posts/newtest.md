@@ -4,7 +4,7 @@ created: 2021-03-02T13:05:00.000Z
 lastUpdated: 2021-03-02T13:05:00.000Z
 tags:
     - Test New
-    - C
+    - C++
 published: true
 description: Este es el ejemplo, precommit.
 ---
