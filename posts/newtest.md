@@ -3,7 +3,7 @@ title: Test Sample
 created: 2021-03-02T13:05:00.000Z
 lastUpdated: 2021-03-02T13:05:00.000Z
 tags:
-    - TestNew
+    - Test New
     - C
 published: true
 description: Este es el ejemplo, precommit.
