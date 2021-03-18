@@ -4,12 +4,21 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import unified from "unified";
+import remark, { stringify } from 'remark';
 import parse from 'remark-parse';
+import transformer from '../scripts/transformer';
 import remark2react from 'remark-react';
+import CodeSnippets from "../components/CodeSnippets";
 
 const Post = ({metaData, content}) => {
-    const markDownContent = unified().use(parse).use(remark2react).processSync(content).result;
-    console.log(metaData)
+    const markDownContent = remark()
+    .use(transformer)
+    .use(remark2react, {
+        remarkReactComponents:{
+            code: CodeSnippets
+        }
+    })
+    .processSync(content).result;
     return (
     <> 
     <Head>
@@ -48,6 +57,9 @@ export const getStaticProps = async ({params: {slug} }) => {
         tags: parsedMarkwdown.data.tags,
         published: parsedMarkwdown.data.published
     }
+
+    
+
 
     return {
         props: {
