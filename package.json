@@ -22,8 +22,11 @@
     "unified": "^9.2.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
     "eslint": "^7.20.0",
     "eslint-plugin-react": "^7.22.0",
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.1.0",
+    "husky": "^6.0.0"
   }
 }
