@@ -13,6 +13,7 @@
   "dependencies": {
     "gray-matter": "^4.0.2",
     "husky": "^4.3.8",
+    "lunr": "^2.3.9",
     "next": "10.0.7",
     "react": "17.0.1",
     "react-clipboard.js": "^2.0.16",
