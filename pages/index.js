@@ -1,10 +1,12 @@
 
 import fs from "fs";
 import Link from "next/link";
+import Search from "../components/Search"
 
 const Index = ({slugs}) => (
     <div>
     <h1>Hello World</h1>
+    <Search/>
     {slugs.map(slug => {
       return (
         <div key={slug}>
