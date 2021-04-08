@@ -1,8 +1,8 @@
-import { posts } from '../../search/search-index';
+import { searchIndex } from '../../search/search-index';
 import lunr from 'lunr';
 export default (req, res) =>{
     // const param = req.query.q.toLowerCase().trim();
-    // const results2 = param ? posts.filter((post) => 
+    // const results2 = param ? searchIndex.filter((post) => 
     //     post.title.toLowerCase().includes(param) ||  
     //     post.description.toLowerCase().includes(param)  || 
     //     post.tags.toLocaleString().toLowerCase().split(",").includes(param)  )  : []
@@ -11,12 +11,12 @@ export default (req, res) =>{
     
     
     
-    //console.log(posts)
+    //console.log(searchIndex)
     
     const resultsRef = idx.search(req.query.q);
     console.log(resultsRef)
 
-    let results = posts.map((post) => {
+    let results = searchIndex.map((post) => {
 
       let isIn = false;
       resultsRef.forEach(function(result){
@@ -57,7 +57,7 @@ const idx = lunr(function () {
     this.field('tags')
     this.field('description')
     
-      posts.forEach(function (doc) {
+      searchIndex.forEach(function (doc) {
         this.add(doc)
       }, this)
 })

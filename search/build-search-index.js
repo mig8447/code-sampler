@@ -17,7 +17,7 @@ function postData() {
       description: matterResult.data.description
     }
   });
-  return `export const posts = ${JSON.stringify(posts)}`;
+  return `export const searchIndex = ${JSON.stringify(posts)}`;
 }
 
 try {
