@@ -1,4 +1,4 @@
-import { posts } from '../../cache/data';
+import { posts } from '../../search/search-index';
 import lunr from 'lunr';
 export default (req, res) =>{
     // const param = req.query.q.toLowerCase().trim();

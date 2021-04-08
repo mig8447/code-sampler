@@ -21,12 +21,12 @@ function postData() {
 }
 
 try {
-  fs.readdirSync('cache')
+  fs.readdirSync('search')
 } catch (e) {
-  fs.mkdirSync('cache')
+  fs.mkdirSync('search')
 }
 
-fs.writeFile('cache/data.js', postData(), function (err) {
+fs.writeFile('search/search-index.js', postData(), function (err) {
   if (err) return console.log(err);
-  console.log('Posts cached.');
+  console.log('Search index generated.');
 })
