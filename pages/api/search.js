@@ -42,8 +42,8 @@ export default (req, res) =>{
 
    
     
-
-    console.log(results)
+    console.log(req.query.q)
+    //console.log(results)
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
