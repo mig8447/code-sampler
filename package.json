@@ -8,7 +8,7 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "cache-posts": "node scripts/cache.js"
+    "build-search-index": "node search/build-search-index.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.2",
