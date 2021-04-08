@@ -10,7 +10,7 @@ const Index = ({slugs}) => (
 
     <div>
       <Head> 
-        <title>Hola bb</title>
+        <title>Oracle DB Guide</title>
         
       </Head>
       <Navbar/>
