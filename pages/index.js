@@ -27,7 +27,7 @@ export const getStaticProps = async() => {
         slugs: files.map(filename => filename.replace(".md", ""))
       }
     };
-  }; 
+}; 
 
 export default Index;
 
