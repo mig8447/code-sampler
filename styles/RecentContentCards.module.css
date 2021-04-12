@@ -1,0 +1,12 @@
+.recentCards {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+@media (max-width : 800px){
+    .recentCards {
+        flex-flow: column;
+        gap: 13px;
+    }
+}

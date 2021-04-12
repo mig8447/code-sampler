@@ -1,0 +1,23 @@
+.tag {
+    background-color: #2b6242;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+
+.tags {
+    width: 100%;
+    gap: 2%;
+}
+
+
+@media (max-width : 770px){
+    .tags {
+        width: 70%
+    }
+}
