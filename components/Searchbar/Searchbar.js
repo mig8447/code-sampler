@@ -1,7 +1,9 @@
 import { Navbar, Form, FormControl, Button, InputGroup, Row, Col, Container } from 'react-bootstrap';
 import Style from '../../styles/Searchbar.module.css';
-import Image from 'next/image';
+
 const SearchBarComponent = () => {
+
+    const basePath = process.env.NEXT_BASE_PATH || "";
 
     return (
             <Navbar className={Style.searchBarColor} >
@@ -14,12 +16,12 @@ const SearchBarComponent = () => {
                             aria-describedby="basic-addon2" />
                         <InputGroup.Append>
                             <InputGroup.Text id="basic-addon2" className={"bg-white border-0"}>
-                                <Image src="/loupeIcon.png" alt="loupe" width={20} height={20} />
+                                <img src={`${basePath}/loupeIcon.png`} alt="loupe" width={20} height={20} />
                             </InputGroup.Text>
                         </InputGroup.Append>
 
                     </InputGroup>
-                    <Image src="/filterIcon.png" alt="filter" width={20} height={20} />
+                    <img src={`${basePath}/filterIcon.png`} alt="filter" width={20} height={20} />
                 </Container>
 
             </Navbar>

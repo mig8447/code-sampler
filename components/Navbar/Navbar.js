@@ -1,8 +1,8 @@
 import { Navbar } from 'react-bootstrap';
 import Style from '../../styles/Navbar.module.css';
-import Image from 'next/image';
 
 const NavbarComponent = () => {
+    const basePath = process.env.NEXT_BASE_PATH || "";
 
     return (
 
@@ -11,10 +11,10 @@ const NavbarComponent = () => {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end ">
                 <div className={Style.iconContainer}>
-                    <Image src="/bookmarkIcon.png" alt="bookmark" width={20} height={20} />
+                    <img src={`${basePath}/bookmarkIcon.png`} alt="bookmark" width={20} height={20} />
                 </div>
                 <div className={Style.iconContainer}>
-                    <Image src="/settingsIcon.png" alt="settings" width={20} height={20} />
+                    <img src={`${basePath}/settingsIcon.png`} alt="settings" width={20} height={20} />
                 </div>
             </Navbar.Collapse>
         </Navbar>
