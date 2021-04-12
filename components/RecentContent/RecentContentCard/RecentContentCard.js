@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card, Row, Col } from "react-bootstrap";
 import Tags from "../../UI/Tags";
+import PropTypes from 'prop-types';
 
 const RecentContentCard = ({ title, description, tags, filename }) => {
 
@@ -29,4 +30,13 @@ const RecentContentCard = ({ title, description, tags, filename }) => {
     )
 }
 
+RecentContentCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    filename: PropTypes.string.isRequired
+};
+
 export default RecentContentCard;
+
+
