@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, Row, Col } from "react-bootstrap";
-import classes from '../../../styles/RecentContentCard.module.css';
+import Tags from "../../UI/Tags";
 
 const RecentContentCard = ({ title, description, tags, filename }) => {
 
@@ -19,12 +19,7 @@ const RecentContentCard = ({ title, description, tags, filename }) => {
                             </Col>
                         </Row>
                     </Card.Title>
-                    <div className={["d-flex", "flex-row", "flex-wrap", classes.tags].join(" ")} >
-                        {tags.map(tag => (
-                            <p className={["text-capitalize", classes.tag].join(" ")} key={tag}>{tag}</p>
-                        )
-                        )}
-                    </div>
+                    <Tags tags={tags}/>
                     <Card.Text>
                         {description}
                     </Card.Text>
