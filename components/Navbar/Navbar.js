@@ -11,10 +11,10 @@ const NavbarComponent = () => {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end ">
                 <div className={Style.iconContainer}>
-                    <img src={`${basePath}/bookmarkIcon.png`} alt="bookmark" width={20} height={20} />
+                    <span className="fa fa-bookmark-o fa-lg" aria-hidden="true"></span>
                 </div>
                 <div className={Style.iconContainer}>
-                    <img src={`${basePath}/settingsIcon.png`} alt="settings" width={20} height={20} />
+                    <span className="fa fa-gear fa-lg" aria-hidden="true"></span>
                 </div>
             </Navbar.Collapse>
         </Navbar>

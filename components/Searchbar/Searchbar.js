@@ -16,12 +16,12 @@ const SearchBarComponent = () => {
                             aria-describedby="basic-addon2" />
                         <InputGroup.Append>
                             <InputGroup.Text id="basic-addon2" className={"bg-white border-0"}>
-                                <img src={`${basePath}/loupeIcon.png`} alt="loupe" width={20} height={20} />
+                            <span className="fa fa-search fa-sm" aria-hidden="true"></span>
                             </InputGroup.Text>
                         </InputGroup.Append>
 
                     </InputGroup>
-                    <img src={`${basePath}/filterIcon.png`} alt="filter" width={20} height={20} />
+                    <span className="fa fa-filter fa-lg text-light" aria-hidden="true"></span>
                 </Container>
 
             </Navbar>
