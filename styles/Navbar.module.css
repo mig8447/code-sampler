@@ -1,7 +1,6 @@
 .navbarColor{
-    background-color: #2B2E32;
-    color: #FFFEFE;
-    
+    background-color: var(--code-sample-nav-bg-color);
+    color: var(--code-sample-txt-color);
 }
 
 .iconContainer{

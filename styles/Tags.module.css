@@ -1,5 +1,5 @@
 .tag {
-    background-color: #2b6242;
+    background-color: var(--code-sample-tags-bg-color);
     color: white;
     border-radius: 5px;
     padding: 5px 8px;

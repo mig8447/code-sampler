@@ -1,5 +1,5 @@
 .searchBarColor{
-    background-color: #2C5967;
+    background-color: var(--code-sample-search-bar-bg-color);
 }
 
 @media (max-width: 768px)

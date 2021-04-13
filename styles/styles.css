@@ -1,10 +1,19 @@
+:root {
+  --code-sample-bg-color: #3F4248;
+  --code-sample-txt-color: #FFFEFE;
+  --code-sample-nav-bg-color: #2B2E32;
+  --code-sample-topCat-bg-color: #646a73;
+  --code-sample-search-bar-bg-color: #2C5967;
+  --code-sample-tags-bg-color: #2b6242;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #3F4248;
+  background-color: var(--code-sample-bg-color);
 }
 
 a {
@@ -17,7 +26,7 @@ a {
 }
 
 .slug {
-  background-color: #3F4248;
+  background-color: var(--code-sample-bg-color);
 }
 
 .slug a{
