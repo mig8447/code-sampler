@@ -6,9 +6,10 @@ import matter from 'gray-matter';
 import Navbar from '../components/Navbar/Navbar';
 import Searchbar from '../components/Searchbar/Searchbar';
 import RecentContentCard from '../components/RecentContent/RecentContentCard/RecentContentCard';
-import RecentContentCards from '../components/RecentContent/RecentContentCards/RecentContentCards';
+import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
+import TopCategoryCard from "../components/TopCategoryCard/topCategoryCard";
 
 const Index = ({ slugs, recentContent }) => {
 
@@ -20,9 +21,9 @@ const Index = ({ slugs, recentContent }) => {
       </Head>
       <Navbar />
       <Searchbar />
-      <Container fluid className="p-4">
-        <h2 className={"text-light"}>Recent content</h2>
-        <RecentContentCards className="{mt-5}">
+      <Container fluid className="mt-3 mb-3">
+        <h2>Recent content</h2>
+        <ContentCards className="{mt-5}">
           {recentContent.map(metaData =>(
             <RecentContentCard 
               key={metaData.filename} 
@@ -33,10 +34,19 @@ const Index = ({ slugs, recentContent }) => {
             />
           ))}
           
-        </RecentContentCards>
+        </ContentCards>
       </Container>
-
-
+      
+      <Container fluid>
+        <h2>Top Categories</h2>
+        <ContentCards >
+          <TopCategoryCard />
+          <TopCategoryCard />
+          <TopCategoryCard />
+          <TopCategoryCard />
+          <TopCategoryCard />
+        </ContentCards>
+      </Container>
 
       <h1>Hello World</h1>
       {slugs.map(slug => {
