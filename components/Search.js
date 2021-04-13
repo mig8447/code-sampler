@@ -4,6 +4,17 @@ import styles from '../styles/search.module.css';
 import { searchIndex } from '../search/search-index';
 import lunr from 'lunr';
 
+const idx = lunr(function () {
+  this.ref('id')
+  this.field('title')
+  this.field('tags')
+  this.field('description')
+
+  searchIndex.forEach(function (doc) {
+    this.add(doc);
+  }, this);
+});
+
 export default function Search() {
 
   const searchRef = useRef(null);
@@ -87,13 +98,3 @@ export default function Search() {
   );
 }
 
-const idx = lunr(function () {
-  this.ref('id')
-  this.field('title')
-  this.field('tags')
-  this.field('description')
-
-  searchIndex.forEach(function (doc) {
-    this.add(doc);
-  }, this);
-});
