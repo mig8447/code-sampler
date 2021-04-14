@@ -1,0 +1,8 @@
+.selected {
+    background-color: var(--code-sample-search-bar-bg-color);
+    transition: 0.3s;
+}
+
+.selected:hover {
+    background-color: var(--code-sample-badge-hover-color);
+}
