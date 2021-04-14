@@ -1,7 +1,7 @@
 import { Container, InputGroup, FormControl } from 'react-bootstrap';
 
 
-const LanguageFilter = ({ query, setQuery, onSearch }) => (
+const LanguageFilter = ({ query, setQuery }) => (
     <Container className={"d-flex justify-content-center"} >
         <InputGroup className={"p-2 "}>
             <FormControl
