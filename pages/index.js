@@ -9,7 +9,7 @@ import RecentContentCard from '../components/RecentContent/RecentContentCard/Rec
 import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
-import TopCategoryCard from "../components/TopCategoryCard/topCategoryCard";
+import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
 
 const Index = ({ slugs, recentContent }) => {
 
