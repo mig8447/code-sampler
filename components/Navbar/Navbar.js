@@ -1,16 +1,17 @@
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Container, Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Style from '../../styles/Navbar.module.css';
 import GenerateModal from '../UI/GenerateModal/GenerateModal';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
-import LanguageFilter from '../LanguageFilter/LanguageFilter';
+import LanguageFilter from './LanguageFilter/LanguageFilter';
 import { languageIndex } from '../../search/languageIndex';
+import ToogleButton from './ToggleTheme/ToggleTheme';
 import lunr from 'lunr';
 
 const NavbarComponent = () => {
     const [show, setShow] = useState(false);
-    const[query, setQuery] = useState("");
-    const[languageResults, setLanguageResults] = useState([]);
+    const [query, setQuery] = useState("");
+    const [languageResults, setLanguageResults] = useState([]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -18,18 +19,18 @@ const NavbarComponent = () => {
     const idx = lunr(function () {
         this.ref('id')
         this.field('name')
-      
+
         languageIndex.forEach(function (doc) {
-          this.add(doc);
+            this.add(doc);
         }, this);
-      });
+    });
 
     const onChangeQuery = (event) => {
         const query = event.target.value;
         setQuery(query);
         setLanguageResults(idx.search(`*${query}*`));
-        
-        
+
+
     }
 
     useEffect(() => {
@@ -59,7 +60,14 @@ const NavbarComponent = () => {
                         <SelectBadges key={lang.ref} label={lang.ref} />
                     ))}
                 </Container>
-                
+                <h6>Preferred code theme</h6>
+                <Container fluid className="mt-2">
+                    
+                    <ToogleButton />
+                        
+                   
+                </Container>
+
             </GenerateModal>
         </>
     )
