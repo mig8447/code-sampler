@@ -1,7 +1,7 @@
 import { Navbar, Form, FormControl, Button, InputGroup, Row, Col, Container } from 'react-bootstrap';
 import Style from '../../styles/Searchbar.module.css';
 
-const SearchBarComponent = () => {
+const SearchBarComponent = ({ query, setQuery }) => {
 
     const basePath = process.env.NEXT_BASE_PATH || "";
 
@@ -13,9 +13,11 @@ const SearchBarComponent = () => {
                             className={"border-0"}
                             placeholder="How to.."
                             aria-label="Search"
-                            aria-describedby="basic-addon2" />
+                            value={query}
+                            onChange={setQuery}
+                            />
                         <InputGroup.Append>
-                            <InputGroup.Text id="basic-addon2" className={"bg-white border-0"}>
+                            <InputGroup.Text className={"bg-white border-0"}>
                             <span className="fa fa-search fa-sm" aria-hidden="true"></span>
                             </InputGroup.Text>
                         </InputGroup.Append>
