@@ -61,7 +61,7 @@ const NavbarComponent = () => {
     return (
         <>
             <Navbar className={Style.navbarColor}>
-                <Navbar.Brand className={"text-white ml-3"}><h6 className={"mb-1"}>Database Guide</h6></Navbar.Brand>
+                <Navbar.Brand className={"text-white ml-3"}><h6 className={"mb-1"}>Code Sampler</h6></Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end ">
                     <div className={Style.iconContainer}>

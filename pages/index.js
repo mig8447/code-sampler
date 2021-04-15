@@ -43,7 +43,7 @@ const Index = ({ slugs, recentContent }) => {
   return (
     <div>
       <Head>
-        <title>Oracle DB Guide</title>
+        <title>Code Sampler</title>
 
       </Head>
       <Navbar />
