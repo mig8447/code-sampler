@@ -5,13 +5,14 @@ import GenerateModal from '../UI/GenerateModal/GenerateModal';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import LanguageFilter from './LanguageFilter/LanguageFilter';
 import { languageIndex } from '../../search/languageIndex';
-import ToogleButton from './ToggleTheme/ToggleTheme';
+import ToggleButton from './ToggleTheme/ToggleTheme';
 import lunr from 'lunr';
 
 const NavbarComponent = () => {
     const [show, setShow] = useState(false);
     const [query, setQuery] = useState("");
     const [languageResults, setLanguageResults] = useState([]);
+    const [preferredLanguages, setPreferredLanguages] = useState();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -29,12 +30,31 @@ const NavbarComponent = () => {
         const query = event.target.value;
         setQuery(query);
         setLanguageResults(idx.search(`*${query}*`));
-
-
     }
+
+
+  const deleteKeyFromObject = (key) => {
+    const { [key]: tmp, ...rest } = preferredLanguages
+    console.log(rest)
+    setPreferredLanguages(rest);
+    localStorage.setItem("preferredLanguages", JSON.stringify(rest));
+  }
+
+  const onClickBadge = (selected, language) => {
+    
+    if (selected) {
+      deleteKeyFromObject(language);
+    } else {
+      let newPreferredLanguages = { ...preferredLanguages }
+      newPreferredLanguages[language] = true;
+      setPreferredLanguages(newPreferredLanguages)
+      localStorage.setItem("preferredLanguages", JSON.stringify(newPreferredLanguages));
+    }
+  }
 
     useEffect(() => {
         setLanguageResults(idx.search(`* *`));
+        setPreferredLanguages(JSON.parse(localStorage.getItem("preferredLanguages")));
     }, [])
 
 
@@ -57,15 +77,16 @@ const NavbarComponent = () => {
                 <LanguageFilter query={query} setQuery={onChangeQuery} />
                 <Container fluid className="mt-2">
                     {languageResults.map(lang => (
-                        <SelectBadges key={lang.ref} label={lang.ref} />
+                        <SelectBadges key={lang.ref} 
+                        label={lang.ref} 
+                        selected={preferredLanguages && preferredLanguages[lang.ref]} 
+                        onClickHandler={onClickBadge} 
+                        />
                     ))}
                 </Container>
                 <h6>Preferred code theme</h6>
                 <Container fluid className="mt-2">
-                    
-                    <ToogleButton />
-                        
-                   
+                    <ToggleButton />
                 </Container>
 
             </GenerateModal>
