@@ -34,7 +34,9 @@ a {
   text-decoration: none;
 }
 
-h2 {
+h1, h2, h3, h4 {
   margin: 0 0 1rem 4.5% ;
   color: #f8f9fa !important;
 }
+
+

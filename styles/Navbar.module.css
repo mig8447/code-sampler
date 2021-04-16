@@ -6,11 +6,3 @@
 .iconContainer{
     margin-right: 2%;
 }
-
-@media (max-width: 767px)
- {
-    .iconContainer{
-        margin-right: 8%;
-    }
-    
-}
