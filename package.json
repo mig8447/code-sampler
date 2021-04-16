@@ -11,7 +11,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build-search-index": "node search/build-search-index.js"
+    "build-search-index": "node search/build-search-index.js",
+    "build-language-index": "node search/build-language-index-mock.js"
   },
   "dependencies": {
     "bootstrap": "^4.6.0",
