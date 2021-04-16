@@ -1,0 +1,9 @@
+.themeSelected {
+    color: white;
+    background-color: var(--code-sample-search-bar-bg-color);
+    transition: 0.3s;
+}
+
+.themeSelected:hover {
+    background-color: var(--code-sample-badge-hover-color);
+}

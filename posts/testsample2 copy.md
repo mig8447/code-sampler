@@ -2,10 +2,9 @@
 title: Test Sample 2
 created: 2021-03-02T13:05:00.000Z
 lastUpdated: 2021-03-02T13:05:00.000Z
-description: Esta es la descripción del segundo template el cual nos enseña una estructura más avanzada del archivo md.
+description: Esta es la descripción del segundo template el cual nos enseña una estructura más avanzada del archivo md copia.
 tags:
-    - Test2
-    - Java
+    - Test copia
 published: true
 ---
 # Test Sample 2

@@ -1,0 +1,8 @@
+.navbarColor{
+    background-color: var(--code-sample-nav-bg-color);
+    color: var(--code-sample-txt-color);
+}
+
+.iconContainer{
+    margin-right: 2%;
+}

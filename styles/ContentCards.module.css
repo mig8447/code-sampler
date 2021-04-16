@@ -1,0 +1,21 @@
+.recentCards {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.recentCards > * + *{
+    margin: 0 0 0 20px;
+}
+
+@media (max-width : 992px){
+    .recentCards {
+        flex-flow: column;
+    }
+
+    .recentCards > * + *{
+        margin: 13px 0 0 0;
+    }
+}

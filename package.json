@@ -14,11 +14,12 @@
     "build-search-index": "node search/build-search-index.js"
   },
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "gray-matter": "^4.0.2",
-    "husky": "^6.0.0",
     "lunr": "^2.3.9",
     "next": "10.0.7",
     "react": "17.0.1",
+    "react-bootstrap": "^1.5.2",
     "react-clipboard.js": "^2.0.16",
     "react-dom": "17.0.1",
     "react-syntax-highlighter": "^15.4.3",

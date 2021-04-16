@@ -1,0 +1,22 @@
+.tag {
+    background-color: var(--code-sample-tags-bg-color);
+    color: white;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+
+.tags {
+    width: 100%;
+}
+
+.tags > * + * {
+    margin-left: 2%;
+}
+
+
+@media (max-width : 768px){
+    .tags {
+        width: 70%
+    }
+}
