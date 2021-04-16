@@ -10,7 +10,8 @@
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "build-search-index": "node search/build-search-index.js"
   },
   "dependencies": {
     "bootstrap": "^4.6.0",

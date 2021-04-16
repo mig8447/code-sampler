@@ -21,6 +21,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           
       - run: npm install
+      - run: npm run build-search-index
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /code-sampler

@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 
 search/languageIndex.js
+search/search-index.js
