@@ -2,7 +2,7 @@ import { Card, Badge, Row, Col } from "react-bootstrap";
 import classes from "../../styles/TopCategoryCard.module.css";
 
 const TopCategoryCard = () => (
-    <Card style={{flexBasis:"30%"}} className={[classes.topCategoryCard, "text-light"].join(" ")}>
+    <Card style={{flexBasis:"30%"}} className={[classes.topCategoryCard, "text-light", "mt-3"].join(" ")}>
         <Card.Body>
             <Card.Title className=" border-bottom pb-4" >
                 <Row>

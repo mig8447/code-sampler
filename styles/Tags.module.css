@@ -8,7 +8,10 @@
 
 .tags {
     width: 100%;
-    gap: 2%;
+}
+
+.tags > * + * {
+    margin-left: 2%;
 }
 
 

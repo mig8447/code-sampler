@@ -3,12 +3,19 @@
     flex-flow: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    
+}
+
+.recentCards > * + *{
+    margin: 0 0 0 20px;
 }
 
 @media (max-width : 800px){
     .recentCards {
         flex-flow: column;
-        gap: 13px;
+    }
+
+    .recentCards > * + *{
+        margin: 13px 0 0 0;
     }
 }
