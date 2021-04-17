@@ -4,7 +4,7 @@ import Link from "next/link";
 import matter from 'gray-matter';
 import Navbar from '../components/Navbar/Navbar';
 import Searchbar from '../components/Searchbar/Searchbar';
-import RecentContentCard from '../components/RecentContentCard/RecentContentCard';
+import PostCard from '../components/PostCard/PostCard';
 import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
@@ -52,7 +52,7 @@ const Index = ({ slugs, recentContent }) => {
         <h2>Recent content</h2>
         <ContentCards className="{mt-5}">
           {recentContent.map(metaData => (
-            <RecentContentCard
+            <PostCard
               key={metaData.filename}
               filename={metaData.filename}
               title={metaData.title}
