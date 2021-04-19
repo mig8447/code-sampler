@@ -1,8 +1,9 @@
-import { Navbar, Form, FormControl, Button, InputGroup, Row, Col, Container } from 'react-bootstrap';
+import { Navbar, Form, FormControl, InputGroup, Container, Dropdown } from 'react-bootstrap';
 import { useState } from 'react';
 import Link from 'next/link';
 import Style from '../../styles/Searchbar.module.css';
 import { searchIndex } from '../../search/search-index';
+import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import lunr from 'lunr';
 
 const idx = lunr(function () {
@@ -19,15 +20,17 @@ const idx = lunr(function () {
 const SearchBarComponent = () => {
 
     const [query, setQuery] = useState("");
+    const [filters, setFilters] = useState({});
     const [results, setResults] = useState([]);
     const [active, setActive] = useState(false);
 
-    const searchAction = () => {
+    let filtersSelected = Object.keys(filters).map(filter => `+tags:${filter}`).join(" ");
 
-        if (query.length) {
-            const resultsRef = idx.search(query);
-            console.log(resultsRef);
+    const searchAction = (query, filtersArr) => {
 
+        if (query.length || filtersArr.length > 0) {
+            const resultsRef = idx.search(`+*${query}*` + " " + filtersArr);
+            
             let results = searchIndex.map((post) => {
                 let isIn = false;
                 resultsRef.forEach(function (result) {
@@ -52,9 +55,29 @@ const SearchBarComponent = () => {
 
 
 
+    const onSelectFilter = (selected, label) => {
+        if (selected) {
+            let { [label]:remove, ...newFilter } = filters;
+
+            setFilters(newFilter);
+            filtersSelected = Object.keys(newFilter).map(filter => `+tags:${filter}`).join(" ")
+        }
+        else{
+            let newFilter = {
+                ...filters,
+                [label]: true
+            };
+            setFilters(newFilter);
+            filtersSelected =  Object.keys(newFilter).map(filter => `+tags:${filter}`).join(" ");
+        }
+
+        searchAction(query, filtersSelected);
+        
+    }
+
     const onChangeQuery = (event) => {
-        setQuery(event.target.value)
-        searchAction()
+        setQuery(event.target.value);
+        searchAction(event.target.value, filtersSelected);
     }
 
     return (
@@ -63,7 +86,7 @@ const SearchBarComponent = () => {
 
                 <InputGroup className={["w-50", "p-2", Style.searchBar].join(" ")}>
                     <FormControl
-                        className={["border-0", "shadow-none", (query && results.length) ? Style.borderRadius : ""].join(" ")}
+                        className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}
                         placeholder="How to.."
                         aria-label="Search"
                         type="text"
@@ -79,7 +102,7 @@ const SearchBarComponent = () => {
                         </InputGroup.Text>
                     </InputGroup.Append>
 
-                    <div className={["bg-white", Style.dropDown, query && results.length && active ? Style.dropDownActive : "" ].join(" ")}>
+                    <div className={["bg-white", Style.resultsDropDown, Style.ScrollDropDown, query && results.length && active ? Style.resultsDropDownActive : ""].join(" ")}>
                         <ul>
                             {results.map(result =>
                                 <li key={result.id} className="mb-3 mr-3">
@@ -90,7 +113,21 @@ const SearchBarComponent = () => {
                     </div>
 
                 </InputGroup>
-                <span className="fa fa-filter fa-lg text-light" aria-hidden="true"></span>
+                <Dropdown
+                    onFocus={() => setActive(true)}
+                    onBlur={() => setActive(false)}
+                >
+                    <Dropdown.Toggle style={{ backgroundColor: "transparent", boxShadow: "none" }} className={"border-0"}>
+                        <span className="fa fa-filter fa-lg text-light" aria-hidden="true"></span>
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className={[Style.filterDropDown, Style.ScrollDropDown].join(" ")}>
+                        <Dropdown.Item className={"bg-white"}>
+                            <SelectBadges label="Python" onClickHandler={onSelectFilter} selected={filters["Python"]} />
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+
             </Container>
 
         </Navbar>
