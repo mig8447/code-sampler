@@ -1,5 +1,6 @@
 import { Navbar, Container, Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import Link from "next/link";
 import Style from '../../styles/Navbar.module.css';
 import GenerateModal from '../UI/GenerateModal/GenerateModal';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
@@ -61,11 +62,19 @@ const NavbarComponent = () => {
     return (
         <>
             <Navbar className={Style.navbarColor}>
-                <Navbar.Brand className={"text-white ml-3"}><h6 className={"mb-1"}>Code Sampler</h6></Navbar.Brand>
+                
+                    <Navbar.Brand className={"text-white ml-3 btn"}>
+                        <Link href={"/"} >  
+                        <h6 className={"mb-1"}>Code Sampler</h6>
+                        </Link>
+                    </Navbar.Brand>
+               
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end ">
                     <div className={Style.iconContainer}>
-                        <span className="fa fa-bookmark-o fa-lg" aria-hidden="true"></span>
+                        <Link href={"/favorites"} >
+                            <span className="fa fa-bookmark-o fa-lg " aria-hidden="true"></span>
+                        </Link>
                     </div>
                     <div className={Style.iconContainer}>
                         <button onClick={handleShow} style={{ background: "none", border: "none" }} className=" fa fa-gear fa-lg text-light" aria-hidden="true"></button>

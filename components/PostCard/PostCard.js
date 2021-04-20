@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from "react";
 
 
-const RecentContentCard = ({ title, description, tags, filename, favorite, onClickFavorite }) => {
+const PostCard = ({ title, description, tags, filename, favorite, onClickFavorite }) => {
 
     const icon = favorite  ? "fa fa-bookmark fa-sm fa-2x text-warning" : "fa fa-bookmark-o fa-sm fa-2x"
     const action = favorite ? "delete" : "add";
@@ -39,13 +39,13 @@ const RecentContentCard = ({ title, description, tags, filename, favorite, onCli
     )
 }
 
-RecentContentCard.propTypes = {
+PostCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     filename: PropTypes.string.isRequired
 };
 
-export default RecentContentCard;
+export default PostCard;
 
 
