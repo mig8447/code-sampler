@@ -4,6 +4,7 @@ import Style from '../../styles/Searchbar.module.css';
 import { searchIndex } from '../../search/search-index';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import ResultsDropDown from './ResultsDropDown/ResultsDropDown';
+import { tagsIndex } from '../../search/tags-index';
 import lunr from 'lunr';
 
 const idx = lunr(function () {
@@ -135,10 +136,13 @@ const SearchBarComponent = () => {
                     <Dropdown.Toggle style={{ backgroundColor: "transparent", boxShadow: "none" }} className={"border-0"}>
                         <span className="fa fa-filter fa-lg text-light" aria-hidden="true"></span>
                     </Dropdown.Toggle>
-                    <Dropdown.Menu className={[Style.filterDropDown, Style.ScrollDropDown].join(" ")}>
-                        <Dropdown.Item className={"bg-white"}>
-                            <SelectBadges label="Python" onClickHandler={onSelectFilter} selected={filters["Python"]} />
-                        </Dropdown.Item>
+                    <Dropdown.Menu className={[Style.filterDropDown, "scroll"].join(" ")}>
+                        {Object.keys(tagsIndex).map(tag => (
+                            <Dropdown.Item key={tag} className={"bg-white"}>
+                                <SelectBadges label={tag} onClickHandler={onSelectFilter} selected={filters[tag]} />
+                            </Dropdown.Item>
+                        ))}
+
                     </Dropdown.Menu>
                 </Dropdown>
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const ResultsDropDown = ({results, query, active}) => (
     <div
-        className={["bg-white", Style.resultsDropDown, Style.ScrollDropDown, query && results.length && active ? Style.resultsDropDownActive : ""].join(" ")}
+        className={["bg-white", Style.resultsDropDown, "scroll", query && results.length && active ? Style.resultsDropDownActive : ""].join(" ")}
     >
         <ul>
             {results.map(result =>
