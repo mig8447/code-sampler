@@ -1,0 +1,24 @@
+.bgCardColor {
+    background-color: #646A73;
+    position: relative;
+    
+}
+
+.bgCardColor .borderGrey {
+    border-color: #c7c7c7!important;
+}
+
+.list-group-item-2{
+    
+    border: 5px solid rgb(8, 206, 123) !important;  
+}
+
+.bgCardColor h3{
+    margin-left: 0% !important; 
+}
+.bgCardColor h4{
+    margin-left: 0% !important; 
+}
+.bgBadge{
+    background-color: #2B6242;
+}

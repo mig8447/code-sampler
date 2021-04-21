@@ -6,17 +6,19 @@ import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import ResultsDropDown from './ResultsDropDown/ResultsDropDown';
 import { tagsIndex } from '../../search/tags-index';
 import lunr from 'lunr';
+import Router from 'next/router';
 
 const idx = lunr(function () {
-    this.ref('id')
-    this.field('title')
-    this.field('tags')
-    this.field('description')
+    this.ref('id');
+    this.field('title');
+    this.field('tags');
+    this.field('description');
 
     searchIndex.forEach(function (doc) {
         this.add(doc);
     }, this);
 });
+
 
 const SearchBarComponent = () => {
 
@@ -38,7 +40,6 @@ const SearchBarComponent = () => {
     });
 
     const handleHideDropdown = (event) => {
-        console.log(event)
         if (event.key === "Escape") {
             setActive(false);
         }
@@ -102,6 +103,14 @@ const SearchBarComponent = () => {
         setQuery(event.target.value);
         searchAction(event.target.value, filtersSelected);
     }
+    const onEnterClick = (event) => {
+        if (event.key === 'Enter' && query) {
+            Router.push({
+                pathname: '/results',
+                query: { keyword: query },
+            })
+          }
+    }
 
     return (
         <Navbar className={Style.searchBarColor} >
@@ -110,6 +119,7 @@ const SearchBarComponent = () => {
                 <InputGroup
                     ref={ref}
                     onClick={() => setActive(true)}
+                    onKeyDown={onEnterClick}
                     className={["w-50", "p-2", Style.searchBar].join(" ")}>
                     <FormControl
                         className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}

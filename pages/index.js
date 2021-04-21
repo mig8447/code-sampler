@@ -10,6 +10,8 @@ import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
 import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
 
+
+
 const Index = ({ slugs, recentContent }) => {
 
   const [favorites, setFavorites] = useState();

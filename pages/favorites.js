@@ -13,6 +13,7 @@ const favorites = ({ }) => {
         if (page >= 0 && page < totalPages) {
             setCurrentPage(page);
         }
+                            
     }
 
 
