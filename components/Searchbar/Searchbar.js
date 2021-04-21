@@ -1,6 +1,7 @@
 import { Navbar, Form, FormControl, Button, InputGroup, Row, Col, Container } from 'react-bootstrap';
 import { useState } from 'react';
 import Style from '../../styles/Searchbar.module.css';
+import Router from 'next/router'
 
 const SearchBarComponent = () => {
 
@@ -9,12 +10,20 @@ const SearchBarComponent = () => {
     const onChangeQuery = (event) => {
         setQuery(event.target.value)
     }
+    const onEnterClick = (event) => {
+        if (event.key === 'Enter' && query) {
+            Router.push({
+                pathname: '/results',
+                query: { keyword: query },
+            })
+          }
+    }
 
     return (
         <Navbar className={Style.searchBarColor} >
             <Container fluid="md" className={"d-flex justify-content-center"} >
                 
-                <InputGroup className={["w-50", "p-2", Style.searchBar].join(" ")}>
+                <InputGroup className={["w-50", "p-2", Style.searchBar].join(" ")} onKeyDown={onEnterClick}>
                     <FormControl
                         className={["border-0", query ? Style.borderRadius: ""].join(" ")}
                         placeholder="How to.."
@@ -24,9 +33,11 @@ const SearchBarComponent = () => {
                         onChange={onChangeQuery}
                     />
                         
-                    <InputGroup.Append>
-                        <InputGroup.Text className={"bg-white border-0"}>
-                            <span className="fa fa-search fa-sm" aria-hidden="true"></span>
+                    <InputGroup.Append >
+                        <InputGroup.Text className={"bg-white border-0"} >
+                                <span className="fa fa-search fa-sm" aria-hidden="true"></span> 
+                            
+                            
                         </InputGroup.Text>
                     </InputGroup.Append>
 
