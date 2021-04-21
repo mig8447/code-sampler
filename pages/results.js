@@ -4,6 +4,8 @@ import { Row, Container, Card, Badge, Col, ListGroup, Button, Pagination } from 
 import Style from '../styles/results.module.css';
 import { useRouter } from 'next/router';
 import ItemResult from '../components/ItemResult/ItemResult';
+import lunr from 'lunr';
+import searchIndex from '../search/search-index';
 
 const Results = () => {
 
@@ -33,6 +35,7 @@ const Results = () => {
                                     tags={["JS", "Node"]}
                                     description={"Communicate with the database using REST from a variety of programming languages"}
                                     version="2.12.12"
+                                    favorite={false}
                                 />
 
                             </ListGroup>

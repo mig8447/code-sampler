@@ -43,7 +43,8 @@ PostCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    filename: PropTypes.string.isRequired
+    filename: PropTypes.string.isRequired,
+    
 };
 
 export default PostCard;
