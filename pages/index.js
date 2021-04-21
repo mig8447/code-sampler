@@ -11,6 +11,8 @@ import { Container } from "react-bootstrap";
 import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
 import { useEffect, useState } from "react";
 
+
+
 const Index = ({ slugs, recentContent }) => {
 
   const [favorites, setFavorites] = useState();
