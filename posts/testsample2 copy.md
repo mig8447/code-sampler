@@ -5,6 +5,7 @@ lastUpdated: 2021-03-02T13:05:00.000Z
 description: Esta es la descripción del segundo template el cual nos enseña una estructura más avanzada del archivo md copia.
 tags:
     - Test copia
+    - js
 published: true
 ---
 # Test Sample 2
@@ -22,6 +23,9 @@ Suspendisse sodales aliquet quam vel mattis. Integer vitae turpis volutpat, inte
     ```
     ```java
     // CODE
+    ```
+    ```SQL
+    SELECT * FROM users;
     ```
 2. Praesent eu mauris ac diam laoreet bibendum
 3. Asellus turpis justo, congue id arcu eu, eleifend malesuada felis. Suspendisse porta massa sed 
