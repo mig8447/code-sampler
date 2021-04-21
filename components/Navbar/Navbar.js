@@ -5,7 +5,7 @@ import Style from '../../styles/Navbar.module.css';
 import GenerateModal from '../UI/GenerateModal/GenerateModal';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import LanguageFilter from './LanguageFilter/LanguageFilter';
-import { languageIndex } from '../../search/languageIndex';
+import { languageIndex } from '../../search/language-index';
 import ToggleButton from './ToggleTheme/ToggleTheme';
 import lunr from 'lunr';
 
