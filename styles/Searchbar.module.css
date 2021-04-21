@@ -2,6 +2,11 @@
   background-color: var(--code-sample-search-bar-bg-color);
 }
 
+.filterDropDown {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
 .borderRadius {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
