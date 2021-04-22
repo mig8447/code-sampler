@@ -6,7 +6,17 @@ import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import ResultsDropDown from './ResultsDropDown/ResultsDropDown';
 import { tagsIndex } from '../../search/tags-index';
 import lunr from 'lunr';
-import Router from 'next/router';
+import { useRouter } from 'next/router'
+import Fuse from 'fuse.js'
+
+
+
+
+const options = {
+    includeScore: true,
+    keys: ['title', 'description','tags', 'id']
+}
+const fuse = new Fuse(searchIndex, options)
 
 const idx = lunr(function () {
     this.ref('id');
@@ -21,6 +31,7 @@ const idx = lunr(function () {
 
 
 const SearchBarComponent = () => {
+    const router = useRouter()
 
     const [query, setQuery] = useState("");
     const [filters, setFilters] = useState({});
@@ -46,21 +57,25 @@ const SearchBarComponent = () => {
     };
 
     const handleClickOutside = event => {
-        console.log(event.target)
+        
         if (ref.current && !ref.current.contains(event.target)) {
             setActive(false);
         }
     };
 
     const searchAction = (query, filtersArr) => {
-
+        
         if (query.length || filtersArr.length > 0) {
-            const resultsRef = idx.search(`+*${query}*` + " " + filtersArr);
+            const resultsRef = idx.query((q) => {
+                q.term(query, {editDistance: 2});
+            });
+
+            
 
             let results = searchIndex.map((post) => {
                 let isIn = false;
                 resultsRef.forEach(function (result) {
-                    console.log(result.ref + " " + post.id);
+                    //console.log(result.ref + " " + post.id);
                     if (result.ref == post.id) {
                         isIn = true;
                     }
@@ -105,10 +120,10 @@ const SearchBarComponent = () => {
     }
     const onEnterClick = (event) => {
         if (event.key === 'Enter' && query) {
-            Router.push({
-                pathname: '/results',
-                query: { keyword: query },
-            })
+                router.push({
+                    pathname: '/results',
+                    query: { keyword: query },
+                  })
           }
     }
 
@@ -119,7 +134,7 @@ const SearchBarComponent = () => {
                 <InputGroup
                     ref={ref}
                     onClick={() => setActive(true)}
-                    onKeyDown={onEnterClick}
+                    onKeyDown={ onEnterClick }
                     className={["w-50", "p-2", Style.searchBar].join(" ")}>
                     <FormControl
                         className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}

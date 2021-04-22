@@ -10,6 +10,7 @@ const favorites = ({ }) => {
 
     const pageHandler = (value) => {
         const page = currentPage + value;
+        
         if (page >= 0 && page < totalPages) {
             setCurrentPage(page);
         }
@@ -46,7 +47,6 @@ const favorites = ({ }) => {
     const [favorites, setFavorites] = useState({});
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
-
     useEffect(() => {
         const favs = JSON.parse(localStorage.getItem("favorites"));
         setFavorites(favs);

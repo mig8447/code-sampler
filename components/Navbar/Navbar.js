@@ -30,7 +30,10 @@ const NavbarComponent = () => {
     const onChangeQuery = (event) => {
         const query = event.target.value;
         setQuery(query);
-        setLanguageResults(idx.search(`*${query}*`));
+        setLanguageResults(idx.query((q) => {
+            q.term(query, {editDistance: 2})
+        }));
+        
     }
 
 
