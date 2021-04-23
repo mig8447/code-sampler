@@ -7,3 +7,8 @@
     margin-right: 2%;
     cursor: pointer;
 }
+
+.selectLanguages {
+    overflow-y: scroll;
+    max-height: 225px;
+}

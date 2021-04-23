@@ -87,7 +87,7 @@ const NavbarComponent = () => {
             <GenerateModal show={show} handleClose={handleClose} title={"Settings"} >
                 <h6>Preferred languages</h6>
                 <LanguageFilter query={query} setQuery={onChangeQuery} />
-                <Container fluid className="mt-2">
+                <Container fluid className={["mt-2",Style.selectLanguages, "scroll"].join(" ")}>
                     {languageResults.map(lang => (
                         <SelectBadges key={lang.id} 
                         label={lang.name} 
