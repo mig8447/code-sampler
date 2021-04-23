@@ -27,13 +27,15 @@ const Index = ({ slugs, recentContent }) => {
     localStorage.setItem("favorites", JSON.stringify(rest));
   }
 
-  const onClickFavorite = (action, filename) => {
+  const onClickFavorite = (action, filename, metadata) => {
     console.log("actions", action)
     if (action === "delete") {
       deleteKeyFromObject(filename);
     } else if (action === "add") {
       let newFavorites = { ...favorites }
-      newFavorites[filename] = true;
+      newFavorites[filename] = {
+        ...metadata
+      };
       console.log(newFavorites)
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));

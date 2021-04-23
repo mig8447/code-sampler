@@ -26,7 +26,7 @@ const favorites = ({ }) => {
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
 
-    const onClickFavorite = (action, filename) => {
+    const onClickFavorite = (action, filename, metaData) => {
         console.log("actions", action)
         if (action === "delete") {
             deleteKeyFromObject(filename);
@@ -35,7 +35,9 @@ const favorites = ({ }) => {
             (currentPage === len-1) && pageHandler(-1);
         } else if (action === "add") {
             let newFavorites = { ...favorites }
-            newFavorites[filename] = true;
+            newFavorites[filename] = {
+                ...metaData
+            };
             //console.log(newFavorites)
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
@@ -48,7 +50,7 @@ const favorites = ({ }) => {
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
     useEffect(() => {
-        const favs = JSON.parse(localStorage.getItem("favorites"));
+        const favs = JSON.parse(localStorage.getItem("favorites")) || {};
         setFavorites(favs);
         setTotalPages(Math.ceil((Object.keys(favs).length) / cardsPerPage));
     }, [])
@@ -71,9 +73,9 @@ const favorites = ({ }) => {
                             <PostCard
                                 key={filename}
                                 filename={filename}
-                                title={"prov title "+filename}
-                                description={"metaData.description"}
-                                tags={["test", "a"]}
+                                title={favorites[filename].title}
+                                description={favorites[filename].description}
+                                tags={favorites[filename].tags}
                                 onClickFavorite={onClickFavorite}
                                 favorite={favorites && favorites[filename]}
                             />
