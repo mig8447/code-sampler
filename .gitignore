@@ -34,6 +34,4 @@ yarn-error.log*
 .vercel
 
 parsedMd/
-search/language-index.js
-search/search-index.js
-search/tags-index.js
+search/
