@@ -7,6 +7,7 @@ import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
 import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
+import {topCategories} from "../search/topCategories-index";
 import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
 
@@ -26,7 +27,6 @@ const Index = ({ slugs, recentContent }) => {
     setFavorites(rest);
     localStorage.setItem("favorites", JSON.stringify(rest));
   }
-
   const onClickFavorite = (action, filename, metadata) => {
     console.log("actions", action)
     if (action === "delete") {
@@ -72,11 +72,10 @@ const Index = ({ slugs, recentContent }) => {
       <Container fluid>
         <h2>Top Categories</h2>
         <ContentCards >
-          <TopCategoryCard />
-          <TopCategoryCard />
-          <TopCategoryCard />
-          <TopCategoryCard />
-          <TopCategoryCard />
+          {Object.keys(topCategories).map(category => (
+            <TopCategoryCard key={category} categoryName={category} posts={topCategories[category].slice(0,5)} />
+          ))}
+
         </ContentCards>
       </Container>
 

@@ -6,17 +6,40 @@ const transformer = require('./transformer');
 const matter = require('gray-matter');
 
 
-function languageArrayToLunrFormat(arr){
-    let LunrFormat = [];
+function languageArrayToIndexFormat(arr){
+    let indexFormat = [];
     arr.forEach(elem => {
         let object = {
             id: elem,
             name: elem
         };
         object = JSON.stringify(object);
-        LunrFormat.push(object);
+        indexFormat.push(object);
     });
-    return `export const languageIndex = [${LunrFormat.toString()}]`;
+    return `export const languageIndex = [${indexFormat.toString()}]`;
+}
+
+function getTopCategories(tags){
+    const numberOfCategories = 6;
+    let topCategories = {};
+    for(let i = 0; i < numberOfCategories; i++) {
+        let maxKey = "";
+        let maxNumber = 0;
+        for (key in tags) {
+            if(maxNumber < tags[key].times){
+                maxNumber = tags[key].times;
+                maxKey = key;
+            }
+        }
+        if(maxKey !== ""){
+            topCategories = {
+                ...topCategories,
+                [maxKey]: tags[maxKey].files
+            };
+            delete tags[maxKey];
+        }
+    }
+    return topCategories;
 }
 
 
@@ -42,9 +65,13 @@ function saveParsedFiles(){
         matterResult.tags.forEach(tag => {
             tag = tag.toLowerCase();
             if(!tags[tag]){
-                tags[tag] = 1;
+                tags[tag] = {
+                    times: 1,
+                    files: [{filename: matterResult.id, title: matterResult.title}]
+                }
             }else{
-                tags[tag]+=1;
+                tags[tag].times += 1;
+                tags[tag].files.push({filename: matterResult.id, title: matterResult.title});
             }
         });
         filesMetadata.push(matterResult);
@@ -63,9 +90,9 @@ function saveParsedFiles(){
             fs.writeFileSync(path.join("..","parsedMd", filename), `${postTransform}`);
         }
     });
-    console.log(tags);
     fs.writeFileSync(path.join("..","search", "tags-index.js"), `export const tagsIndex = ${JSON.stringify(tags)}`);
-    fs.writeFileSync(path.join("..","search","language-index.js"), languageArrayToLunrFormat(languages));
+    fs.writeFileSync(path.join("..", "search", "topCategories-index.js"), `export const topCategories = ${JSON.stringify(getTopCategories(tags))}`)
+    fs.writeFileSync(path.join("..","search","language-index.js"), languageArrayToIndexFormat(languages));
     fs.writeFileSync(path.join("..","search","search-index.js"), `export const searchIndex = ${JSON.stringify(filesMetadata)}`);
 
 
