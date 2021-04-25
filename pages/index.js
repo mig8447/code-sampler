@@ -1,5 +1,3 @@
-import Link from "next/link";
-import matter from 'gray-matter';
 import Navbar from '../components/Navbar/Navbar';
 import Searchbar from '../components/Searchbar/Searchbar';
 import PostCard from '../components/PostCard/PostCard';
@@ -7,13 +5,13 @@ import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
 import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
-import {topCategories} from "../search/topCategories-index";
+import { topCategories } from "../search/topCategories-index";
 import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
 
 
 
-const Index = ({ slugs, recentContent }) => {
+const Index = ({ recentContent, categories }) => {
 
   const [favorites, setFavorites] = useState();
 
@@ -23,12 +21,12 @@ const Index = ({ slugs, recentContent }) => {
 
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites
-    console.log(rest)
+
     setFavorites(rest);
     localStorage.setItem("favorites", JSON.stringify(rest));
   }
   const onClickFavorite = (action, filename, metadata) => {
-    console.log("actions", action)
+
     if (action === "delete") {
       deleteKeyFromObject(filename);
     } else if (action === "add") {
@@ -36,7 +34,7 @@ const Index = ({ slugs, recentContent }) => {
       newFavorites[filename] = {
         ...metadata
       };
-      console.log(newFavorites)
+
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
     }
@@ -72,24 +70,18 @@ const Index = ({ slugs, recentContent }) => {
       <Container fluid>
         <h2>Top Categories</h2>
         <ContentCards >
-          {Object.keys(topCategories).map(category => (
-            <TopCategoryCard key={category} categoryName={category} posts={topCategories[category].slice(0,5)} />
+          {categories.map(category => (
+            <TopCategoryCard 
+            key={category} 
+            categoryName={category} 
+            posts={topCategories[category].slice(0,5)} 
+            countPosts={topCategories[category].length}
+            />
           ))}
 
         </ContentCards>
       </Container>
 
-      <h1>Hello World</h1>
-      {slugs.map(slug => {
-        return (
-          <div key={slug.id} className="slug">
-            <Link href={"/" + slug.id}>
-              <a>{"/" + slug.title}</a>
-            </Link>
-          </div>
-        );
-
-      })}
     </div>
   )
 
@@ -106,8 +98,8 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      slugs: searchIndex,
-      recentContent: recentContent.slice(0, 3)
+      recentContent: recentContent.slice(0, 3),
+      categories: Object.keys(topCategories)
     }
   };
 };

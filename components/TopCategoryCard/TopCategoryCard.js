@@ -2,7 +2,7 @@ import { Card, Badge, Row, Col } from "react-bootstrap";
 import classes from "../../styles/TopCategoryCard.module.css";
 import Link from 'next/link';
 
-const TopCategoryCard = ({ categoryName, posts }) => (
+const TopCategoryCard = ({ categoryName, posts, countPosts }) => (
     <Card style={{ flexBasis: "30%" }} className={[classes.topCategoryCard, "text-light", "mt-3"].join(" ")}>
         <Card.Body>
             <Card.Title className=" border-bottom pb-4" >
@@ -11,7 +11,7 @@ const TopCategoryCard = ({ categoryName, posts }) => (
                         <p className="text-capitalize mb-0">{categoryName}</p>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <Badge variant="light">count: {posts.length}</Badge>
+                        <Badge variant="light">count: {countPosts}</Badge>
                     </Col>
                 </Row>
             </Card.Title>
