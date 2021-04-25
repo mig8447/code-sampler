@@ -49,7 +49,7 @@ function saveParsedFiles(){
     let languages;
     let filesMetadata = []
     let tags = {};
-    if(!fs.existsSync(path.join("search"))){
+    if(!fs.existsSync(path.join("parsedMd"))){
         fs.mkdirSync(path.join("parsedMd"));
     }
     files.forEach((filename, i) => {
