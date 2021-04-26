@@ -11,7 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "prebuild-indexes": "node scripts/pre-build-post.js"
+    "build-indexes": "node scripts/pre-build-post.js"
   },
   "husky": {
     "hooks": {
