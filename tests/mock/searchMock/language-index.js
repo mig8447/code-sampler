@@ -1,0 +1,1 @@
+export const languageIndex = [{"id":"js","name":"js"},{"id":"python","name":"python"},{"id":"java","name":"java"},{"id":"sql","name":"sql"},{"id":"golang","name":"golang"},{"id":"ruby","name":"ruby"}]

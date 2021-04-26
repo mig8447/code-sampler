@@ -6,6 +6,7 @@ description: Este es el template del test 1 donde se ve la estructura basica del
 tags:
     - Test1
     - Python
+    - js
 published: true
 ---
 # Test Sample
@@ -15,7 +16,7 @@ Nulla facilisi. Suspendisse quis dolor eget enim egestas tincidunt. Integer magn
 fetch( /* ... */ );
 // ...
 ```
-```js env=node
+```js env=node & version=15.14.0
 // CODE
 ```
 ```python

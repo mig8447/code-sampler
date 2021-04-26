@@ -1,43 +1,13 @@
-.searchBarColor{
-    background-color: var(--code-sample-search-bar-bg-color);
+.searchBarColor {
+  background-color: var(--code-sample-search-bar-bg-color);
 }
 
-.dropDown {
-    position: absolute;
-    top: 85.8%;
-    width: 554px;
+.filterDropDown {
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
-.borderRadius{
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-@media (max-width: 1200px)
- {
-
-    .dropDown {
-        width: 464px;
-    }
-    
-}
-
-@media (max-width: 992px)
- {
-    .dropDown {
-        width: 344px;
-    }
-    
-}
-
-@media (max-width: 768px)
- {
-    .searchBar{
-        width: 90% !important;
-        padding: 0  !important;
-    }
-
-    .dropDown {
-        width: 100%;
-    }
+.borderRadius {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }

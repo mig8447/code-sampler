@@ -39,4 +39,24 @@ h1, h2, h3, h4 {
   color: #f8f9fa !important;
 }
 
+.scroll::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: var(--code-sample-search-bar-bg-color);
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--code-sample-badge-hover-color);
+    border-radius: 10px;
+  }
+
+
 

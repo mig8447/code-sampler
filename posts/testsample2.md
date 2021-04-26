@@ -24,6 +24,13 @@ Suspendisse sodales aliquet quam vel mattis. Integer vitae turpis volutpat, inte
     ```java
     // CODE
     ```
+    ```Golang
+    // CODE
+    ```
+    ```Ruby
+    // CODE
+    ```
+    
 2. Praesent eu mauris ac diam laoreet bibendum
 3. Asellus turpis justo, congue id arcu eu, eleifend malesuada felis. Suspendisse porta massa sed 
 4. Execute the following:

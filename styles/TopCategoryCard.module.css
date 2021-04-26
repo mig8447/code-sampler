@@ -1,3 +1,7 @@
 .topCategoryCard{
     background-color: var(--code-sample-topCat-bg-color);
 }
+
+.postLink:hover {
+    color: var(--code-sample-badge-hover-color);
+}

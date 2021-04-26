@@ -5,6 +5,7 @@ lastUpdated: 2021-03-02T13:05:00.000Z
 tags:
     - Test new post 
     - C++
+    - Js
 published: true
 description: Este es el ejemplo, precommit.
 ---

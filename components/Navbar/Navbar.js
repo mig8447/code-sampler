@@ -5,32 +5,35 @@ import Style from '../../styles/Navbar.module.css';
 import GenerateModal from '../UI/GenerateModal/GenerateModal';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import LanguageFilter from './LanguageFilter/LanguageFilter';
-import { languageIndex } from '../../search/languageIndex';
+import { languageIndex } from '../../search/language-index';
 import ToggleButton from './ToggleTheme/ToggleTheme';
-import lunr from 'lunr';
+import Fuse from 'fuse.js'
+
+const options = {
+    includeScore: true,
+    keys: ["id", "name"]
+}
+
 
 const NavbarComponent = () => {
+    const fuse = new Fuse(languageIndex, options);
     const [show, setShow] = useState(false);
     const [query, setQuery] = useState("");
     const [languageResults, setLanguageResults] = useState([]);
     const [preferredLanguages, setPreferredLanguages] = useState();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-
-    const idx = lunr(function () {
-        this.ref('id')
-        this.field('name')
-
-        languageIndex.forEach(function (doc) {
-            this.add(doc);
-        }, this);
-    });
+    
 
     const onChangeQuery = (event) => {
         const query = event.target.value;
         setQuery(query);
-        setLanguageResults(idx.search(`*${query}*`));
+        if(query){
+            setLanguageResults(fuse.search(query).map(element=> element.item));
+        }else{
+            setLanguageResults(languageIndex)
+        }
+        
     }
 
 
@@ -54,7 +57,7 @@ const NavbarComponent = () => {
   }
 
     useEffect(() => {
-        setLanguageResults(idx.search(`* *`));
+        setLanguageResults(languageIndex);
         setPreferredLanguages(JSON.parse(localStorage.getItem("preferredLanguages")));
     }, [])
 
@@ -84,11 +87,11 @@ const NavbarComponent = () => {
             <GenerateModal show={show} handleClose={handleClose} title={"Settings"} >
                 <h6>Preferred languages</h6>
                 <LanguageFilter query={query} setQuery={onChangeQuery} />
-                <Container fluid className="mt-2">
+                <Container fluid className={["mt-2",Style.selectLanguages, "scroll"].join(" ")}>
                     {languageResults.map(lang => (
-                        <SelectBadges key={lang.ref} 
-                        label={lang.ref} 
-                        selected={preferredLanguages && preferredLanguages[lang.ref]} 
+                        <SelectBadges key={lang.id} 
+                        label={lang.name} 
+                        selected={preferredLanguages && preferredLanguages[lang.id]} 
                         onClickHandler={onClickBadge} 
                         />
                     ))}

@@ -29,7 +29,7 @@ const CodeSnippets = (props) => {
                         
                         return (
                             
-                                <Tab isSelected={selected === labels[i]} key={labels[i]}>
+                                <Tab isSelected={selected === code.label} key={code.label}>
                                     <Clipboard data-clipboard-text={code.value}>Copy to clipboard</Clipboard>
                                     <SyntaxHighlighter language={code.lang} style={theme} customStyle={highlighterStyle} showLineNumbers={true}>
                                         {code.value}

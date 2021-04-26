@@ -1,7 +1,3 @@
-import fs from "fs";
-import path from 'path';
-import Link from "next/link";
-import matter from 'gray-matter';
 import Navbar from '../components/Navbar/Navbar';
 import Searchbar from '../components/Searchbar/Searchbar';
 import PostCard from '../components/PostCard/PostCard';
@@ -9,9 +5,13 @@ import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
 import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
+import { topCategories } from "../search/topCategories-index";
+import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
 
-const Index = ({ slugs, recentContent }) => {
+
+
+const Index = ({ recentContent, categories }) => {
 
   const [favorites, setFavorites] = useState();
 
@@ -21,19 +21,20 @@ const Index = ({ slugs, recentContent }) => {
 
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites
-    console.log(rest)
+
     setFavorites(rest);
     localStorage.setItem("favorites", JSON.stringify(rest));
   }
+  const onClickFavorite = (action, filename, metadata) => {
 
-  const onClickFavorite = (action, filename) => {
-    console.log("actions", action)
     if (action === "delete") {
       deleteKeyFromObject(filename);
     } else if (action === "add") {
       let newFavorites = { ...favorites }
-      newFavorites[filename] = true;
-      console.log(newFavorites)
+      newFavorites[filename] = {
+        ...metadata
+      };
+
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
     }
@@ -53,13 +54,13 @@ const Index = ({ slugs, recentContent }) => {
         <ContentCards className="{mt-5}">
           {recentContent.map(metaData => (
             <PostCard
-              key={metaData.filename}
-              filename={metaData.filename}
+              key={metaData.id}
+              filename={metaData.id}
               title={metaData.title}
               description={metaData.description}
               tags={metaData.tags}
               onClickFavorite={onClickFavorite}
-              favorite={favorites && favorites[metaData.filename]}
+              favorite={favorites && favorites[metaData.id]}
             />
           ))}
 
@@ -69,25 +70,18 @@ const Index = ({ slugs, recentContent }) => {
       <Container fluid>
         <h2>Top Categories</h2>
         <ContentCards >
-          <TopCategoryCard />
-          <TopCategoryCard />
-          <TopCategoryCard />
-          <TopCategoryCard />
-          <TopCategoryCard />
+          {categories.map(category => (
+            <TopCategoryCard 
+            key={category} 
+            categoryName={category} 
+            posts={topCategories[category].slice(0,5)} 
+            countPosts={topCategories[category].length}
+            />
+          ))}
+
         </ContentCards>
       </Container>
 
-      <h1>Hello World</h1>
-      {slugs.map(slug => {
-        return (
-          <div key={slug.filename} className="slug">
-            <Link href={"/" + slug.filename}>
-              <a>{"/" + slug.title}</a>
-            </Link>
-          </div>
-        );
-
-      })}
     </div>
   )
 
@@ -95,25 +89,8 @@ const Index = ({ slugs, recentContent }) => {
 }
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync("posts");
-  const slugs = files.map(filename => {
-    const markdownWithMetadata = fs.readFileSync(path.join('posts', filename)).toString();
-    const parsedMarkdown = matter(markdownWithMetadata);
-    const metaData = {
-      filename: filename.replace(".md", ""),
-      title: parsedMarkdown.data.title,
-      created: parsedMarkdown.data.created.toString(),
-      lastUpdated: parsedMarkdown.data.lastUpdated.toString(),
-      tags: parsedMarkdown.data.tags,
-      description: parsedMarkdown.data.description,
-      published: parsedMarkdown.data.published
-    }
-
-    return metaData
-
-  });
-
-  const recentContent = slugs.sort((a, b) => {
+  
+  const recentContent = searchIndex.sort((a, b) => {
     const dateA = new Date(a.created);
     const dateB = new Date(b.created);
     return dateB - dateA;
@@ -121,8 +98,8 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      slugs,
-      recentContent: recentContent.slice(0, 3)
+      recentContent: recentContent.slice(0, 3),
+      categories: Object.keys(topCategories)
     }
   };
 };

@@ -22,7 +22,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
                             </Link>
                         </Col>
                         <Col className={["d-flex", "justify-content-end"].join(" ")}>
-                            <button onClick={() => onClickFavorite(action, filename)} style={{backgroundColor:"transparent"}} className="border-0" >
+                            <button onClick={() => onClickFavorite(action, filename, {title, description, tags})} style={{backgroundColor:"transparent"}} className="border-0" >
                                 <span className={icon} aria-hidden="true"></span>
                             </button>
                             
@@ -43,7 +43,8 @@ PostCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    filename: PropTypes.string.isRequired
+    filename: PropTypes.string.isRequired,
+    
 };
 
 export default PostCard;
