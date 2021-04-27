@@ -4,23 +4,22 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import remark from 'remark';
-import { a11yDark, a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import remark2react from 'remark-react';
-import CodeSnippets from "../components/CodeSnippets";
+import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
 
 const Post = ({ metaData, content }) => {
-    const [theme, setTheme] = useState(a11yDark);
+    const [theme, setTheme] = useState("a11yDark");
     let labels = metaData.labels;
     const [selected, setSelected] = useState(labels[0]);
     const toggleTheme = () => {
-        theme === a11yDark ? setTheme(a11yLight) : setTheme(a11yDark);
+        theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
 
     const markDownContent = remark()
         .use(remark2react, {
             remarkReactComponents: {
                 code: props => {
-                    return <CodeSnippets {...props} theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} />
+                    return <CodeSnippets {...props}  theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} />
                 }
             }
         }).processSync(content).result;

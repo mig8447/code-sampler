@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import style from '../styles/Tabs.module.css';
+import style from '../../styles/Tabs.module.css';
 
 const Tabs = ({ children, labels, selected, setSelected}) => {
     
@@ -11,8 +11,8 @@ const Tabs = ({ children, labels, selected, setSelected}) => {
                         const active = (tab === selected ? style.active : '');
 
                         return (
-                            <li key={ tab }>
-                                <a className = {`${style.tabsLabel} ${active}`} onClick={() => setSelected(tab)} >
+                            <li key={ tab } onClick={() => setSelected(tab)} className = {`${style.tabsLabel} ${active}`}>
+                                <a>
                                     { tab }
                                 </a>
                             </li>
