@@ -12,7 +12,7 @@ const Tabs = ({ children, labels, selected, setSelected}) => {
 
                         return (
                             <li key={ tab } onClick={() => setSelected(tab)} className = {`${style.tabsLabel} ${active}`}>
-                                <a>
+                                <a style={{fontSize:"1rem"}}>
                                     { tab }
                                 </a>
                             </li>

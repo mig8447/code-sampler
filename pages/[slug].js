@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Navbar from '../components/Navbar/Navbar';
+import Searchbar from '../components/Searchbar/Searchbar';
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -6,7 +8,7 @@ import Head from "next/head";
 import remark from 'remark';
 import remark2react from 'remark-react';
 import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
-
+ 
 const Post = ({ metaData, content }) => {
     const [theme, setTheme] = useState("a11yDark");
     let labels = metaData.labels;
@@ -19,8 +21,15 @@ const Post = ({ metaData, content }) => {
         .use(remark2react, {
             remarkReactComponents: {
                 code: props => {
-                    return <CodeSnippets {...props}  theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} />
-                }
+                    return <CodeSnippets {...props} theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} />
+                },
+                h1: props => {
+                    
+                    return <h1 className="ml-0">{props.children}</h1>
+                },
+                h2: props => (
+                    <h2 className="ml-0">{props.children}</h2>
+                )
             }
         }).processSync(content).result;
 
@@ -31,7 +40,11 @@ const Post = ({ metaData, content }) => {
                 <title>{metaData.title}</title>
                 <meta title='description' content={metaData.description}></meta>
             </Head>
-            {markDownContent}
+            <Navbar />
+            <Searchbar />
+            <div style={{width:"80%", margin:"auto"}} className="text-light">
+                {markDownContent}
+            </div>
 
         </>
     )
@@ -61,7 +74,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
         lastUpdated: parsedMarkwdown.data.lastUpdated.toString(),
         tags: parsedMarkwdown.data.tags,
         published: parsedMarkwdown.data.published,
-        labels : parsedMarkwdown.data.labels
+        labels: parsedMarkwdown.data.labels
     }
     return {
         props: {
