@@ -12,18 +12,18 @@ import Tags from '../components/UI/Tags';
 import { Container, Row, Col } from "react-bootstrap";
 
 const Post = ({ metaData, content, filename }) => {
-    const [theme, setTheme] = useState("a11yDark");
+    const [theme, setTheme] = useState();
     let labels = metaData.labels;
     const [selected, setSelected] = useState(labels[0]);
     const toggleTheme = () => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
     const [favorites, setFavorites] = useState({});
-    const icon = favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
-    const action = favorites[filename] ? "delete" : "add";
+    const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
+    const action = favorites && favorites[filename] ? "delete" : "add";
 
     useEffect(() => {
-        setTheme(localStorage.getItem("theme"));
+        setTheme(localStorage.getItem("theme") || "a11yLight");
         setFavorites(JSON.parse(localStorage.getItem("favorites")));
     }, []);
 

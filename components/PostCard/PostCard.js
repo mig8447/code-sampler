@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Card, Row, Col } from "react-bootstrap";
 import Tags from "../UI/Tags";
 import PropTypes from 'prop-types';
-import { useState, useEffect } from "react";
 
 
 const PostCard = ({ title, description, tags, filename, favorite, onClickFavorite }) => {
