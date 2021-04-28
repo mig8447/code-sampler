@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from '../components/Navbar/Navbar';
 import Searchbar from '../components/Searchbar/Searchbar';
 import fs from "fs";
@@ -8,13 +8,45 @@ import Head from "next/head";
 import remark from 'remark';
 import remark2react from 'remark-react';
 import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
- 
-const Post = ({ metaData, content }) => {
+import Tags from '../components/UI/Tags';
+import { Container, Row, Col } from "react-bootstrap";
+
+const Post = ({ metaData, content, filename }) => {
     const [theme, setTheme] = useState("a11yDark");
     let labels = metaData.labels;
     const [selected, setSelected] = useState(labels[0]);
     const toggleTheme = () => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
+    }
+    const [favorites, setFavorites] = useState({});
+    const icon = favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
+    const action = favorites[filename] ? "delete" : "add";
+
+    useEffect(() => {
+        setTheme(localStorage.getItem("theme"));
+        setFavorites(JSON.parse(localStorage.getItem("favorites")));
+    }, []);
+
+    const deleteKeyFromObject = (key) => {
+        const { [key]: tmp, ...rest } = favorites
+
+        setFavorites(rest);
+        localStorage.setItem("favorites", JSON.stringify(rest));
+    }
+
+    const onClickFavorite = (action, filename, metadata) => {
+        console.log(action)
+        if (action === "delete") {
+            deleteKeyFromObject(filename);
+        } else if (action === "add") {
+            let newFavorites = { ...favorites }
+            newFavorites[filename] = {
+                ...metadata
+            };
+
+            setFavorites(newFavorites)
+            localStorage.setItem("favorites", JSON.stringify(newFavorites));
+        }
     }
 
     const markDownContent = remark()
@@ -23,10 +55,26 @@ const Post = ({ metaData, content }) => {
                 code: props => {
                     return <CodeSnippets {...props} theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} />
                 },
-                h1: props => {
-                    
-                    return <h1 className="ml-0">{props.children}</h1>
-                },
+                h1: props => (
+                    <>
+                        <Container fluid>
+                            <Row>
+                                <Col>
+                                    <h1 className="ml-0">{props.children}</h1>
+                                    <Tags tags={metaData.tags} />
+                                </Col>
+                                <Col className="d-flex justify-content-end">
+                                    <button onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
+                                        <span className={icon} aria-hidden="true"></span>
+                                    </button>
+
+                                </Col>
+
+                            </Row>
+
+                        </Container>
+                    </>
+                ),
                 h2: props => (
                     <h2 className="ml-0">{props.children}</h2>
                 )
@@ -42,7 +90,7 @@ const Post = ({ metaData, content }) => {
             </Head>
             <Navbar />
             <Searchbar />
-            <div style={{width:"80%", margin:"auto"}} className="text-light">
+            <div style={{ width: "80%", margin: "auto" }} className="text-light">
                 {markDownContent}
             </div>
 
@@ -67,19 +115,21 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
 
     const markdownWithMetadata = fs.readFileSync(path.join('parsedMd', slug + ".md")).toString();
-    const parsedMarkwdown = matter(markdownWithMetadata);
+    const parsedMarkdown = matter(markdownWithMetadata);
     const metaData = {
-        title: parsedMarkwdown.data.title,
-        created: parsedMarkwdown.data.created.toString(),
-        lastUpdated: parsedMarkwdown.data.lastUpdated.toString(),
-        tags: parsedMarkwdown.data.tags,
-        published: parsedMarkwdown.data.published,
-        labels: parsedMarkwdown.data.labels
+        title: parsedMarkdown.data.title,
+        created: parsedMarkdown.data.created.toString(),
+        lastUpdated: parsedMarkdown.data.lastUpdated.toString(),
+        tags: parsedMarkdown.data.tags,
+        published: parsedMarkdown.data.published,
+        labels: parsedMarkdown.data.labels,
+        description: parsedMarkdown.data.description
     }
     return {
         props: {
             metaData,
-            content: parsedMarkwdown.content
+            filename: slug,
+            content: parsedMarkdown.content
         }
     }
 }

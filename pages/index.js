@@ -16,7 +16,7 @@ const Index = ({ recentContent, categories }) => {
   const [favorites, setFavorites] = useState();
 
   useEffect(() => {
-    setFavorites(JSON.parse(localStorage.getItem("favorites")))
+    setFavorites(JSON.parse(localStorage.getItem("favorites")));
   }, [])
 
   const deleteKeyFromObject = (key) => {
