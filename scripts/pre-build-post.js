@@ -19,9 +19,9 @@ function languageArrayToIndexFormat(arr){
     return `export const languageIndex = [${indexFormat.toString()}]`;
 }
 
-function getTopCategories(tags){
+function getTopTags(tags){
     const numberOfCategories = 6;
-    let topCategories = {};
+    let topTags = {};
     for(let i = 0; i < numberOfCategories; i++) {
         let maxKey = "";
         let maxNumber = 0;
@@ -32,14 +32,14 @@ function getTopCategories(tags){
             }
         }
         if(maxKey !== ""){
-            topCategories = {
-                ...topCategories,
+            topTags = {
+                ...topTags,
                 [maxKey]: tags[maxKey].files
             };
             delete tags[maxKey];
         }
     }
-    return topCategories;
+    return topTags;
 }
 
 
@@ -93,7 +93,7 @@ function saveParsedFiles(){
        fs.mkdirSync(path.join("search"));
    }
     fs.writeFileSync(path.join("search", "tags-index.js"), `export const tagsIndex = ${JSON.stringify(tags)}`);
-    fs.writeFileSync(path.join("search", "topCategories-index.js"), `export const topCategories = ${JSON.stringify(getTopCategories(tags))}`)
+    fs.writeFileSync(path.join("search", "topTags-index.js"), `export const topTags = ${JSON.stringify(getTopTags(tags))}`)
     fs.writeFileSync(path.join("search","language-index.js"), languageArrayToIndexFormat(languages));
     fs.writeFileSync(path.join("search","search-index.js"), `export const searchIndex = ${JSON.stringify(filesMetadata)}`);
 

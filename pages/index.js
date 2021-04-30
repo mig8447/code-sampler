@@ -4,14 +4,14 @@ import PostCard from '../components/PostCard/PostCard';
 import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
 import { Container } from "react-bootstrap";
-import TopCategoryCard from "../components/TopCategoryCard/TopCategoryCard";
-import { topCategories } from "../search/topCategories-index";
+import TopTagCard from "../components/TopTagCard/TopTagCard";
+import { topTags } from "../search/topTags-index";
 import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
 
 
 
-const Index = ({ recentContent, categories }) => {
+const Index = ({ recentContent, tags }) => {
 
   const [favorites, setFavorites] = useState();
 
@@ -68,14 +68,14 @@ const Index = ({ recentContent, categories }) => {
       </Container>
 
       <Container fluid>
-        <h2>Top Categories</h2>
+        <h2>Top Tags</h2>
         <ContentCards >
-          {categories.map(category => (
-            <TopCategoryCard 
-            key={category} 
-            categoryName={category} 
-            posts={topCategories[category].slice(0,5)} 
-            countPosts={topCategories[category].length}
+          {tags.map(tag => (
+            <TopTagCard 
+            key={tag} 
+            categoryName={tag} 
+            posts={topTags[tag].slice(0,5)} 
+            countPosts={topTags[tag].length}
             />
           ))}
 
@@ -99,7 +99,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       recentContent: recentContent.slice(0, 3),
-      categories: Object.keys(topCategories)
+      tags: Object.keys(topTags)
     }
   };
 };
