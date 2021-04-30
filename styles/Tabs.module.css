@@ -1,13 +1,16 @@
 .tabsMenu{
+    padding-left: 0;
     list-style: none;
     display: flex;
-    gap: 5%;
     border: 1px solid rgb(27, 27, 27);
     font-size: 1.2rem;
     margin-bottom: 0;
     line-height: 50px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #FCFBFA;
+    overflow: hidden;
+    overflow-x: auto;
 }
 
 .tabsLabel{
@@ -16,8 +19,10 @@
     padding: 0 18px 0 18px ;
 }
 
+
 .active{
-    border-bottom: 3px solid rgb(63, 108, 192);
-    border-radius: 5px;
+    background-color: #E5E5E5;
+    border-bottom: 5px solid var(--code-sample-badge-hover-color);
+    color: var(--code-sample-badge-hover-color);
 }
 

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Index from "../pages/index";
-import './mock/searchMock/topCategories-index';
-import {topCategories} from './mock/searchMock/topCategories-index';
+import './mock/searchMock/topTags-index';
+import {topTags} from './mock/searchMock/topTags-index';
 
 describe("Index", () => {
   let expectedProps;
@@ -17,13 +17,13 @@ describe("Index", () => {
         published: true,
         description: "this is the description of the recent content"
       }],
-      categories:["topCategory", "topCategory2", "topCategory3"]
+      tags:["topTag", "topTag2", "topTag3"]
     };
   });
 
   it("renders without crashing", () => {
     const {getByRole}  = render(<Index recentContent={expectedProps.recentContent} 
-      categories={expectedProps.categories} />);
+      tags={expectedProps.tags} />);
     
     expect(
       getByRole("heading", { name: "Code Sampler" })
@@ -32,13 +32,13 @@ describe("Index", () => {
       getByRole("heading", { name: "Recent content" })
     ).toBeInTheDocument();
     expect(
-      getByRole("heading", { name: "Top Categories" })
+      getByRole("heading", { name: "Top Tags" })
     ).toBeInTheDocument();
   });
   
   it("renders recent content", () => {
     const { getByText } = render(<Index recentContent={expectedProps.recentContent} 
-    categories={expectedProps.categories} />);
+    tags={expectedProps.tags} />);
     expectedProps.recentContent.forEach(recent => {
       expect(getByText(recent.description)).toBeVisible();
       recent.tags.forEach(tag => {
@@ -47,12 +47,12 @@ describe("Index", () => {
     });
   });
 
-  it("Top categories renders correctly", () => {
-    const { getByText } = render(<Index recentContent={expectedProps.recentContent} categories={expectedProps.categories} />)
-    expectedProps.categories.forEach(category => {
-      expect(getByText("count: "+topCategories[category].length))
-      expect(getByText(category)).toBeVisible();
-      topCategories[category].slice(0,5).forEach(file => {
+  it("Top tags renders correctly", () => {
+    const { getByText } = render(<Index recentContent={expectedProps.recentContent} tags={expectedProps.tags} />)
+    expectedProps.tags.forEach(tag => {
+      expect(getByText("count: "+topTags[tag].length))
+      expect(getByText(tag)).toBeVisible();
+      topTags[tag].slice(0,5).forEach(file => {
         expect(getByText(file.title)).toBeVisible();
         expect(getByText(file.title).closest("a")).toHaveAttribute("href", `/${file.filename}`);
       });

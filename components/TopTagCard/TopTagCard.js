@@ -1,5 +1,5 @@
 import { Card, Badge, Row, Col } from "react-bootstrap";
-import classes from "../../styles/TopCategoryCard.module.css";
+import classes from "../../styles/TopTagCard.module.css";
 import Link from 'next/link';
 
 const TopCategoryCard = ({ categoryName, posts, countPosts }) => (

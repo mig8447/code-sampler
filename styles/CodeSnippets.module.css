@@ -1,0 +1,9 @@
+.iconButton {
+  background-color: transparent;
+  border: 0;
+}
+
+.iconGroup {
+    position: absolute;
+    right: 10%;
+}
