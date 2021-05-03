@@ -8,6 +8,13 @@
 }
 
 .borderRadius {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+
+@media (max-width: 992px) {
+  .searchBar {
+    width: 90% !important;
+  }
 }
