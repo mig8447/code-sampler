@@ -2,7 +2,7 @@
   display: none;
   position: absolute;
   top: 85.8%;
-  width: 554px;
+  width: 100% !important;
   z-index: 1;
   max-height: 50vh;
   overflow-y: scroll;
@@ -26,27 +26,4 @@
 .borderRadius {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-@media (max-width: 1200px) {
-  .resultsDropDown {
-    width: 464px;
-  }
-}
-
-@media (max-width: 992px) {
-  .resultsDropDown {
-    width: 344px;
-  }
-}
-
-@media (max-width: 768px) {
-  .searchBar {
-    width: 90% !important;
-    padding: 0 !important;
-  }
-
-  .resultsDropDown {
-    width: 100%;
-  }
 }
