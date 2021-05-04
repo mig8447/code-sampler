@@ -110,7 +110,7 @@ const SearchBarComponent = () => {
                     ref={ref}
                     onClick={() => setActive(true)}
                     onKeyDown={ onEnterClick }
-                    className={["w-50", "p-2", Style.searchBar].join(" ")}>
+                    className={["w-50", "pt-2 pb-2", Style.searchBar].join(" ")}>
                     <FormControl
                         className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}
                         placeholder="How to.."
@@ -121,7 +121,7 @@ const SearchBarComponent = () => {
                     />
 
                     <InputGroup.Append>
-                        <InputGroup.Text className={"bg-white border-0"}>
+                        <InputGroup.Text className={["bg-white border-0 rounded-right", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}>
                             <span className="fa fa-search fa-sm" aria-hidden="true"></span>
                         </InputGroup.Text>
                     </InputGroup.Append>
