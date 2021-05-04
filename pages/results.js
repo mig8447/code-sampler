@@ -32,7 +32,7 @@ const Results = () => {
     }
 
     useEffect(() => {
-        const keyword = new URLSearchParams(window.location.search).get("keyword");
+        const keyword = new URLSearchParams(window.location.search).get("keyword") || "";
         setQuery(keyword);
         setResults(resultsSet(keyword));
         const favs = JSON.parse(localStorage.getItem("favorites")) || {};
@@ -40,21 +40,17 @@ const Results = () => {
     }, [router.query.keyword]);
 
     const resultsSet = (res) => {
-        console.log("dentro del useEffect");
         const searchResults = (fuse.search(res)).map(elem => elem.item)
-        console.log(searchResults);
         return searchResults;
     }
 
     const deleteKeyFromObject = (key) => {
         const { [key]: tmp, ...rest } = favorites
-        console.log(rest)
         setFavorites(rest);
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
 
     const onClickFavorite = (action, filename, metaData) => {
-        console.log("actions", action)
         if (action === "delete") {
             deleteKeyFromObject(filename);
         } else if (action === "add") {
@@ -85,19 +81,21 @@ const Results = () => {
 
                             <ListGroup variant="flush">
                                 {
-                                   
+                                   results.length>0 ?
                                     results.slice(currentPage * resultsPerPage, (currentPage * resultsPerPage) + resultsPerPage).map(result => (
                                         <ItemResult
                                             title={result.title}
                                             tags={result.tags}
                                             description={result.description}
-                                            favorite={favorites[result.id]}
+                                            favorite={favorites[result.id] ? true: false}
                                             version={"12.3.3"}
                                             key={result.id}
                                             filename={result.id}
                                             onClickFavorite={onClickFavorite}
                                         />
                                     ))
+                                    :
+                                    <p>Your search did not match any document</p>
                                 }
 
                             </ListGroup>
