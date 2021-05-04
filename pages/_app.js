@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline';" />
+                <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline' 'self';" />
             </Head>
             <Component {...pageProps} />
         </>
