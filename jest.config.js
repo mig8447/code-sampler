@@ -8,7 +8,6 @@ module.exports = {
     moduleNameMapper: {
       "languageIndex": "<rootDir>/tests/mock/searchMock/language-index.js",
       "topTags": "<rootDir>/tests/mock/searchMock/topTags-index.js",
-      "searchIndex": "<rootDir>/tests/mock/searchMock/search-index.js",
       "tagsIndex" : "<rootDir>/tests/mock/searchMock/tags-index.js"
     }
   };
