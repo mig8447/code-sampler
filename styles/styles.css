@@ -1,9 +1,9 @@
 :root {
-  --code-sample-bg-color: #3F4248;
-  --code-sample-txt-color: #FFFEFE;
-  --code-sample-nav-bg-color: #2B2E32;
+  --code-sample-bg-color: #3f4248;
+  --code-sample-txt-color: #fffefe;
+  --code-sample-nav-bg-color: #2b2e32;
   --code-sample-topCat-bg-color: #646a73;
-  --code-sample-search-bar-bg-color: #2C5967;
+  --code-sample-search-bar-bg-color: #2c5967;
   --code-sample-tags-bg-color: #2b6242;
   --code-sample-badge-hover-color: rgb(69, 135, 155);
 }
@@ -30,12 +30,15 @@ a {
   background-color: var(--code-sample-bg-color);
 }
 
-.slug a{
+.slug a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4 {
-  margin: 0 0 1rem 4.5% ;
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 1rem 4.5%;
   color: #f8f9fa !important;
 }
 
@@ -54,9 +57,10 @@ h1, h2, h3, h4 {
 }
 
 .scroll::-webkit-scrollbar-thumb:hover {
-    background: var(--code-sample-badge-hover-color);
-    border-radius: 10px;
-  }
+  background: var(--code-sample-badge-hover-color);
+  border-radius: 10px;
+}
 
-
-
+a:hover {
+  color: var(--code-sample-badge-hover-color);
+}

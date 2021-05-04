@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Index from "../pages/index";
 import './mock/searchMock/topTags-index';
 import {topTags} from './mock/searchMock/topTags-index';
