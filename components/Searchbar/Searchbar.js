@@ -5,27 +5,22 @@ import { searchIndex } from '../../search/search-index';
 import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import ResultsDropDown from './ResultsDropDown/ResultsDropDown';
 import { tagsIndex } from '../../search/tags-index';
-import { useRouter } from 'next/router'
-import Fuse from 'fuse.js'
-
-const options = {
-    includeScore: true,
-    keys: ['title', 'description','tags', 'id']
-}
+import { useRouter } from 'next/router';
+import { useFuse } from '../useFuze/useFuze';
 
 const SearchBarComponent = () => {
 
-    const fuse = new Fuse(searchIndex, options);
     const router = useRouter()
-    
-    const [query, setQuery] = useState("");
-    const [filters, setFilters] = useState({}); 
-    const [results, setResults] = useState([]);
+
     const [active, setActive] = useState(false);
     const [filterActive, setFilterActive] = useState(false);
     const ref = useRef(null);
+    const { results,onSearch,query,setQuery,filters,onSelectFilter } = useFuse(searchIndex, {
+            includeScore: true,
+            keys: ['title', 'description', 'tags', 'id'],
+            matchAllOnEmptyQuery: false,
+        });
 
-    let filtersSelected = Object.keys(filters);
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true);
@@ -48,58 +43,13 @@ const SearchBarComponent = () => {
         }
     };
 
-    const searchAction = (query, filtersArr) => {
-            
-        if(query && filtersSelected.length === 0){
-            setResults((fuse.search(query)).map(element=>  element.item ));
-        }else if(!query && filtersSelected.length>0){
-            console.log("los filtros son '", filtersSelected.join(" '"));
-            setResults((fuse.search({$and: [{tags: `'${filtersSelected.join(" '")}`}]})).map(element=> {
-                element.item["score"]=element.score
-                return element.item
-            }));
-        }
-        else {
-            
-            setResults((fuse.search({$and: [ {tags: `'${filtersSelected.join(" '")}`}], query})).map(element=> {
-                element.item["score"]=element.score
-                return element.item
-            }));
-            console.log(results)
-        }
-    }
-
-
-
-    const onSelectFilter = (selected, label) => {
-        if (selected) {
-            let { [label]: remove, ...newFilter } = filters;
-
-            setFilters(newFilter);
-            filtersSelected = Object.keys(newFilter);
-        }
-        else {
-            let newFilter = {
-                ...filters,
-                [label]: true
-            };
-            setFilters(newFilter);
-            filtersSelected = Object.keys(newFilter);
-        }
-        searchAction(query, filtersSelected);
-    }
-
-    const onChangeQuery = (event) => {
-        setQuery(event.target.value);
-        searchAction(event.target.value, filtersSelected);
-    }
     const onEnterClick = (event) => {
         if (event.key === 'Enter' && query) {
-                router.push({
-                    pathname: '/results',
-                    query: { keyword: query },
-                  })
-          }
+            router.push({
+                pathname: '/results',
+                query: { keyword: query },
+            })
+        }
     }
 
     return (
@@ -109,7 +59,7 @@ const SearchBarComponent = () => {
                 <InputGroup
                     ref={ref}
                     onClick={() => setActive(true)}
-                    onKeyDown={ onEnterClick }
+                    onKeyDown={onEnterClick}
                     className={["w-50", "pt-2 pb-2", Style.searchBar].join(" ")}>
                     <FormControl
                         className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}
@@ -117,7 +67,7 @@ const SearchBarComponent = () => {
                         aria-label="Search"
                         type="text"
                         value={query}
-                        onChange={onChangeQuery}
+                        onChange={onSearch}
                     />
 
                     <InputGroup.Append>
@@ -126,7 +76,7 @@ const SearchBarComponent = () => {
                         </InputGroup.Text>
                     </InputGroup.Append>
                     {/*Custom Drop down for displaying search results*/}
-                    <ResultsDropDown results = {results} query={query} active={active} />
+                    <ResultsDropDown results={results} query={query} active={active} />
 
                 </InputGroup>
                 {/*React Drop down for displaying tags*/}
@@ -139,7 +89,7 @@ const SearchBarComponent = () => {
                     </Dropdown.Toggle>
                     <Dropdown.Menu className={[Style.filterDropDown, "scroll"].join(" ")}>
                         {Object.keys(tagsIndex).map(tag => (
-                            <Dropdown.Item key={tag} className={"bg-white"} onSelect = {() => (setFilterActive(true))} >
+                            <Dropdown.Item key={tag} className={"bg-white"} onSelect={() => (setFilterActive(true))} >
                                 <SelectBadges label={tag} onClickHandler={onSelectFilter} selected={filters[tag]} />
                             </Dropdown.Item>
                         ))}
