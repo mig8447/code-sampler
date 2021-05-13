@@ -102,13 +102,13 @@ const Results = () => {
                         </Card.Body>
                     </Card>
                 </Row>
-                <Row className={"d-flex justify-content-center "}>
+                {totalPages>1?<Row className={"d-flex justify-content-center "}>
                     <Pagination >
                         <Pagination.Prev onClick={() => pageHandler(-1)} />
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
                         <Pagination.Next onClick={() => pageHandler(1)} />
                     </Pagination>
-                </Row>
+                </Row>:""}
             </Container>
 
         </>

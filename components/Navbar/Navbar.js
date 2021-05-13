@@ -96,7 +96,7 @@ const NavbarComponent = () => {
                         />
                     ))}
                 </Container>
-                <h6>Preferred code theme</h6>
+                <h6>Preferred code theme </h6>
                 <Container fluid className="mt-2">
                     <ToggleButton />
                 </Container>

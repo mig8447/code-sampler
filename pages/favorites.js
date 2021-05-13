@@ -85,7 +85,7 @@ const favorites = ({ }) => {
 
 
 
-                {Object.keys(favorites).length ? <Row className={"d-flex justify-content-center "}>
+                {totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
                     <Pagination >
                         <Pagination.Prev onClick={() => pageHandler(-1)} />
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
