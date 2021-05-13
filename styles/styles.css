@@ -5,7 +5,8 @@
   --code-sample-topCat-bg-color: #646a73;
   --code-sample-search-bar-bg-color: #2c5967;
   --code-sample-tags-bg-color: #2b6242;
-  --code-sample-badge-hover-color: rgb(69, 135, 155);
+  --code-sample-badge-hover-color: #4e8697;
+  --code-sample-color-results: #e6e33a;
 }
 
 html,
@@ -63,4 +64,9 @@ h4 {
 
 a:hover {
   color: var(--code-sample-badge-hover-color);
+  text-decoration: none;
 }
+
+
+
+

@@ -10,6 +10,7 @@ import remark2react from 'remark-react';
 import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
 import Tags from '../components/UI/Tags';
 import { Container, Row, Col } from "react-bootstrap";
+import AlertNotification from '../components/UI/AlertNotification';
 
 const Post = ({ metaData, content, filename }) => {
     const [theme, setTheme] = useState();
@@ -34,10 +35,20 @@ const Post = ({ metaData, content, filename }) => {
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
 
+    const [alerts, setAlerts] = useState([]);
+
+    const addAlert = (description) => {
+        let tempAlerts = alerts;
+        const newAlerts = [...tempAlerts, description];
+        setAlerts(newAlerts);
+    }
+
+
     const onClickFavorite = (action, filename, metadata) => {
         console.log(action)
         if (action === "delete") {
             deleteKeyFromObject(filename);
+            addAlert("Bookmark removed succesfully!");
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -46,6 +57,7 @@ const Post = ({ metaData, content, filename }) => {
 
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
+            addAlert("Bookmark added succesfully!");
         }
     }
 
@@ -92,6 +104,9 @@ const Post = ({ metaData, content, filename }) => {
             <Searchbar />
             <div style={{ width: "80%", margin: "auto" }} className="text-light">
                 {markDownContent}
+            </div>
+            <div style={{ "position": "fixed", "bottom": "2%", "right": "2%" }}>
+                {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
             </div>
 
         </>

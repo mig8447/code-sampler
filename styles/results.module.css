@@ -22,3 +22,10 @@
 .bgBadge{
     background-color: #2B6242;
 }
+
+.titlePost:hover{
+    color: #e9dc26 !important;
+}
+.titlePost{
+    cursor: pointer;
+}

@@ -80,7 +80,7 @@ const favorites = ({ }) => {
 
                 <ContentCards>
 
-                    {favorites.length ? Object.keys(favorites).slice(currentPage * cardsPerPage, (currentPage * cardsPerPage) + cardsPerPage).map(filename => (
+                    {Object.keys(favorites).length>0 ? Object.keys(favorites).slice(currentPage * cardsPerPage, (currentPage * cardsPerPage) + cardsPerPage).map(filename => (
                         <PostCard
                             key={filename}
                             filename={filename}
