@@ -8,12 +8,20 @@ import TopTagCard from "../components/TopTagCard/TopTagCard";
 import { topTags } from "../search/topTags-index";
 import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
-
+import AlertNotification from "../components/UI/AlertNotification";
 
 
 const Index = ({ recentContent, tags }) => {
 
   const [favorites, setFavorites] = useState();
+  const [alerts, setAlerts] = useState([]);
+
+  const addAlert = (description) => {
+    let tempAlerts=alerts;
+    const newAlerts = [...tempAlerts, description];
+    setAlerts(newAlerts);
+
+  }
 
   useEffect(() => {
     setFavorites(JSON.parse(localStorage.getItem("favorites")));
@@ -29,6 +37,7 @@ const Index = ({ recentContent, tags }) => {
 
     if (action === "delete") {
       deleteKeyFromObject(filename);
+      addAlert("Bookmark removed succesfully!");
     } else if (action === "add") {
       let newFavorites = { ...favorites }
       newFavorites[filename] = {
@@ -37,6 +46,7 @@ const Index = ({ recentContent, tags }) => {
 
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      addAlert("Bookmark added succesfully!");
     }
   }
 
@@ -47,7 +57,7 @@ const Index = ({ recentContent, tags }) => {
         <title>Code Sampler</title>
 
       </Head>
-      <Navbar />
+      <Navbar  />
       <Searchbar />
       <Container fluid className="mt-3 mb-3">
         <h2>Recent content</h2>
@@ -81,6 +91,10 @@ const Index = ({ recentContent, tags }) => {
 
         </ContentCards>
       </Container>
+
+      <div  style={{"position":"fixed", "bottom":"2%", "left":"2%"}}>
+          {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc}/>) : ""}
+      </div>
 
     </div>
   )

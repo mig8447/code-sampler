@@ -4,9 +4,11 @@ import Head from 'next/head';
 import PostCard from '../components/PostCard/PostCard';
 import { useState, useEffect } from 'react';
 import ContentCards from '../components/ContentCards/ContentCards';
-import { Pagination, Container, Row } from 'react-bootstrap'
+import AlertNotification from '../components/UI/AlertNotification';
+import { Pagination, Container, Row, Toast } from 'react-bootstrap';
 const favorites = ({ }) => {
 
+    
 
     const pageHandler = (value) => {
         const page = currentPage + value;
@@ -16,14 +18,19 @@ const favorites = ({ }) => {
         }
 
     }
-
-
-
     const deleteKeyFromObject = (key) => {
         const { [key]: tmp, ...rest } = favorites
         console.log(rest)
         setFavorites(rest);
         localStorage.setItem("favorites", JSON.stringify(rest));
+    }
+    
+    const [alerts, setAlerts] = useState([]);
+
+    const addAlert = (description) => {
+        let tempAlerts = alerts;
+        const newAlerts = [...tempAlerts, description];
+        setAlerts(newAlerts);
     }
 
     const onClickFavorite = (action, filename, metaData) => {
@@ -33,6 +40,8 @@ const favorites = ({ }) => {
             const len = Math.ceil((Object.keys(favorites).length) / cardsPerPage);
             setTotalPages(len - 1);
             (currentPage === len - 1) && pageHandler(-1);
+            addAlert("Bookmark removed succesfully!");
+
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -41,11 +50,13 @@ const favorites = ({ }) => {
             //console.log(newFavorites)
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
+            addAlert("Bookmark added succesfully!");
         }
     }
 
 
     const cardsPerPage = 2;
+
     const [favorites, setFavorites] = useState({});
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(0);
@@ -69,7 +80,7 @@ const favorites = ({ }) => {
 
                 <ContentCards>
 
-                    {Object.keys(favorites).slice(currentPage * cardsPerPage, (currentPage * cardsPerPage) + cardsPerPage).map(filename => (
+                    {favorites.length ? Object.keys(favorites).slice(currentPage * cardsPerPage, (currentPage * cardsPerPage) + cardsPerPage).map(filename => (
                         <PostCard
                             key={filename}
                             filename={filename}
@@ -80,23 +91,30 @@ const favorites = ({ }) => {
                             favorite={favorites && favorites[filename]}
                         />
 
-                    ))}
+                    )) : <p className="text-white">You don't have any bookmarks yet  :'(</p>}
                 </ContentCards>
 
 
 
-                {totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
+                {totalPages && totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
                     <Pagination >
                         <Pagination.Prev onClick={() => pageHandler(-1)} />
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
                         <Pagination.Next onClick={() => pageHandler(1)} />
                     </Pagination>
-                </Row> : null}
+                </Row> : ""}
 
+               
+                    
+
+               
 
 
             </Container>
-
+            
+            <div style={{ "position": "fixed", "bottom": "2%", "left": "2%" }}>
+                {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
+            </div>
 
         </>
     )
