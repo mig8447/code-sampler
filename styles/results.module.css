@@ -23,8 +23,9 @@
     background-color: #2B6242;
 }
 
-.titlePost:hover{
+.titlePost>a:hover{
     color: #e9dc26 !important;
+
 }
 .titlePost{
     cursor: pointer;
