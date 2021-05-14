@@ -4,7 +4,7 @@ import { useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark, a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
-const ToggleTheme = ({ alertFunc }) => {
+const ToggleTheme = ({ }) => {
 
     const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
