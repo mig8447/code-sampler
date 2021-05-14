@@ -7,6 +7,7 @@ import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import LanguageFilter from './LanguageFilter/LanguageFilter';
 import { languageIndex } from '../../search/language-index';
 import ToggleButton from './ToggleTheme/ToggleTheme';
+
 import Fuse from 'fuse.js'
 
 const options = {
@@ -15,7 +16,7 @@ const options = {
 }
 
 
-const NavbarComponent = () => {
+const NavbarComponent = ({}) => {
     const fuse = new Fuse(languageIndex, options);
     const [show, setShow] = useState(false);
     const [query, setQuery] = useState("");
@@ -55,6 +56,7 @@ const NavbarComponent = () => {
       localStorage.setItem("preferredLanguages", JSON.stringify(newPreferredLanguages));
     }
   }
+  
 
     useEffect(() => {
         setLanguageResults(languageIndex);
@@ -96,9 +98,10 @@ const NavbarComponent = () => {
                         />
                     ))}
                 </Container>
-                <h6>Preferred code theme</h6>
+                <h6>Preferred Code Theme </h6>
                 <Container fluid className="mt-2">
-                    <ToggleButton />
+                    <ToggleButton  />
+                    
                 </Container>
 
             </GenerateModal>

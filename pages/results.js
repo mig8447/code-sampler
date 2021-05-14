@@ -7,6 +7,7 @@ import ItemResult from '../components/ItemResult/ItemResult';
 import { searchIndex } from '../search/search-index';
 import Fuse from 'fuse.js'
 import { useState, useEffect } from 'react';
+import AlertNotification from "../components/UI/AlertNotification";
 
 const options = {
     includeScore: true,
@@ -29,6 +30,13 @@ const Results = () => {
             setCurrentPage(page);
         }
 
+    }
+    const [alerts, setAlerts] = useState([]);
+
+    const addAlert = (description) => {
+        let tempAlerts = alerts;
+        const newAlerts = [...tempAlerts, description];
+        setAlerts(newAlerts);
     }
 
     useEffect(() => {
@@ -53,6 +61,7 @@ const Results = () => {
     const onClickFavorite = (action, filename, metaData) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);
+            addAlert("Bookmark removed succesfully!");
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -60,6 +69,7 @@ const Results = () => {
             };
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
+            addAlert("Bookmark added succesfully!");
         }
     }
 
@@ -81,36 +91,39 @@ const Results = () => {
 
                             <ListGroup variant="flush">
                                 {
-                                   results.length>0 ?
-                                    results.slice(currentPage * resultsPerPage, (currentPage * resultsPerPage) + resultsPerPage).map(result => (
-                                        <ItemResult
-                                            title={result.title}
-                                            tags={result.tags}
-                                            description={result.description}
-                                            favorite={favorites[result.id] ? true: false}
-                                            version={"12.3.3"}
-                                            key={result.id}
-                                            filename={result.id}
-                                            onClickFavorite={onClickFavorite}
-                                        />
-                                    ))
-                                    :
-                                    <p>Your search did not match any document</p>
+                                    results.length > 0 ?
+                                        results.slice(currentPage * resultsPerPage, (currentPage * resultsPerPage) + resultsPerPage).map(result => (
+                                            <ItemResult
+                                                title={result.title}
+                                                tags={result.tags}
+                                                description={result.description}
+                                                favorite={favorites[result.id] ? true : false}
+                                                version={"12.3.3"}
+                                                key={result.id}
+                                                filename={result.id}
+                                                onClickFavorite={onClickFavorite}
+                                            />
+                                        ))
+                                        :
+                                        <p>Your search did not match any document</p>
                                 }
 
                             </ListGroup>
                         </Card.Body>
                     </Card>
                 </Row>
-                <Row className={"d-flex justify-content-center "}>
+                {totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
                     <Pagination >
                         <Pagination.Prev onClick={() => pageHandler(-1)} />
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
                         <Pagination.Next onClick={() => pageHandler(1)} />
                     </Pagination>
-                </Row>
+                </Row> : ""}
             </Container>
 
+            <div style={{ "position": "fixed", "bottom": "2%", "right": "2%" }}>
+                {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
+            </div>
         </>
     )
 }

@@ -13,10 +13,16 @@ const ItemResult = ({ title, description, tags, version, favorite, onClickFavori
             <button onClick={() => onClickFavorite(action, filename, { title, description, tags })} style={{ backgroundColor: "transparent" }} className="border-0 text-white float-right" >
                 <span className={[" fa-sm fa-2x", icon].join(" ")} aria-hidden="true"></span>
             </button>
+
             <h4>
-                <Link href={`/${filename}`}>
-                    {title}
-                </Link>
+                <span className={Style.titlePost}>
+                    <Link href={`/${filename}`}>
+
+                        {title}
+
+                    </Link>
+                </span>
+
             </h4>
             <Tags tags={tags} />
             <p>{description}</p>
