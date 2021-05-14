@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar/Navbar';
-import Searchbar from '../components/Searchbar/Searchbar';
 import PostCard from '../components/PostCard/PostCard';
 import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
@@ -13,11 +11,7 @@ import { useEffect, useState } from "react";
 
 const Index = ({ recentContent, tags }) => {
 
-  const [favorites, setFavorites] = useState();
-
-  useEffect(() => {
-    setFavorites(JSON.parse(localStorage.getItem("favorites")));
-  }, [])
+  const [favorites, setFavorites] = useState(process.browser?JSON.parse(localStorage.getItem("favorites")):undefined);
 
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites
@@ -47,8 +41,6 @@ const Index = ({ recentContent, tags }) => {
         <title>Code Sampler</title>
 
       </Head>
-      <Navbar />
-      <Searchbar />
       <Container fluid className="mt-3 mb-3">
         <h2>Recent content</h2>
         <ContentCards className="{mt-5}">

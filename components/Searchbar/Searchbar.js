@@ -6,7 +6,7 @@ import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import ResultsDropDown from './ResultsDropDown/ResultsDropDown';
 import { tagsIndex } from '../../search/tags-index';
 import { useRouter } from 'next/router';
-import { useFuse } from '../useFuze/useFuze';
+import { useFuse } from '../useFuse/useFuse';
 
 const SearchBarComponent = () => {
 
@@ -15,7 +15,7 @@ const SearchBarComponent = () => {
     const [active, setActive] = useState(false);
     const [filterActive, setFilterActive] = useState(false);
     const ref = useRef(null);
-    const { results,onSearch,query,setQuery,filters,onSelectFilter } = useFuse(searchIndex, {
+    const { results,onSearch,query, filtersSelected,filters,onSelectFilter } = useFuse(searchIndex, {
             includeScore: true,
             keys: ['title', 'description', 'tags', 'id'],
             matchAllOnEmptyQuery: false,
@@ -45,9 +45,10 @@ const SearchBarComponent = () => {
 
     const onEnterClick = (event) => {
         if (event.key === 'Enter' && query) {
+            console.log(filtersSelected)
             router.push({
                 pathname: '/results',
-                query: { keyword: query },
+                query: { keyword: query, filters:filtersSelected },
             })
         }
     }

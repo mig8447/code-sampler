@@ -3,10 +3,10 @@ import Fuse from 'fuse.js';
 import { useCallback, useMemo, useState } from 'react';
 import { debounce } from 'throttle-debounce';
 
-export const useFuse = (list, options) => {
+export const useFuse = (list, options, keyword="",filtersToApply={}) => {
     // defining our query state in there directly
-    const [query, updateQuery] = useState('');
-    const [filters, setFilters] = useState({});
+    const [query, updateQuery] = useState(keyword);
+    const [filters, setFilters] = useState(filtersToApply);
     let filtersSelected = Object.keys(filters);
     // removing custom options from Fuse options object
     // NOTE: `limit` is actually a `fuse.search` option, but we merge all options for convenience
@@ -24,7 +24,7 @@ export const useFuse = (list, options) => {
         // NOTE: we remap the results to match the return structure of `fuse.search()`
         () => {
             if (!query && matchAllOnEmptyQuery) {
-                fuse.getIndex().docs.slice(0, limit).map((item, refIndex) => ({ item, refIndex }))
+                return fuse.getIndex().docs.slice(0, limit).map((item, refIndex) => ({ item, refIndex }))
             } else if (query && filtersSelected.length === 0) {
                 return fuse.search(query);
             } else if (!query && filtersSelected.length > 0) {
@@ -43,7 +43,7 @@ export const useFuse = (list, options) => {
         []
     );
 
-    const onSelectFilter = useCallback((selected, label) => {
+    const onSelectFilter = (selected, label) => {
         if (selected) {
             let { [label]: remove, ...newFilter } = filters;
 
@@ -58,8 +58,7 @@ export const useFuse = (list, options) => {
             setFilters(newFilter);
             filtersSelected = Object.keys(newFilter);
         }
-    }, []
-    )
+    }
 
     // pass a handling helper to speed up implementation
     const onSearch = useCallback(
@@ -67,13 +66,17 @@ export const useFuse = (list, options) => {
         [setQuery]
     );
 
+
+
     // still returning `setQuery` for custom handler implementations
     return {
         results,
         onSearch,
         query,
         setQuery,
+        setFilters,
         filters,
         onSelectFilter,
+        filtersSelected
     };
 };

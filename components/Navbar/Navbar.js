@@ -1,5 +1,5 @@
 import { Navbar, Container, Form } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import Link from "next/link";
 import Style from '../../styles/Navbar.module.css';
 import GenerateModal from '../UI/GenerateModal/GenerateModal';
@@ -7,71 +7,50 @@ import SelectBadges from '../UI/SelectBadges/SelectBadges';
 import LanguageFilter from './LanguageFilter/LanguageFilter';
 import { languageIndex } from '../../search/language-index';
 import ToggleButton from './ToggleTheme/ToggleTheme';
-import Fuse from 'fuse.js'
-
-const options = {
-    includeScore: true,
-    keys: ["id", "name"]
-}
+import { useFuse } from '../useFuse/useFuse';
 
 
 const NavbarComponent = () => {
-    const fuse = new Fuse(languageIndex, options);
     const [show, setShow] = useState(false);
-    const [query, setQuery] = useState("");
-    const [languageResults, setLanguageResults] = useState([]);
-    const [preferredLanguages, setPreferredLanguages] = useState();
+    const [preferredLanguages, setPreferredLanguages] = useState(process.browser ? JSON.parse(localStorage.getItem("preferredLanguages")): {});
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+    const { results, onSearch, query } = useFuse(languageIndex, {
+        includeScore: true,
+        keys: ["id", "name"],
+        matchAllOnEmptyQuery: true,
+    });
 
-    const onChangeQuery = (event) => {
-        const query = event.target.value;
-        setQuery(query);
-        if(query){
-            setLanguageResults(fuse.search(query).map(element=> element.item));
-        }else{
-            setLanguageResults(languageIndex)
+    const deleteKeyFromObject = (key) => {
+        const { [key]: tmp, ...rest } = preferredLanguages;
+        setPreferredLanguages(rest);
+        localStorage.setItem("preferredLanguages", JSON.stringify(rest));
+    }
+
+    const onClickBadge = (selected, language) => {
+
+        if (selected) {
+            deleteKeyFromObject(language);
+        } else {
+            let newPreferredLanguages = { ...preferredLanguages }
+            newPreferredLanguages[language] = true;
+            setPreferredLanguages(newPreferredLanguages)
+            localStorage.setItem("preferredLanguages", JSON.stringify(newPreferredLanguages));
         }
-        
     }
 
-
-  const deleteKeyFromObject = (key) => {
-    const { [key]: tmp, ...rest } = preferredLanguages
-    console.log(rest)
-    setPreferredLanguages(rest);
-    localStorage.setItem("preferredLanguages", JSON.stringify(rest));
-  }
-
-  const onClickBadge = (selected, language) => {
-    
-    if (selected) {
-      deleteKeyFromObject(language);
-    } else {
-      let newPreferredLanguages = { ...preferredLanguages }
-      newPreferredLanguages[language] = true;
-      setPreferredLanguages(newPreferredLanguages)
-      localStorage.setItem("preferredLanguages", JSON.stringify(newPreferredLanguages));
-    }
-  }
-
-    useEffect(() => {
-        setLanguageResults(languageIndex);
-        setPreferredLanguages(JSON.parse(localStorage.getItem("preferredLanguages")));
-    }, [])
 
 
     return (
         <>
             <Navbar className={Style.navbarColor}>
-                
-                    <Navbar.Brand className={"text-white ml-3 btn"}>
-                        <Link href={"/"} >  
+
+                <Navbar.Brand className={"text-white ml-3 btn"}>
+                    <Link href={"/"} >
                         <h6 className={"mb-1"}>Code Sampler</h6>
-                        </Link>
-                    </Navbar.Brand>
-               
+                    </Link>
+                </Navbar.Brand>
+
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end ">
                     <div className={Style.iconContainer}>
@@ -86,13 +65,13 @@ const NavbarComponent = () => {
             </Navbar>
             <GenerateModal show={show} handleClose={handleClose} title={"Settings"} >
                 <h6>Preferred languages</h6>
-                <LanguageFilter query={query} setQuery={onChangeQuery} />
-                <Container fluid className={["mt-2",Style.selectLanguages, "scroll"].join(" ")}>
-                    {languageResults.map(lang => (
-                        <SelectBadges key={lang.id} 
-                        label={lang.name} 
-                        selected={preferredLanguages && preferredLanguages[lang.id]} 
-                        onClickHandler={onClickBadge} 
+                <LanguageFilter query={query} setQuery={onSearch} />
+                <Container fluid className={["mt-2", Style.selectLanguages, "scroll"].join(" ")}>
+                    {results.map(lang => (
+                        <SelectBadges key={lang.item.id}
+                            label={lang.item.name}
+                            selected={preferredLanguages && preferredLanguages[lang.item.id]}
+                            onClickHandler={onClickBadge}
                         />
                     ))}
                 </Container>

@@ -27,7 +27,7 @@ describe("Index", () => {
     
     expect(
       getByRole("heading", { name: "Code Sampler" })
-    ).toBeInTheDocument();
+    ).toBeVisible();
     expect(
       getByRole("heading", { name: "Recent content" })
     ).toBeInTheDocument();

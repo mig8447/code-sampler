@@ -1,27 +1,34 @@
-import Navbar from '../components/Navbar/Navbar';
-import Searchbar from '../components/Searchbar/Searchbar';
-import { Row, Container, Card, Badge, Col, ListGroup, Button, Pagination } from 'react-bootstrap';
+import { Row, Container, Card, Badge, ListGroup, Pagination } from 'react-bootstrap';
 import Style from '../styles/results.module.css';
-import { useRouter } from 'next/router';
 import ItemResult from '../components/ItemResult/ItemResult';
 import { searchIndex } from '../search/search-index';
-import Fuse from 'fuse.js'
-import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useFuse } from '../components/useFuse/useFuse';
 
-const options = {
-    includeScore: true,
-    keys: ['title', 'description', 'tags', 'id']
-}
 
 const Results = () => {
     const router = useRouter();
-    const fuse = new Fuse(searchIndex, options);
-    const [favorites, setFavorites] = useState({});
-    const [results, setResults] = useState([]);
-    const [query, setQuery] = useState("");
+    const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")): {});
     const [currentPage, setCurrentPage] = useState(0);
+    const { results, query, setQuery, setFilters } = useFuse(searchIndex, {
+        includeScore: true,
+        keys: ['title', 'description', 'tags', 'id'],
+        matchAllOnEmptyQuery: false,
+    });
+    
+    
     const resultsPerPage = 3;
     const totalPages = Math.ceil(results.length / resultsPerPage);
+
+    useEffect(() => {
+        let [keyword, filtersToApply] = getURLParams();
+        setQuery(keyword);
+        setFilters(filtersToApply);
+
+    },[router.query])
+
+
     const pageHandler = (value) => {
         const page = currentPage + value;
 
@@ -31,21 +38,22 @@ const Results = () => {
 
     }
 
-    useEffect(() => {
-        const keyword = new URLSearchParams(window.location.search).get("keyword") || "";
-        setQuery(keyword);
-        setResults(resultsSet(keyword));
-        const favs = JSON.parse(localStorage.getItem("favorites")) || {};
-        setFavorites(favs);
-    }, [router.query.keyword]);
-
-    const resultsSet = (res) => {
-        const searchResults = (fuse.search(res)).map(elem => elem.item)
-        return searchResults;
+    function getURLParams(){
+        let keyword = router.query.keyword;
+        let filters = router.query.filters;
+        if(typeof(filters) === "string"){
+            filters = {[filters]: true}
+        }
+        else if(typeof(filters) === "object"){
+            filters=filters.reduce((obj,filter)=> (obj[filter]=true,obj),{});
+        }else{
+            filters = {};
+        }
+        return [keyword,filters];
     }
 
     const deleteKeyFromObject = (key) => {
-        const { [key]: tmp, ...rest } = favorites
+        const { [key]: tmp, ...rest } = favorites;
         setFavorites(rest);
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
@@ -66,8 +74,6 @@ const Results = () => {
 
     return (
         <>
-            <Navbar />
-            <Searchbar />
             <Container>
                 <Row className={"d-flex justify-content-center p-4 text-white"}>
                     <Card style={{ width: '100%' }} className={[Style.bgCardColor].join(" ")}>
@@ -84,13 +90,13 @@ const Results = () => {
                                    results.length>0 ?
                                     results.slice(currentPage * resultsPerPage, (currentPage * resultsPerPage) + resultsPerPage).map(result => (
                                         <ItemResult
-                                            title={result.title}
-                                            tags={result.tags}
-                                            description={result.description}
-                                            favorite={favorites[result.id] ? true: false}
+                                            title={result.item.title}
+                                            tags={result.item.tags}
+                                            description={result.item.description}
+                                            favorite={favorites && favorites[result.item.id] ? true: false}
                                             version={"12.3.3"}
-                                            key={result.id}
-                                            filename={result.id}
+                                            key={result.item.id}
+                                            filename={result.item.id}
                                             onClickFavorite={onClickFavorite}
                                         />
                                     ))
