@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar/Navbar';
-import Searchbar from '../components/Searchbar/Searchbar';
 import Head from 'next/head';
 import PostCard from '../components/PostCard/PostCard';
 import { useState, useEffect } from 'react';
@@ -20,7 +18,6 @@ const favorites = ({ }) => {
     }
     const deleteKeyFromObject = (key) => {
         const { [key]: tmp, ...rest } = favorites
-        console.log(rest)
         setFavorites(rest);
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
@@ -34,7 +31,6 @@ const favorites = ({ }) => {
     }
 
     const onClickFavorite = (action, filename, metaData) => {
-        console.log("actions", action)
         if (action === "delete") {
             deleteKeyFromObject(filename);
             const len = Math.ceil((Object.keys(favorites).length) / cardsPerPage);
@@ -47,7 +43,6 @@ const favorites = ({ }) => {
             newFavorites[filename] = {
                 ...metaData
             };
-            //console.log(newFavorites)
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
             addAlert("Bookmark added succesfully!");
@@ -72,8 +67,6 @@ const favorites = ({ }) => {
                 <title>Favorites</title>
             </Head>
 
-            <Navbar />
-            <Searchbar />
             <h4 className={"mt-3"}>Bookmarks</h4>
 
             <Container fluid>

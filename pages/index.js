@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar/Navbar';
-import Searchbar from '../components/Searchbar/Searchbar';
 import PostCard from '../components/PostCard/PostCard';
 import ContentCards from '../components/ContentCards/ContentCards';
 import Head from 'next/head';
@@ -13,19 +11,17 @@ import AlertNotification from "../components/UI/AlertNotification";
 
 const Index = ({ recentContent, tags }) => {
 
-  const [favorites, setFavorites] = useState();
   const [alerts, setAlerts] = useState([]);
+  const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")) : undefined);
 
   const addAlert = (description) => {
-    let tempAlerts=alerts;
+    let tempAlerts = alerts;
     const newAlerts = [...tempAlerts, description];
     setAlerts(newAlerts);
 
   }
 
-  useEffect(() => {
-    setFavorites(JSON.parse(localStorage.getItem("favorites")));
-  }, [])
+
 
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites
@@ -57,8 +53,6 @@ const Index = ({ recentContent, tags }) => {
         <title>Code Sampler</title>
 
       </Head>
-      <Navbar  />
-      <Searchbar />
       <Container fluid className="mt-3 mb-3">
         <h2>Recent content</h2>
         <ContentCards className="{mt-5}">
@@ -96,14 +90,14 @@ const Index = ({ recentContent, tags }) => {
           {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc}/>) : ""}
       </div>
 
-    </div>
+    </div >
   )
 
 
 }
 
 export const getStaticProps = async () => {
-  
+
   const recentContent = searchIndex.sort((a, b) => {
     const dateA = new Date(a.created);
     const dateB = new Date(b.created);

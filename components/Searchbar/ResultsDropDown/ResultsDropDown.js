@@ -7,10 +7,13 @@ const ResultsDropDown = ({results, query, active}) => (
     >
         <ul>
             {results.map(result =>
-                <li key={result.id} className="mb-3 mr-3">
-                    <strong className={"text-capitalize"}><Link href={`/${result.id}`} >{result.title}</Link></strong>
-                    <p className="mb-0">{result.description}</p>
-                </li>)}
+                <li key={result.item.id} className="mb-3 mr-3">
+                    <strong className={"text-capitalize"}><Link href={`/${result.item.id}`} >{result.item.title}</Link></strong>
+                    <p className="mb-0">{result.item.description}</p>
+                </li>
+                
+                
+                )}
         </ul>
     </div>
 )

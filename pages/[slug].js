@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from '../components/Navbar/Navbar';
-import Searchbar from '../components/Searchbar/Searchbar';
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -45,7 +43,6 @@ const Post = ({ metaData, content, filename }) => {
 
 
     const onClickFavorite = (action, filename, metadata) => {
-        console.log(action)
         if (action === "delete") {
             deleteKeyFromObject(filename);
             addAlert("Bookmark removed succesfully!");
@@ -100,8 +97,6 @@ const Post = ({ metaData, content, filename }) => {
                 <title>{metaData.title}</title>
                 <meta title='description' content={metaData.description}></meta>
             </Head>
-            <Navbar />
-            <Searchbar />
             <div style={{ width: "80%", margin: "auto" }} className="text-light">
                 {markDownContent}
             </div>

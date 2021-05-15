@@ -14,7 +14,6 @@ const ToggleTheme = ({ }) => {
     };
     const styleDark = (theme === "a11yDark") ? classes.themeSelected : "";
     const styleLight = (theme === undefined || theme === "a11yLight") ? classes.themeSelected : "";
-    console.log(theme);
     const onClickHandler = (themeSelected) => {
         if (themeSelected === "a11yDark") {
             setTheme("a11yDark");
