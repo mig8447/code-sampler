@@ -5,19 +5,19 @@ import { searchIndex } from '../search/search-index';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useFuse } from '../components/useFuse/useFuse';
+import AlertNotification from "../components/UI/AlertNotification";
+import Tags from '../components/UI/Tags';
 
 
 const Results = () => {
     const router = useRouter();
     const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")): {});
     const [currentPage, setCurrentPage] = useState(0);
-    const { results, query, setQuery, setFilters } = useFuse(searchIndex, {
+    const { results, query, setQuery, setFilters, filtersSelected } = useFuse(searchIndex, {
         includeScore: true,
         keys: ['title', 'description', 'tags', 'id'],
         matchAllOnEmptyQuery: false,
     });
-    
-    
     const resultsPerPage = 3;
     const totalPages = Math.ceil(results.length / resultsPerPage);
 
@@ -26,7 +26,7 @@ const Results = () => {
         setQuery(keyword);
         setFilters(filtersToApply);
 
-    },[router.query])
+    },[router.query.keyword, router.query.filters])
 
 
     const pageHandler = (value) => {
@@ -36,6 +36,13 @@ const Results = () => {
             setCurrentPage(page);
         }
 
+    }
+    const [alerts, setAlerts] = useState([]);
+
+    const addAlert = (description) => {
+        let tempAlerts = alerts;
+        const newAlerts = [...tempAlerts, description];
+        setAlerts(newAlerts);
     }
 
     function getURLParams(){
@@ -61,6 +68,7 @@ const Results = () => {
     const onClickFavorite = (action, filename, metaData) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);
+            addAlert("Bookmark removed succesfully!");
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -68,6 +76,7 @@ const Results = () => {
             };
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
+            addAlert("Bookmark added succesfully!");
         }
     }
 
@@ -81,7 +90,7 @@ const Results = () => {
                             <Card.Header className={[Style.bgCardColor, Style.borderGrey].join(" ")}>
                                 <h3>Results for:</h3>
                                 <h5>{query ? `"${query}"` : ""}</h5>
-
+                                {<Tags tags={filtersSelected} />}
                                 <Badge className={"position-absolute"} variant="light" style={{ right: '0', top: '25%' }}>{`Found: ${results.length}`}</Badge>
                             </Card.Header>
 
@@ -108,15 +117,18 @@ const Results = () => {
                         </Card.Body>
                     </Card>
                 </Row>
-                <Row className={"d-flex justify-content-center "}>
+                {totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
                     <Pagination >
                         <Pagination.Prev onClick={() => pageHandler(-1)} />
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
                         <Pagination.Next onClick={() => pageHandler(1)} />
                     </Pagination>
-                </Row>
+                </Row> : ""}
             </Container>
 
+            <div style={{ "position": "fixed", "bottom": "2%", "right": "2%" }}>
+                {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
+            </div>
         </>
     )
 }

@@ -15,7 +15,7 @@ const SearchBarComponent = () => {
     const [active, setActive] = useState(false);
     const [filterActive, setFilterActive] = useState(false);
     const ref = useRef(null);
-    const { results,onSearch,query, filtersSelected,filters,onSelectFilter } = useFuse(searchIndex, {
+    const { results,onSearch,query, filtersSelected,filters,onSelectFilter, setQuery } = useFuse(searchIndex, {
             includeScore: true,
             keys: ['title', 'description', 'tags', 'id'],
             matchAllOnEmptyQuery: false,
@@ -45,12 +45,23 @@ const SearchBarComponent = () => {
 
     const onEnterClick = (event) => {
         if (event.key === 'Enter' && query) {
-            console.log(filtersSelected)
-            router.push({
-                pathname: '/results',
-                query: { keyword: query, filters:filtersSelected },
-            })
+            pushSearchHandler();
+          }
+    }
+    const clickSearchHandler = () => {
+        if (query){
+            pushSearchHandler();
         }
+        
+    }
+
+    const pushSearchHandler = () => {
+        
+        router.push({
+            pathname: '/results',
+            query: { keyword: query, filters:filtersSelected },
+        });
+        setQuery("");
     }
 
     return (
@@ -73,7 +84,7 @@ const SearchBarComponent = () => {
 
                     <InputGroup.Append>
                         <InputGroup.Text className={["bg-white border-0 rounded-right", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}>
-                            <span className="fa fa-search fa-sm" aria-hidden="true"></span>
+                            <span className="fa fa-search fa-sm" aria-hidden="true" onClick={clickSearchHandler} style={{"cursor":"pointer"}}></span>
                         </InputGroup.Text>
                     </InputGroup.Append>
                     {/*Custom Drop down for displaying search results*/}

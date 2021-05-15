@@ -24,10 +24,6 @@ describe("Index", () => {
   it("renders without crashing", () => {
     const {getByRole}  = render(<Index recentContent={expectedProps.recentContent} 
       tags={expectedProps.tags} />);
-    
-    expect(
-      getByRole("heading", { name: "Code Sampler" })
-    ).toBeVisible();
     expect(
       getByRole("heading", { name: "Recent content" })
     ).toBeInTheDocument();

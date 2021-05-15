@@ -32,16 +32,8 @@ const searchIndex = [
   }
 ];
 
-jest.mock("next/router", () => ({
-  useRouter() {
-    return {
-      route: "",
-      pathname: "",
-      query: "",
-      asPath: "",
-    };
-  },
-}));
+
+
 
 jest.mock('../search/search-index', () => {
   return ({
@@ -51,16 +43,12 @@ jest.mock('../search/search-index', () => {
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter");
 
-
 describe("results renders correctly without url params", () => {
   beforeEach(() => {
-    delete window.location;
-    window.location = {
-      search: ""
-    }
     useRouter.mockImplementation(() => ({
       query: {
-        keyword: ""
+        "keyword": undefined,
+        "filters": undefined
       },
     }));
   });
@@ -77,31 +65,55 @@ describe("results renders correctly without url params", () => {
 describe("results with url params", () => {
   let query;
   beforeEach(() => {
-    delete window.location;
-    window.location = {
-      search: "?keyword=test"
-    }
-
     useRouter.mockImplementation(() => ({
+      pathname: '/results',
       query: {
-        keyword: ""
+        keyword: "test",
+        filters: undefined,
       },
     }));
 
-    query = (new URLSearchParams(window.location.search).get("keyword") || "");
+    query = "test";
   });
 
   it("Items found renders correctly", () => {
-    const { getByText } = render(<Results />);
+    const { getByText, getAllByText } = render(<Results />);
     expect(getByText("Results for:")).toBeVisible();
-    expect(getByText(`"${query}"`));
-    expect(getByText("Found: 3"));
+    expect(getByText(`"${query}"`)).toBeVisible();
+    expect(getByText("Found: 3")).toBeVisible();
     searchIndex.forEach(file => {
       expect(getByText(file.title).closest("a")).toHaveAttribute("href", `/${file.id}`);
       expect(getByText(file.description)).toBeVisible();
       file.tags.forEach(tag => {
         expect(getByText(tag)).toBeVisible();
       })
+    });
+  });
+});
+
+describe("results with keyword and filter", () => {
+  let query;
+  beforeEach(() => {
+    useRouter.mockImplementation(() => ({
+      pathname: '/results',
+      query: {
+        keyword: "test",
+        filters: "test number one",
+      },
+    }));
+
+    query = "test";
+  });
+
+  it("Items found renders correctly with the given filter", () => {
+    const { getByText, getAllByText } = render(<Results />);
+    expect(getByText("Results for:")).toBeVisible();
+    expect(getByText(`"${query}"`)).toBeVisible();
+    expect(getByText("Found: 3")).toBeVisible();
+    getAllByText("test number one").forEach(elem => expect(elem).toBeVisible());
+    searchIndex.forEach(file => {
+      expect(getByText(file.title).closest("a")).toHaveAttribute("href", `/${file.id}`);
+      expect(getByText(file.description)).toBeVisible();
     });
   });
 });

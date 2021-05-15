@@ -6,12 +6,22 @@ import TopTagCard from "../components/TopTagCard/TopTagCard";
 import { topTags } from "../search/topTags-index";
 import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
-
+import AlertNotification from "../components/UI/AlertNotification";
 
 
 const Index = ({ recentContent, tags }) => {
 
-  const [favorites, setFavorites] = useState(process.browser?JSON.parse(localStorage.getItem("favorites")):undefined);
+  const [alerts, setAlerts] = useState([]);
+  const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")) : undefined);
+
+  const addAlert = (description) => {
+    let tempAlerts = alerts;
+    const newAlerts = [...tempAlerts, description];
+    setAlerts(newAlerts);
+
+  }
+
+
 
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites
@@ -23,6 +33,7 @@ const Index = ({ recentContent, tags }) => {
 
     if (action === "delete") {
       deleteKeyFromObject(filename);
+      addAlert("Bookmark removed succesfully!");
     } else if (action === "add") {
       let newFavorites = { ...favorites }
       newFavorites[filename] = {
@@ -31,6 +42,7 @@ const Index = ({ recentContent, tags }) => {
 
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      addAlert("Bookmark added succesfully!");
     }
   }
 
@@ -74,14 +86,18 @@ const Index = ({ recentContent, tags }) => {
         </ContentCards>
       </Container>
 
-    </div>
+      <div  style={{"position":"fixed", "bottom":"2%", "right":"2%"}}>
+          {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc}/>) : ""}
+      </div>
+
+    </div >
   )
 
 
 }
 
 export const getStaticProps = async () => {
-  
+
   const recentContent = searchIndex.sort((a, b) => {
     const dateA = new Date(a.created);
     const dateB = new Date(b.created);

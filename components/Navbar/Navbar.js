@@ -1,5 +1,5 @@
 import { Navbar, Container, Form } from 'react-bootstrap';
-import { useEffect, useState, memo } from 'react';
+import { useState } from 'react';
 import Link from "next/link";
 import Style from '../../styles/Navbar.module.css';
 import GenerateModal from '../UI/GenerateModal/GenerateModal';
@@ -12,7 +12,7 @@ import { useFuse } from '../useFuse/useFuse';
 
 const NavbarComponent = () => {
     const [show, setShow] = useState(false);
-    const [preferredLanguages, setPreferredLanguages] = useState(process.browser ? JSON.parse(localStorage.getItem("preferredLanguages")): {});
+    const [preferredLanguages, setPreferredLanguages] = useState(process.browser ? JSON.parse(localStorage.getItem("preferredLanguages")) : {});
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const { results, onSearch, query } = useFuse(languageIndex, {
@@ -75,9 +75,10 @@ const NavbarComponent = () => {
                         />
                     ))}
                 </Container>
-                <h6>Preferred code theme</h6>
+                <h6>Preferred Code Theme </h6>
                 <Container fluid className="mt-2">
                     <ToggleButton />
+
                 </Container>
 
             </GenerateModal>

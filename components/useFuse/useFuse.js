@@ -1,11 +1,11 @@
 // features/useFuse.js
 import Fuse from 'fuse.js';
-import { useCallback, useMemo, useState } from 'react';
-import { debounce } from 'throttle-debounce';
+import { useMemo, useState } from 'react';
+
 
 export const useFuse = (list, options, keyword="",filtersToApply={}) => {
     // defining our query state in there directly
-    const [query, updateQuery] = useState(keyword);
+    const [query, setQuery] = useState(keyword);
     const [filters, setFilters] = useState(filtersToApply);
     let filtersSelected = Object.keys(filters);
     // removing custom options from Fuse options object
@@ -37,11 +37,6 @@ export const useFuse = (list, options, keyword="",filtersToApply={}) => {
         [fuse, limit, matchAllOnEmptyQuery, query, filtersSelected]
     );
 
-    // debounce updateQuery and rename it `setQuery` so it's transparent
-    const setQuery = useCallback(
-        debounce(10, updateQuery),
-        []
-    );
 
     const onSelectFilter = (selected, label) => {
         if (selected) {
@@ -61,10 +56,7 @@ export const useFuse = (list, options, keyword="",filtersToApply={}) => {
     }
 
     // pass a handling helper to speed up implementation
-    const onSearch = useCallback(
-        (e) => setQuery(e.target.value),
-        [setQuery]
-    );
+    const onSearch =((e) => setQuery(e.target.value));
 
 
 
