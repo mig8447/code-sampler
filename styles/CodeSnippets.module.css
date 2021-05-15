@@ -3,6 +3,18 @@
   border: 0;
 }
 
+@media (max-width : 768px){
+  .iconButton > span {
+    font-size: 4vw !important;
+  }
+}
+
+@media (max-width : 576px){
+  .iconButton > span {
+    font-size: 6vw !important;
+  }
+}
+
 .iconGroup {
     position: absolute;
     right: 10%;
