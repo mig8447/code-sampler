@@ -9,6 +9,7 @@ import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
 import Tags from '../components/UI/Tags';
 import { Container, Row, Col } from "react-bootstrap";
 import AlertNotification from '../components/UI/AlertNotification';
+import classes from '../styles/CodeSample.module.css';
 
 const Post = ({ metaData, content, filename }) => {
     const [theme, setTheme] = useState();
@@ -62,19 +63,19 @@ const Post = ({ metaData, content, filename }) => {
         .use(remark2react, {
             remarkReactComponents: {
                 code: props => {
-                    return <CodeSnippets {...props} theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} />
+                    return <CodeSnippets {...props} theme={theme} toggleTheme={toggleTheme} labels={labels} selected={selected} setSelected={setSelected} addAlert={addAlert} />
                 },
                 h1: props => (
                     <>
                         <Container fluid>
                             <Row>
-                                <Col>
-                                    <h1 className="ml-0">{props.children}</h1>
+                                <Col xs={9} sm={10} md={8} >
+                                    <h1 className={classes.sampleTitle}>{props.children}</h1>
                                     <Tags tags={metaData.tags} />
                                 </Col>
-                                <Col className="d-flex justify-content-end">
+                                <Col className="d-flex justify-content-end" xs={3} sm={2} md={4}>
                                     <button onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
-                                        <span className={icon} aria-hidden="true"></span>
+                                        <span className={[icon, classes.iconButton].join(" ")} aria-hidden="true"></span>
                                     </button>
 
                                 </Col>
@@ -100,7 +101,7 @@ const Post = ({ metaData, content, filename }) => {
             <div style={{ width: "80%", margin: "auto" }} className="text-light">
                 {markDownContent}
             </div>
-            <div style={{ "position": "fixed", "bottom": "2%", "right": "2%" }}>
+            <div style={{ "position": "fixed", "top": "2%", "right": "2%" }}>
                 {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
             </div>
 
