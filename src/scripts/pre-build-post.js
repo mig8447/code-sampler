@@ -45,16 +45,17 @@ function getTopTags(tags){
 
 
 function saveParsedFiles(){
-    const files = fs.readdirSync(path.join( "posts"));
+    const srcPath = path.join(__dirname,"..");
+    const files = fs.readdirSync(path.join(srcPath, "posts"));
     let languages;
     let filesMetadata = []
     let tags = {};
-    if(!fs.existsSync(path.join("parsedMd"))){
-        fs.mkdirSync(path.join("parsedMd"));
+    if(!fs.existsSync(path.join(srcPath,"parsedMd"))){
+        fs.mkdirSync(path.join(srcPath,"parsedMd"));
     }
     files.forEach((filename, i) => {
         const id = filename.replace(/\.md$/, '')
-        let file = fs.readFileSync(path.join( 'posts', filename)).toString();
+        let file = fs.readFileSync(path.join( srcPath, "posts", filename)).toString();
         fileMetaData = matter(file).data;
         let matterResult = {
             id,
@@ -86,16 +87,16 @@ function saveParsedFiles(){
             return transformedTree;
         })
         .processSync(file).toString();
-        fs.writeFileSync(path.join("parsedMd", filename), `${postTransform}`)
+        fs.writeFileSync(path.join(srcPath,"parsedMd", filename), `${postTransform}`)
     });
 
-   if(!fs.existsSync(path.join("search"))){
-       fs.mkdirSync(path.join("search"));
+   if(!fs.existsSync(path.join(srcPath,"search"))){
+       fs.mkdirSync(path.join(srcPath,"search"));
    }
-    fs.writeFileSync(path.join("search", "tags-index.js"), `export const tagsIndex = ${JSON.stringify(tags)}`);
-    fs.writeFileSync(path.join("search", "topTags-index.js"), `export const topTags = ${JSON.stringify(getTopTags(tags))}`)
-    fs.writeFileSync(path.join("search","language-index.js"), languageArrayToIndexFormat(languages));
-    fs.writeFileSync(path.join("search","search-index.js"), `export const searchIndex = ${JSON.stringify(filesMetadata)}`);
+    fs.writeFileSync(path.join(srcPath, "search", "tags-index.js"), `export const tagsIndex = ${JSON.stringify(tags)}`);
+    fs.writeFileSync(path.join(srcPath, "search", "topTags-index.js"), `export const topTags = ${JSON.stringify(getTopTags(tags))}`)
+    fs.writeFileSync(path.join(srcPath, "search","language-index.js"), languageArrayToIndexFormat(languages));
+    fs.writeFileSync(path.join(srcPath, "search","search-index.js"), `export const searchIndex = ${JSON.stringify(filesMetadata)}`);
 
 
 }

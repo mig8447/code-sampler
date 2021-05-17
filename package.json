@@ -4,14 +4,14 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "node scripts/pre-build-post.js && next dev",
+    "dev": "node src/scripts/pre-build-post.js && next dev",
     "build": "next build",
     "export": "next export",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build-indexes": "node scripts/pre-build-post.js"
+    "build-indexes": "node src/scripts/pre-build-post.js"
   },
   "husky": {
     "hooks": {
