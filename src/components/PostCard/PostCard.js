@@ -8,6 +8,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
 
     const icon = favorite  ? "fa fa-bookmark fa-sm fa-2x text-warning" : "fa fa-bookmark-o fa-sm fa-2x"
     const action = favorite ? "delete" : "add";
+    const isFavorite = favorite ? "Favorite bookmark" : "Bookmark";
 
     return (
 
@@ -15,13 +16,14 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
             <Card.Body>
                 <Card.Title className={"text-capitalize"}>
                     <Row>
+
                         <Col>
                             <Link href={`/${filename}`}>
                                 {title}
                             </Link>
                         </Col>
                         <Col className={["d-flex", "justify-content-end"].join(" ")}>
-                            <button onClick={() => onClickFavorite(action, filename, {title, description, tags})} style={{backgroundColor:"transparent"}} className="border-0" >
+                            <button aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, {title, description, tags})} style={{backgroundColor:"transparent"}} className="border-0" >
                                 <span className={icon} aria-hidden="true"></span>
                             </button>
                             

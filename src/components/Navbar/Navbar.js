@@ -42,29 +42,29 @@ const NavbarComponent = () => {
 
 
     return (
-        <>
-            <Navbar className={Style.navbarColor}>
-
-                <Navbar.Brand className={"text-white ml-3 btn"}>
-                    <Link href={"/"} >
+        <div aria-label="Code Sampler Navbar">
+            <Navbar aria-label="Bar Menu" role="menubar" className={Style.navbarColor} >
+                
+                <Navbar.Brand className={"text-white ml-3 btn"}  role="none">
+                    <a role="button" aria-label="Code Sampler" tabIndex="0" aria-haspopup="false" href={"/"} >
                         <h6 className={"mb-1"}>Code Sampler</h6>
-                    </Link>
+                    </a>
                 </Navbar.Brand>
 
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end ">
                     <div className={Style.iconContainer}>
-                        <Link href={"/favorites"} >
-                            <span className="fa fa-bookmark-o fa-lg " aria-hidden="true"></span>
-                        </Link>
+                        <a role="menuitem" aria-label="favorites" aria-haspopup="false" href={"/favorites"} >
+                            <span className="fa fa-bookmark-o fa-lg" aria-hidden="true"></span>
+                        </a>
                     </div>
                     <div className={Style.iconContainer}>
-                        <button onClick={handleShow} style={{ background: "none", border: "none" }} className=" fa fa-gear fa-lg text-light" aria-hidden="true"></button>
+                        <button role="menuitem" aria-label="settings" aria-haspopup="false" onClick={handleShow} style={{ background: "none", border: "none" }} area-hidden="true" className=" fa fa-gear fa-lg text-light" ></button>
                     </div>
                 </Navbar.Collapse>
             </Navbar>
-            <GenerateModal show={show} handleClose={handleClose} title={"Settings"} >
-                <h6>Preferred languages</h6>
+            <GenerateModal show={show} handleClose={handleClose} title={"Settings"} aria-label="Settings modal" aria-modal="true" role="dialog" >
+                    <h6>Preferred languages</h6>
                 <LanguageFilter query={query} setQuery={onSearch} />
                 <Container fluid className={["mt-2", Style.selectLanguages, "scroll"].join(" ")}>
                     {results.map(lang => (
@@ -82,7 +82,7 @@ const NavbarComponent = () => {
                 </Container>
 
             </GenerateModal>
-        </>
+        </div>
     )
 }
 

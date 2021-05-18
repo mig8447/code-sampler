@@ -12,7 +12,7 @@ const SelectBadges = ({ label, selected, onClickHandler }) => {
     return (
         <Button onClick={() => onClickHandler(selected, label)} variant={variant} className={[style, "mr-1 mb-1"].join(" ")}>
             <span className="text-capitalize">{label}</span>
-            <Badge variant={variant}  >
+            <Badge variant={variant}>
                 <span aria-hidden="true" className={icon}></span>
             </Badge>
         </Button>
