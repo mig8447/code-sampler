@@ -8,9 +8,10 @@ const ItemResult = ({ title, description, tags, version, favorite, onClickFavori
 
     const icon = favorite ? "fa fa-bookmark fa-sm fa-2x text-warning" : "fa fa-bookmark-o fa-sm fa-2x"
     const action = favorite ? "delete" : "add";
+    const isFavorite = favorite ? "favorite bookmark selected" : "favorite bookmark";
     return (
         <ListGroup.Item className={[Style.bgCardColor, Style.borderGrey].join(" ")}>
-            <button onClick={() => onClickFavorite(action, filename, { title, description, tags })} style={{ backgroundColor: "transparent" }} className="border-0 text-white float-right" >
+            <button aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, { title, description, tags })} style={{ backgroundColor: "transparent" }} className="border-0 text-white float-right" >
                 <span className={[" fa-sm fa-2x", icon].join(" ")} aria-hidden="true"></span>
             </button>
 
