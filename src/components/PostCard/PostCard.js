@@ -8,7 +8,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
 
     const icon = favorite  ? "fa fa-bookmark fa-sm fa-2x text-warning" : "fa fa-bookmark-o fa-sm fa-2x"
     const action = favorite ? "delete" : "add";
-    const isFavorite = favorite ? "Favorite bookmark" : "Bookmark";
+    const isFavorite = favorite ? "favorite bookmark selected" : "favorite bookmark";
 
     return (
 
