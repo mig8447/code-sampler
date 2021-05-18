@@ -105,7 +105,7 @@ const favorites = ({ }) => {
 
             </Container>
             
-            <div style={{ "position": "fixed", "top": "2%", "left": "2%" }}>
+            <div style={{ "position": "fixed", "top": "4rem", "right": "2rem" }}>
                 {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
             </div>
 

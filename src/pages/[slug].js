@@ -102,7 +102,7 @@ const Post = ({ metaData, content, filename }) => {
             <div style={{ width: "80%", margin: "auto" }} className="text-light">
                 {markDownContent}
             </div>
-            <div style={{ "position": "fixed", "top": "2%", "right": "2%" }}>
+            <div style={{ "position": "fixed", "top": "4rem", "right": "2rem" }}>
                 {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
             </div>
 
