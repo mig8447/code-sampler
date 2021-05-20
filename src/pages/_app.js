@@ -4,6 +4,7 @@ import '../styles/styles.css';
 import Head from 'next/head';
 import Navbar from '../components/Navbar/Navbar';
 import Searchbar from '../components/Searchbar/Searchbar';
+import Footer from '../components/Footer/Footer';
 
 export default function App({ Component, pageProps }) {
     return (
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }) {
             <Navbar />
             <Searchbar />
             <Component {...pageProps} />
+            <Footer />
         </>
     )
 }
