@@ -21,6 +21,7 @@ const Post = ({ metaData, content, filename }) => {
     const [favorites, setFavorites] = useState({});
     const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
     const action = favorites && favorites[filename] ? "delete" : "add";
+    const isFavorite = favorites ? "favorite bookmark selected" : "favorite bookmark";
 
     useEffect(() => {
         setTheme(localStorage.getItem("theme") || "a11yLight");
@@ -74,7 +75,7 @@ const Post = ({ metaData, content, filename }) => {
                                     <Tags tags={metaData.tags} />
                                 </Col>
                                 <Col className="d-flex justify-content-end" xs={3} sm={2} md={4}>
-                                    <button onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
+                                    <button aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
                                         <span className={[icon, classes.iconButton].join(" ")} aria-hidden="true"></span>
                                     </button>
 

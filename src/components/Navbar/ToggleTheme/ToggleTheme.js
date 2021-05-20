@@ -32,11 +32,11 @@ const ToggleTheme = ({ }) => {
         <div>
             <div>
                 <span className="mr-2">Light mode</span>
-                <Button variant="" className={["rounded-0", styleLight].join(" ")} onClick={() => onClickHandler("a11yLight")}>
+                <Button aria-label="Light Mode" variant="" className={["rounded-0", styleLight].join(" ")} onClick={() => onClickHandler("a11yLight")}>
                     <span className="fa fa-sun-o" aria-hidden="true"></span>
 
                 </Button>
-                <Button variant="" className={["rounded-0", styleDark].join(" ")} onClick={() => onClickHandler("a11yDark")}>
+                <Button aria-label="Dark Mode" variant="" className={["rounded-0", styleDark].join(" ")} onClick={() => onClickHandler("a11yDark")}>
                     <span className="fa fa-moon-o" aria-hidden="true"></span>
                 </Button>
                 <span className="ml-2">Dark mode</span>

@@ -10,6 +10,7 @@ const LanguageFilter = ({ query, setQuery }) => (
                 aria-label="Search"
                 value={query}
                 onChange={setQuery}
+                role="textbox"
             />
             <InputGroup.Append>
                 <InputGroup.Text className={"bg-white border-0"}>

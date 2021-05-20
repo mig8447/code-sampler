@@ -80,11 +80,12 @@ const SearchBarComponent = () => {
                         type="text"
                         value={query}
                         onChange={onSearch}
+                        role="textbox"
                     />
 
                     <InputGroup.Append>
-                        <InputGroup.Text className={["bg-white border-0 rounded-right", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}>
-                            <span className="fa fa-search fa-sm" aria-hidden="true" onClick={clickSearchHandler} style={{"cursor":"pointer"}}></span>
+                        <InputGroup.Text aria-label="Search action" role="button" tabIndex="0"  className={["bg-white border-0 rounded-right", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}>
+                            <span  className="fa fa-search fa-sm"  onClick={clickSearchHandler} style={{"cursor":"pointer"}}></span>
                         </InputGroup.Text>
                     </InputGroup.Append>
                     {/*Custom Drop down for displaying search results*/}
@@ -92,18 +93,19 @@ const SearchBarComponent = () => {
 
                 </InputGroup>
                 {/*React Drop down for displaying tags*/}
-                <Dropdown
+                <Dropdown  
                     onToggle={(isClose) => isClose ? setFilterActive(true) : setFilterActive(false)}
                     show={filterActive}
                 >
-                    <Dropdown.Toggle style={{ backgroundColor: "transparent", boxShadow: "none" }} className={"border-0"}>
-                        <span className="fa fa-filter fa-lg text-light" aria-hidden="true"></span>
+                    <Dropdown.Toggle aria-label="Search filter" role="button" tabIndex="0"  aria-expanded={(isClose) => isClose ? "true" : "false"} style={{ backgroundColor: "transparent"}} className={"border-0"}>
+                        <span  className="fa fa-filter fa-lg text-light" ></span>
                     </Dropdown.Toggle>
-                    <Dropdown.Menu className={[Style.filterDropDown, "scroll"].join(" ")}>
+                    <Dropdown.Menu role="menu" className={[Style.filterDropDown, "scroll"].join(" ")}>
                         {Object.keys(tagsIndex).map(tag => (
-                            <Dropdown.Item key={tag} className={"bg-white"} onSelect={() => (setFilterActive(true))} >
-                                <SelectBadges label={tag} onClickHandler={onSelectFilter} selected={filters[tag]} />
+                            <Dropdown.Item role="menuitem" key={tag} className={"bg-white"} onSelect={() => (setFilterActive(true))} onClick={() => onSelectFilter(filters[tag], tag)}>
+                                 <SelectBadges  label={tag} onClickHandler={onSelectFilter} selected={filters[tag]} />
                             </Dropdown.Item>
+                            
                         ))}
 
                     </Dropdown.Menu>

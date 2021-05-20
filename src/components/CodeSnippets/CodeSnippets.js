@@ -35,7 +35,7 @@ const CodeSnippets = (props) => {
 
                             <Tab isSelected={selected === code.label} key={code.label}>
                                 <div className={classes.iconGroup}>
-                                    <button className={classes.iconButton} onClick={toggleTheme}>
+                                    <button aria-label="toggle theme" tabIndex="0" className={classes.iconButton} onClick={toggleTheme}>
                                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Change code theme</Tooltip>}>
                                             <span className={["fa fa-sun-o fa-lg ", theme === "a11yDark" ? "text-light" : "text-dark"].join(" ")} aria-hidden="true">
                                             </span>
@@ -44,8 +44,11 @@ const CodeSnippets = (props) => {
 
                                     <Clipboard className={classes.iconButton} data-clipboard-text={code.value} onClick={() => {addAlert("Copied to clipboard")}}>
                                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`tooltip-copy`}>Copy example code</Tooltip>}>
-                                            <span className={["fa fa-copy fa-lg ", theme === "a11yDark" ? "text-light" : "text-dark"].join(" ")} aria-hidden="true">
-                                            </span>
+                                            <div aria-label="copy to clipboard" tabIndex="0">
+                                                <span className={["fa fa-copy fa-lg ", theme === "a11yDark" ? "text-light" : "text-dark"].join(" ")} aria-hidden="true">
+                                                </span>
+                                            </div>
+
                                         </OverlayTrigger>
                                     </Clipboard>
 

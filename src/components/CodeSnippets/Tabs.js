@@ -1,28 +1,34 @@
 import PropTypes from 'prop-types';
 import style from '../../styles/Tabs.module.css';
 
-const Tabs = ({ children, labels, selected, setSelected}) => {
-    
+const Tabs = ({ children, labels, selected, setSelected }) => {
+
     return (
         <div>
-            <ul className={style.tabsMenu}>
+            <ul className={style.tabsMenu} role="list">
                 {
                     labels.map(tab => {
                         const active = (tab === selected ? style.active : '');
 
                         return (
-                            <li key={ tab } onClick={() => setSelected(tab)} className = {`${style.tabsLabel} ${active}`}>
-                                <a style={{fontSize:"1rem"}}>
-                                    { tab }
-                                </a>
+
+                            <li role="listitem"
+                                key={tab}
+                                onClick={() => setSelected(tab)} className={`${style.tabsLabel} ${active}`}>
+                                <button onClick={() => setSelected(tab)} tabIndex="0" role="button" style={{ "background-color": "transparent", "border": "0", "padding": "0" }}>
+                                    <a style={{ fontSize: "1rem" }}>
+                                        {tab}
+                                    </a>
+                                </button>
+
                             </li>
                         );
 
                     })
                 }
             </ul>
-            { children}
-        </div>
+            { children }
+        </div >
     )
 
 }

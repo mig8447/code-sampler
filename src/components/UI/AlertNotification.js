@@ -21,7 +21,7 @@ const AlertNotification = ({ description }) => {
              <Toast  onClose={closeAlert} show={closed} animation={true}>
                 <Toast.Header>
                     <strong className="mr-auto">Notification</strong>
-                    <small>A moment ago</small>
+                    <small>Just now</small>
                 </Toast.Header>
                 <Toast.Body>{description}</Toast.Body>
             </Toast> 
