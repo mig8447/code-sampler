@@ -89,11 +89,19 @@ const favorites = ({ }) => {
 
 
 
-                {totalPages && totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
+                {totalPages ? <Row className={"d-flex justify-content-center "}>
                     <Pagination >
-                        <Pagination.Prev onClick={() => pageHandler(-1)} />
+                        {currentPage === 0
+                            ? <Pagination.Prev disabled onClick={() => pageHandler(-1)} />
+                            : <Pagination.Prev onClick={() => pageHandler(-1)} />
+                        }
+                        
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
-                        <Pagination.Next onClick={() => pageHandler(1)} />
+                        
+                        {totalPages === (currentPage + 1)
+                            ? <Pagination.Next disabled onClick={() => pageHandler(1)} />
+                            : <Pagination.Next onClick={() => pageHandler(1)} />
+                        }
                     </Pagination>
                 </Row> : ""}
 
