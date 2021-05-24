@@ -46,17 +46,21 @@ const NavbarComponent = () => {
             <Navbar aria-label="Bar Menu" role="menubar" className={Style.navbarColor} >
                 
                 <Navbar.Brand className={"text-white ml-3 btn"}  role="none">
-                    <a role="menuitem" aria-label="Code Sampler" tabIndex="0" aria-haspopup="false" href={"/"} >
-                        <h6 className={"mb-1"}>Code Sampler</h6>
+                    <a role="menuitem" aria-label="Code Sampler" tabIndex="0" aria-haspopup="false" >
+                        <Link href={"/"}>
+                            <h6 className={"mb-1"}>Code Sampler</h6>
+                        </Link>
                     </a>
                 </Navbar.Brand>
 
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end ">
                     <div className={Style.iconContainer}>
-                        <a role="menuitem" aria-label="favorites" aria-haspopup="false" href={"/favorites"} >
-                            <span className="fa fa-bookmark-o fa-lg" aria-hidden="true"></span>
-                        </a>
+                            <Link href={"/favorites"}>
+                                <a role="menuitem" aria-label="favorites" aria-haspopup="false" >
+                                    <span className="fa fa-bookmark-o fa-lg" aria-hidden="true"></span>
+                                </a>
+                            </Link>
                     </div>
                     <div className={Style.iconContainer}>
                         <button role="menuitem" aria-label="settings" aria-haspopup="false" onClick={handleShow} style={{ background: "none", border: "none" }} area-hidden="true" className=" fa fa-gear fa-lg text-light" ></button>
