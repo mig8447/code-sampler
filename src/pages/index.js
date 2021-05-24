@@ -12,7 +12,7 @@ import AlertNotification from "../components/UI/AlertNotification";
 const Index = ({ recentContent, tags }) => {
 
   const [alerts, setAlerts] = useState([]);
-  const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")) : undefined);
+  const [favorites, setFavorites] = useState();
 
   const addAlert = (description) => {
     let tempAlerts = alerts;
@@ -21,7 +21,9 @@ const Index = ({ recentContent, tags }) => {
 
   }
 
-
+  useEffect(() => {
+    setFavorites(JSON.parse(localStorage.getItem("favorites")));
+  }, []);
 
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites

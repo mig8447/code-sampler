@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import fs from "fs";
 import path from "path";
 import matter, { language } from "gray-matter";
@@ -14,11 +14,11 @@ import classes from '../styles/CodeSample.module.css';
 const Post = ({ metaData, content, filename }) => {
     const [theme, setTheme] = useState(getInitialTheme);
     const labels = metaData.labels;
-    const [selected, setSelected] = useState(process.browser ? getPreferredLanguage(): labels[0]);
+    const [selected, setSelected] = useState(labels[0]);
     const toggleTheme = () => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
-    const [favorites, setFavorites] = useState(getInitialFavorites());
+    const [favorites, setFavorites] = useState();
     const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
     const action = favorites && favorites[filename] ? "delete" : "add";
     const isFavorite = favorites ? "favorite bookmark selected" : "favorite bookmark";
@@ -44,7 +44,6 @@ const Post = ({ metaData, content, filename }) => {
         languages = Object.keys(JSON.parse(localStorage.getItem("preferredLanguages") || "{}"));
         for(let i = 0; i< languages.length; i++){
             for(let j = 0; j< metaData.labels.length; j++){
-                console.log(metaData.labels[j] , languages[i], metaData.labels[j].toLowerCase().includes(languages[i].toLowerCase()))
                 if(metaData.labels[j].toLowerCase().includes(languages[i].toLowerCase())){
                     return metaData.labels[j];
                 }
@@ -86,6 +85,16 @@ const Post = ({ metaData, content, filename }) => {
         }
     }
 
+    useEffect(() => {
+        const preferredLanguage = getPreferredLanguage();
+        if(selected !== preferredLanguage){
+            setSelected(preferredLanguage);
+        }
+        if(!favorites){
+            setFavorites(getInitialFavorites());
+        }
+    }, []);
+
     const markDownContent = remark()
         .use(remark2react, {
             remarkReactComponents: {
@@ -101,7 +110,7 @@ const Post = ({ metaData, content, filename }) => {
                                     <Tags tags={metaData.tags} />
                                 </Col>
                                 <Col className="d-flex justify-content-end" xs={3} sm={2} md={4}>
-                                    <button aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
+                                    <button data-bookmark aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
                                         <span className={[icon, classes.iconButton].join(" ")} aria-hidden="true"></span>
                                     </button>
 
