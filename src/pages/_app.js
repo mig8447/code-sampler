@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline' 'self';" />
+                {/* <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'unsafe-inline' 'self';" /> */}
             </Head>
             <Navbar />
             <Searchbar />

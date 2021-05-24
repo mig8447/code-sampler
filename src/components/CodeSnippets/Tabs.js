@@ -15,7 +15,7 @@ const Tabs = ({ children, labels, selected, setSelected }) => {
                             <li role="listitem"
                                 key={tab}
                                 onClick={() => setSelected(tab)} className={`${style.tabsLabel} ${active}`}>
-                                <button onClick={() => setSelected(tab)} tabIndex="0" role="button" style={{ "background-color": "transparent", "border": "0", "padding": "0" }}>
+                                <button onClick={() => setSelected(tab)} tabIndex="0" role="button" style={{ "backgroundColor": "transparent", "border": "0", "padding": "0" }}>
                                     <a style={{ fontSize: "1rem" }}>
                                         {tab}
                                     </a>
