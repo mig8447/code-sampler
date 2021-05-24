@@ -50,6 +50,7 @@ function getLabel(language, metaData) {
 }
 
 let languages = {};
+let localLanguages ={};
 let labels = {};
 let matter;
 const transform = (node) => {
@@ -88,6 +89,9 @@ const transform = (node) => {
             if(!labels[label]){
                 labels[label] = true;
             }
+            if(!localLanguages[temp.lang]){
+                localLanguages[temp.lang] = true;
+            }
             tmpSampleNode.object.items.push(temp);
             previousChildrenIsCode = true;
             if (numberChildren - 1 === i) {
@@ -111,6 +115,7 @@ const transform = (node) => {
 module.exports = function attacher(options) {
     
     labels = {};
+    localLanguages = {};
     return function transformer(tree, vfile) {
         visit(tree, "root", (node) => {
             let transformed = [];
@@ -119,7 +124,9 @@ module.exports = function attacher(options) {
             return node;
         });
         let labelsArray = Object.keys(labels);
+        let localLanguagesArray = Object.keys(localLanguages);
         matter.value += `\nlabels: [${labelsArray}]`;
+        matter.value += `\nlanguages: [${localLanguagesArray}]`;
         let languagesArray = Object.keys(languages);
         return [tree, languagesArray];
     };
