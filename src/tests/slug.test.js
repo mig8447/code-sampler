@@ -5,7 +5,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 
-const markdownWithMetadata = fs.readFileSync(path.join(__dirname,"mock","parsedMd", "testsample1.md")).toString();
+const markdownWithMetadata = fs.readFileSync(path.join(__dirname,"mock","parsedMockMd", "testsample1.md")).toString();
     const parsedMarkdown = matter(markdownWithMetadata);
     const metaData = {
         title: parsedMarkdown.data.title,
