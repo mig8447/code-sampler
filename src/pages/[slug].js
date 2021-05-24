@@ -13,8 +13,8 @@ import classes from '../styles/CodeSample.module.css';
 
 const Post = ({ metaData, content, filename }) => {
     const [theme, setTheme] = useState(getInitialTheme);
-    let labels = metaData.labels;
-    const [selected, setSelected] = useState(getPreferredLanguage());
+    const labels = metaData.labels;
+    const [selected, setSelected] = useState(process.browser ? getPreferredLanguage(): labels[0]);
     const toggleTheme = () => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
@@ -41,9 +41,7 @@ const Post = ({ metaData, content, filename }) => {
 
     function getPreferredLanguage(){
         let languages = [];
-        if(process.browser){
-            languages = Object.keys(JSON.parse(localStorage.getItem("preferredLanguages") || "{}"));
-        }
+        languages = Object.keys(JSON.parse(localStorage.getItem("preferredLanguages") || "{}"));
         for(let i = 0; i< languages.length; i++){
             for(let j = 0; j< metaData.labels.length; j++){
                 console.log(metaData.labels[j] , languages[i], metaData.labels[j].toLowerCase().includes(languages[i].toLowerCase()))
