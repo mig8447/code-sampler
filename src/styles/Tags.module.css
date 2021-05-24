@@ -10,11 +10,6 @@
     width: 100%;
 }
 
-.tags > * + * {
-    margin-left: 2%;
-}
-
-
 @media (max-width : 768px){
     .tags {
         width: 70%

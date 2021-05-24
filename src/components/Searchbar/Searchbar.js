@@ -97,10 +97,14 @@ const SearchBarComponent = () => {
                     onToggle={(isClose) => isClose ? setFilterActive(true) : setFilterActive(false)}
                     show={filterActive}
                 >
-                    <Dropdown.Toggle aria-label="Search filter" role="button" tabIndex="0"  aria-expanded={(isClose) => isClose ? "true" : "false"} style={{ backgroundColor: "transparent"}} className={"border-0"}>
-                        <span  className="fa fa-filter fa-lg text-light" ></span>
+                    <Dropdown.Toggle style={{ backgroundColor: "transparent", boxShadow: "none" }} className={"border-0"}>
+                        {
+                        filtersSelected && filtersSelected.length > 0
+                            ? <span className="fa fa-filter fa-lg fam-blank fam-is-success" aria-hidden="true"></span>
+                            : <span className="fa fa-filter fa-lg text-light" aria-hidden="true"></span>
+                        }
                     </Dropdown.Toggle>
-                    <Dropdown.Menu role="menu" className={[Style.filterDropDown, "scroll"].join(" ")}>
+                    <Dropdown.Menu align={{ lg: "left" }} className={[Style.filterDropDown, "scroll"].join(" ")}>
                         {Object.keys(tagsIndex).map(tag => (
                             <Dropdown.Item role="menuitem" key={tag} className={"bg-white"} onSelect={() => (setFilterActive(true))} onClick={() => onSelectFilter(filters[tag], tag)}>
                                  <SelectBadges  label={tag} onClickHandler={onSelectFilter} selected={filters[tag]} />

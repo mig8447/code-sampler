@@ -15,8 +15,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
         <Card style={{ backgroundColor: "#dae2ef", flexBasis: "30%" }} >
             <Card.Body>
                 <Card.Title className={"text-capitalize"}>
-                    <Row>
-
+                    <Row className={"align-items-center"}>
                         <Col>
                             <Link href={`/${filename}`}>
                                 {title}
