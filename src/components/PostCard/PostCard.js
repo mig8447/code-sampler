@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const PostCard = ({ title, description, tags, filename, favorite, onClickFavorite }) => {
 
-    const icon = favorite  ? "fa fa-bookmark fa-sm fa-2x text-warning" : "fa fa-bookmark-o fa-sm fa-2x"
+    const icon = favorite  ? "fa fa-bookmark fa-sm fa-2x" : "fa fa-bookmark-o fa-sm fa-2x"
     const action = favorite ? "delete" : "add";
     const isFavorite = favorite ? "favorite bookmark selected" : "favorite bookmark";
 
@@ -21,7 +21,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
                                 {title}
                             </Link>
                         </Col>
-                        <Col className={["d-flex", "justify-content-end"].join(" ")}>
+                        <Col xs="auto" className={["d-flex", "justify-content-end"].join(" ")}>
                             <button aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, {title, description, tags})} style={{backgroundColor:"transparent"}} className="border-0" >
                                 <span className={icon} aria-hidden="true"></span>
                             </button>

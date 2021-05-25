@@ -19,7 +19,7 @@ const Post = ({ metaData, content, filename }) => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
     const [favorites, setFavorites] = useState();
-    const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
+    const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-light" : "fa fa-bookmark-o fa-lg fa-2x text-light";
     const action = favorites && favorites[filename] ? "delete" : "add";
     const isFavorite = favorites ? "favorite bookmark selected" : "favorite bookmark";
 

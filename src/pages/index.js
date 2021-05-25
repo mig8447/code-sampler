@@ -55,9 +55,9 @@ const Index = ({ recentContent, tags }) => {
         <title>Code Sampler</title>
 
       </Head>
-      <Container fluid className="mt-3 mb-3">
+      <Container fluid className="mt-3">
         <h2>Recent content</h2>
-        <ContentCards className="{mt-5}">
+        <ContentCards>
           {recentContent.map(metaData => (
             <PostCard
               key={metaData.id}

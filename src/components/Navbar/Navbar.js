@@ -45,7 +45,7 @@ const NavbarComponent = () => {
         <div aria-label="Code Sampler Navbar">
             <Navbar aria-label="Bar Menu" role="menubar" className={Style.navbarColor} >
                 
-                <Navbar.Brand className={"text-white ml-3 btn"}  role="none">
+                <Navbar.Brand className={"text-white btn"}  role="none">
                     <a role="menuitem" aria-label="Code Sampler" tabIndex="0" aria-haspopup="false" >
                         <Link href={"/"}>
                             <h6 className={"mb-1"}>Code Sampler</h6>
