@@ -15,7 +15,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
         <Card style={{ backgroundColor: "#dae2ef", flexBasis: "30%" }} >
             <Card.Body>
                 <Card.Title className={"text-capitalize"}>
-                    <Row className={"align-items-center"}>
+                    <Row>
                         <Col>
                             <Link href={`/${filename}`}>
                                 {title}
@@ -23,7 +23,7 @@ const PostCard = ({ title, description, tags, filename, favorite, onClickFavorit
                         </Col>
                         <Col xs="auto" className={["d-flex", "justify-content-end"].join(" ")}>
                             <button aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, {title, description, tags})} style={{backgroundColor:"transparent"}} className="border-0" >
-                                <span className={icon} aria-hidden="true"></span>
+                                <span className={icon} style={{ color: "#2b6242"}} aria-hidden="true"></span>
                             </button>
                             
                         </Col>

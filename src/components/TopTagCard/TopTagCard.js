@@ -10,7 +10,7 @@ const TopCategoryCard = ({ categoryName, posts, countPosts }) => (
                     <Col>
                         <p className="text-capitalize mb-0">{categoryName}</p>
                     </Col>
-                    <Col className="d-flex justify-content-end">
+                    <Col xs="auto" className="d-flex justify-content-end">
                         <Badge variant="light">{countPosts}</Badge>
                     </Col>
                 </Row>

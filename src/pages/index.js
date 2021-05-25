@@ -35,7 +35,7 @@ const Index = ({ recentContent, tags }) => {
 
     if (action === "delete") {
       deleteKeyFromObject(filename);
-      addAlert("Bookmark removed succesfully!");
+      addAlert("Bookmark removed successfully!");
     } else if (action === "add") {
       let newFavorites = { ...favorites }
       newFavorites[filename] = {
@@ -44,7 +44,7 @@ const Index = ({ recentContent, tags }) => {
 
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
-      addAlert("Bookmark added succesfully!");
+      addAlert("Bookmark added successfully!");
     }
   }
 

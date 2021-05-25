@@ -36,7 +36,7 @@ const favorites = ({ }) => {
             const len = Math.ceil((Object.keys(favorites).length) / cardsPerPage);
             setTotalPages(len - 1);
             (currentPage === len - 1) && pageHandler(-1);
-            addAlert("Bookmark removed succesfully!");
+            addAlert("Bookmark removed successfully!");
 
         } else if (action === "add") {
             let newFavorites = { ...favorites }
@@ -45,7 +45,7 @@ const favorites = ({ }) => {
             };
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
-            addAlert("Bookmark added succesfully!");
+            addAlert("Bookmark added successfully!");
         }
     }
 

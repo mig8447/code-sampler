@@ -21,4 +21,8 @@
     .recentCards > * + *{
         margin: 13px 0 0 0;
     }
+
+    .recentCards > div {
+        margin-right: 0;
+    }
 }

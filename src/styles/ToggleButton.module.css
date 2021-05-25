@@ -8,3 +8,21 @@
     background-color: var(--code-sample-badge-hover-color);
 }
 
+.btnOutlined {
+    border-color: var(--code-sample-search-bar-bg-color);
+}
+
+.btnOutlined:hover {
+    color: white !important;
+    background-color: var(--code-sample-badge-hover-color) !important;
+}
+
+.lightModeButton {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.darkModeButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

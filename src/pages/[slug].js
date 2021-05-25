@@ -72,7 +72,7 @@ const Post = ({ metaData, content, filename }) => {
     const onClickFavorite = (action, filename, metadata) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);
-            addAlert("Bookmark removed succesfully!");
+            addAlert("Bookmark removed successfully!");
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -81,7 +81,7 @@ const Post = ({ metaData, content, filename }) => {
 
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
-            addAlert("Bookmark added succesfully!");
+            addAlert("Bookmark added successfully!");
         }
     }
 
