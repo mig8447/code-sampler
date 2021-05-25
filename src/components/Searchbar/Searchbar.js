@@ -46,13 +46,14 @@ const SearchBarComponent = () => {
     const onEnterClick = (event) => {
         if (event.key === 'Enter' && query) {
             pushSearchHandler();
+            setActive(false)
           }
     }
     const clickSearchHandler = () => {
         if (query){
             pushSearchHandler();
+            setActive(false)
         }
-        
     }
 
     const pushSearchHandler = () => {
@@ -61,7 +62,6 @@ const SearchBarComponent = () => {
             pathname: '/results',
             query: { keyword: query, filters:filtersSelected },
         });
-        setQuery("");
     }
 
     return (
@@ -71,7 +71,7 @@ const SearchBarComponent = () => {
                 <InputGroup
                     ref={ref}
                     onClick={() => setActive(true)}
-                    onKeyDown={onEnterClick}
+                    onKeyDown={(e) => {setActive(true);onEnterClick(e)}}
                     className={["w-50", "pt-2 pb-2", Style.searchBar].join(" ")}>
                     <FormControl
                         className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}

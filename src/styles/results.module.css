@@ -1,32 +1,27 @@
-.bgCardColor {
+.title {
+    margin: 1rem 0 1rem 0;
+}
+
+.card {
     background-color: #646A73;
-    position: relative;
-    
+    width: 98%;
+    margin: auto;
 }
 
-.bgCardColor .borderGrey {
-    border-color: #c7c7c7!important;
+
+
+.cardBody > div {
+    margin-bottom: 1rem;
 }
 
-.list-group-item-2{
-    
-    border: 5px solid rgb(8, 206, 123) !important;  
+.cardBody > div:last-of-type{
+    margin-bottom: 0;
 }
 
-.bgCardColor h3{
-    margin-left: 0% !important; 
-}
-.bgCardColor h4{
-    margin-left: 0% !important; 
-}
-.bgBadge{
-    background-color: #2B6242;
-}
 
-.titlePost>a:hover{
-    color: #e9dc26 !important;
 
-}
-.titlePost{
-    cursor: pointer;
-}
+
+
+
+
+

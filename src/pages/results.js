@@ -7,11 +7,12 @@ import { useEffect, useState } from 'react';
 import { useFuse } from '../components/useFuse/useFuse';
 import AlertNotification from "../components/UI/AlertNotification";
 import Tags from '../components/UI/Tags';
+import PostCard from '../components/PostCard/PostCard';
 
 
 const Results = () => {
     const router = useRouter();
-    const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")): {});
+    const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")) : {});
     const [currentPage, setCurrentPage] = useState(0);
     const { results, query, setQuery, setFilters, filtersSelected } = useFuse(searchIndex, {
         includeScore: true,
@@ -26,7 +27,7 @@ const Results = () => {
         setQuery(keyword);
         setFilters(filtersToApply);
 
-    },[router.query.keyword, router.query.filters])
+    }, [router.query.keyword, router.query.filters])
 
 
     const pageHandler = (value) => {
@@ -45,18 +46,18 @@ const Results = () => {
         setAlerts(newAlerts);
     }
 
-    function getURLParams(){
+    function getURLParams() {
         let keyword = router.query.keyword;
         let filters = router.query.filters;
-        if(typeof(filters) === "string"){
-            filters = {[filters]: true}
+        if (typeof (filters) === "string") {
+            filters = { [filters]: true }
         }
-        else if(typeof(filters) === "object"){
-            filters=filters.reduce((obj,filter)=> (obj[filter]=true,obj),{});
-        }else{
+        else if (typeof (filters) === "object") {
+            filters = filters.reduce((obj, filter) => (obj[filter] = true, obj), {});
+        } else {
             filters = {};
         }
-        return [keyword,filters];
+        return [keyword, filters];
     }
 
     const deleteKeyFromObject = (key) => {
@@ -68,7 +69,7 @@ const Results = () => {
     const onClickFavorite = (action, filename, metaData) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);
-            addAlert("Bookmark removed succesfully!");
+            addAlert("Bookmark removed successfully!");
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -76,7 +77,7 @@ const Results = () => {
             };
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
-            addAlert("Bookmark added succesfully!");
+            addAlert("Bookmark added successfully!");
         }
     }
 
@@ -84,40 +85,40 @@ const Results = () => {
     return (
         <>
             <Container>
-                <Row className={"d-flex justify-content-center p-4 text-white"}>
-                    <Card style={{ width: '100%' }} className={[Style.bgCardColor].join(" ")}>
-                        <Card.Body className={"ml-md-5 mr-md-5"}>
-                            <Card.Header className={[Style.bgCardColor, Style.borderGrey].join(" ")}>
-                                <h3>Results for:</h3>
-                                <h5>{query ? `"${query}"` : ""}</h5>
-                                {<Tags tags={filtersSelected} />}
-                                <Badge className={"position-absolute"} variant="light" style={{ right: '0', top: '25%' }}>{`Found: ${results.length}`}</Badge>
-                            </Card.Header>
 
-                            <ListGroup variant="flush">
-                                {
-                                   results.length>0 ?
+
+                <h3 className={Style.title}>Results for:</h3>
+                <h4 className={Style.title}>{query ? `Found ${results.length} results for "${query}"` : ""}</h4>
+                {<Tags tags={filtersSelected} />}
+
+                <Row className={"d-flex flex-direction-column"}>
+                    <Card className={[Style.card].join(" ")}>
+                        <Card.Body className={[ "d-flex", "flex-column", Style.cardBody].join(" ")}>
+                            {
+                                results.length > 0 ?
                                     results.slice(currentPage * resultsPerPage, (currentPage * resultsPerPage) + resultsPerPage).map(result => (
-                                        <ItemResult
-                                            title={result.item.title}
-                                            tags={result.item.tags}
-                                            description={result.item.description}
-                                            favorite={favorites && favorites[result.item.id] ? true: false}
-                                            version={"12.3.3"}
+                                        
+                                        <PostCard
                                             key={result.item.id}
                                             filename={result.item.id}
+                                            title={result.item.title}
+                                            description={result.item.description}
+                                            tags={result.item.tags}
                                             onClickFavorite={onClickFavorite}
+                                            favorite={favorites && favorites[result.item.id] ? true : false}
                                         />
+
+
                                     ))
                                     :
                                     <p>Your search did not match any document</p>
-                                }
+                            }
 
-                            </ListGroup>
+
                         </Card.Body>
                     </Card>
                 </Row>
-                {totalPages > 1 ? <Row className={"d-flex justify-content-center "}>
+                {totalPages > 1 ? <Row className={"d-flex justify-content-center mt-3"}>
                     <Pagination >
                         <Pagination.Prev onClick={() => pageHandler(-1)} />
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
