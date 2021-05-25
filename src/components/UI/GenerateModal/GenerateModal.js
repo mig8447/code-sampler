@@ -2,7 +2,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 const GenerateModal = ({show, handleClose, title, children}) => (
     <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>

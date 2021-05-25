@@ -13,7 +13,7 @@ const ToggleTheme = ({ }) => {
         marginTop: "1%"
     };
     const styleDark = (theme === "a11yDark") ? classes.themeSelected : "";
-    const styleLight = (theme === undefined || theme === "a11yLight") ? classes.themeSelected : "";
+    const styleLight = (!theme || theme === "a11yLight") ? classes.themeSelected : "";
     const onClickHandler = (themeSelected) => {
         if (themeSelected === "a11yDark") {
             setTheme("a11yDark");
@@ -30,16 +30,16 @@ const ToggleTheme = ({ }) => {
 
     return (
         <div>
-            <div>
-                <span className="mr-2">Light mode</span>
-                <Button aria-label="Light Mode" variant="" className={["rounded-0", styleLight].join(" ")} onClick={() => onClickHandler("a11yLight")}>
+            <div className={"my-3"}>
+                {/* <span className="mr-2">Light mode</span> */}
+                <Button aria-label="Light Mode" variant="" className={ [styleLight].join(" ")} onClick={() => onClickHandler("a11yLight")}>
                     <span className="fa fa-sun-o" aria-hidden="true"></span>
 
                 </Button>
-                <Button aria-label="Dark Mode" variant="" className={["rounded-0", styleDark].join(" ")} onClick={() => onClickHandler("a11yDark")}>
+                <Button aria-label="Dark Mode" variant="" className={[styleDark].join(" ")} onClick={() => onClickHandler("a11yDark")}>
                     <span className="fa fa-moon-o" aria-hidden="true"></span>
                 </Button>
-                <span className="ml-2">Dark mode</span>
+                {/* <span className="ml-2">Dark mode</span> */}
             </div>
 
             <SyntaxHighlighter language={"Javascript"} style={theme === "a11yDark" ? a11yDark : a11yLight} customStyle={highlighterStyle} showLineNumbers={false}>

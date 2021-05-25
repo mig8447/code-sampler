@@ -9,6 +9,6 @@
 }
 
 .selectLanguages {
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 225px;
 }
