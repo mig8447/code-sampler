@@ -57,7 +57,6 @@ describe("results renders correctly without url params", () => {
     const { getByText } = render(<Results />);
     expect(getByText("Results for:")).toBeVisible();
     expect(getByText("Your search did not match any document")).toBeVisible();
-    expect(getByText("Found: 0"));
   });
 
 });
@@ -79,8 +78,7 @@ describe("results with url params", () => {
   it("Items found renders correctly", () => {
     const { getByText, getAllByText } = render(<Results />);
     expect(getByText("Results for:")).toBeVisible();
-    expect(getByText(`"${query}"`)).toBeVisible();
-    expect(getByText("Found: 3")).toBeVisible();
+    expect(getByText(`Found 3 results for "${query}"`)).toBeVisible();
     searchIndex.forEach(file => {
       expect(getByText(file.title).closest("a")).toHaveAttribute("href", `/${file.id}`);
       expect(getByText(file.description)).toBeVisible();
@@ -108,8 +106,7 @@ describe("results with keyword and filter", () => {
   it("Items found renders correctly with the given filter", () => {
     const { getByText, getAllByText } = render(<Results />);
     expect(getByText("Results for:")).toBeVisible();
-    expect(getByText(`"${query}"`)).toBeVisible();
-    expect(getByText("Found: 3")).toBeVisible();
+    expect(getByText(`Found 3 results for "${query}"`)).toBeVisible();
     getAllByText("test number one").forEach(elem => expect(elem).toBeVisible());
     searchIndex.forEach(file => {
       expect(getByText(file.title).closest("a")).toHaveAttribute("href", `/${file.id}`);
