@@ -46,18 +46,17 @@ const SearchBarComponent = () => {
     const onEnterClick = (event) => {
         if (event.key === 'Enter' && query) {
             pushSearchHandler();
-            setActive(false)
           }
     }
     const clickSearchHandler = () => {
         if (query){
             pushSearchHandler();
-            setActive(false)
         }
     }
 
     const pushSearchHandler = () => {
-        
+        setActive(false);
+        ref.current.childNodes[0].blur()
         router.push({
             pathname: '/results',
             query: { keyword: query, filters:filtersSelected },
@@ -70,7 +69,7 @@ const SearchBarComponent = () => {
 
                 <InputGroup
                     ref={ref}
-                    onClick={() => setActive(true)}
+                    onFocus={() => setActive(true)}
                     onKeyDown={(e) => {setActive(true);onEnterClick(e)}}
                     className={["w-50", "pt-2 pb-2", Style.searchBar].join(" ")}>
                     <FormControl
@@ -89,7 +88,7 @@ const SearchBarComponent = () => {
                         </InputGroup.Text>
                     </InputGroup.Append>
                     {/*Custom Drop down for displaying search results*/}
-                    <ResultsDropDown results={results} query={query} active={active} />
+                    <ResultsDropDown results={results} query={query} setActive={setActive} active={active} />
 
                 </InputGroup>
                 {/*React Drop down for displaying tags*/}
