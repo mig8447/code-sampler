@@ -105,11 +105,11 @@ const Post = ({ metaData, content, filename }) => {
                     <>
                         <Container fluid>
                             <Row>
-                                <Col xs={9} sm={10} md={8} >
+                                <Col xs={9} sm={10} md={8} className={["p-0"].join("")}>
                                     <h1 className={classes.sampleTitle}>{props.children}</h1>
                                     <Tags tags={metaData.tags} />
                                 </Col>
-                                <Col className="d-flex justify-content-end" xs={3} sm={2} md={4}>
+                                <Col className="d-flex justify-content-end p-0" xs={3} sm={2} md={4}>
                                     <button data-bookmark aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
                                         <span className={[icon, classes.iconButton].join(" ")} aria-hidden="true"></span>
                                     </button>
@@ -134,7 +134,7 @@ const Post = ({ metaData, content, filename }) => {
                 <title>{metaData.title}</title>
                 <meta title='description' content={metaData.description}></meta>
             </Head>
-            <div style={{ width: "80%", margin: "auto" }} className="text-light">
+            <div style={{ width: "80%", margin: "auto", marginBottom: "3rem" }} className="text-light">
                 {markDownContent}
             </div>
             <div style={{ "position": "fixed", "top": "4rem", "right": "2rem" }}>

@@ -50,7 +50,7 @@ const favorites = ({ }) => {
     }
 
 
-    const cardsPerPage = 2;
+    const cardsPerPage = 3;
 
     const [favorites, setFavorites] = useState({});
     const [totalPages, setTotalPages] = useState(1);

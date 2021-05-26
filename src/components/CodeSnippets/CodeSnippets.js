@@ -17,10 +17,12 @@ const CodeSnippets = (props) => {
     const addAlert = props.addAlert;
     const highlighterStyle = {
         marginTop: "0",
+        marginBottom: "0",
         border: "1px black solid",
         borderTop: "none",
-        borderBottomLeftRadius: "8px",
-        borderBottomRightRadius: "8px"
+        borderBottomLeftRadius: "5px",
+        borderBottomRightRadius: "5px",
+        minHeight: "3.2rem"
     };
 
 
@@ -34,7 +36,7 @@ const CodeSnippets = (props) => {
                         return (
 
                             <Tab isSelected={selected === code.label} key={code.label}>
-                                <div className={classes.iconGroup}>
+                                <div className={[classes.iconGroup, "my-2", "mx-2"].join(" ")}>
                                     <button aria-label="toggle theme" tabIndex="0" className={classes.iconButton} onClick={toggleTheme}>
                                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Change code theme</Tooltip>}>
                                             <span className={["fa fa-sun-o fa-lg ", theme === "a11yDark" ? "text-light" : "text-dark"].join(" ")} aria-hidden="true">
