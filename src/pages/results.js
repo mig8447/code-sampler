@@ -1,6 +1,5 @@
 import { Row, Container, Card, Badge, ListGroup, Pagination } from 'react-bootstrap';
 import Style from '../styles/results.module.css';
-import ItemResult from '../components/ItemResult/ItemResult';
 import { searchIndex } from '../search/search-index';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -91,9 +90,8 @@ const Results = () => {
                 <h4 className={Style.title}>{query ? `Found ${results.length} results for "${query}"` : ""}</h4>
                 {<Tags tags={filtersSelected} />}
 
-                <Row className={"d-flex flex-direction-column"}>
-                    <Card className={[Style.card].join(" ")}>
-                        <Card.Body className={[ "d-flex", "flex-column", Style.cardBody].join(" ")}>
+                <Row className={[ "d-flex", "flex-column", Style.results].join(" ")}>
+                    
                             {
                                 results.length > 0 ?
                                     results.slice(currentPage * resultsPerPage, (currentPage * resultsPerPage) + resultsPerPage).map(result => (
@@ -114,9 +112,7 @@ const Results = () => {
                                     <p>Your search did not match any document</p>
                             }
 
-
-                        </Card.Body>
-                    </Card>
+                  
                 </Row>
                 {totalPages > 1 ? <Row className={"d-flex justify-content-center mt-3"}>
                     <Pagination >

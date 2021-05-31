@@ -2,19 +2,18 @@
     margin: 1rem 0 1rem 0;
 }
 
-.card {
-    background-color: #646A73;
-    width: 98%;
+.results {
+    width: 100%;
     margin: auto;
 }
 
 
 
-.cardBody > div {
+.results > div {
     margin-bottom: 1rem;
 }
 
-.cardBody > div:last-of-type{
+.results > div:last-of-type{
     margin-bottom: 0;
 }
 
