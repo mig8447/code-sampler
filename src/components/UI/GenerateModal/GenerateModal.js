@@ -10,7 +10,7 @@ const GenerateModal = ({show, handleClose, title, children}) => (
         </Modal.Body>
         <Modal.Footer>
           
-          <Button  variant="secondary" onClick={handleClose}>
+          <Button style={{backgroundColor: "--code-sample-badge-hover-color"}} onClick={handleClose}>
             Close
           </Button>
 

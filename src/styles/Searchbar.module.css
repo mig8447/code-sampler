@@ -5,6 +5,16 @@
 .filterDropDown {
   max-height: 50vh;
   overflow-y: auto;
+  min-width: 0;
+}
+
+.filterDropDown a {
+  padding-left: .75rem;
+  padding-right: .75rem;
+}
+
+.filterDropDown a > button{
+  margin-right: 0 !important;
 }
 
 .borderRadius {
