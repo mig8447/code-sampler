@@ -35,7 +35,7 @@ const Index = ({ recentContent, tags }) => {
 
     if (action === "delete") {
       deleteKeyFromObject(filename);
-      addAlert("Bookmark removed succesfully!");
+      addAlert("Bookmark removed successfully!");
     } else if (action === "add") {
       let newFavorites = { ...favorites }
       newFavorites[filename] = {
@@ -44,7 +44,7 @@ const Index = ({ recentContent, tags }) => {
 
       setFavorites(newFavorites)
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
-      addAlert("Bookmark added succesfully!");
+      addAlert("Bookmark added successfully!");
     }
   }
 
@@ -55,9 +55,9 @@ const Index = ({ recentContent, tags }) => {
         <title>Code Sampler</title>
 
       </Head>
-      <Container fluid className="mt-3 mb-3">
+      <Container fluid className="mt-3">
         <h2>Recent content</h2>
-        <ContentCards className="{mt-5}">
+        <ContentCards>
           {recentContent.map(metaData => (
             <PostCard
               key={metaData.id}

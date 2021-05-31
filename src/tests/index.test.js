@@ -46,7 +46,7 @@ describe("Index", () => {
   it("Top tags renders correctly", () => {
     const { getByText } = render(<Index recentContent={expectedProps.recentContent} tags={expectedProps.tags} />)
     expectedProps.tags.forEach(tag => {
-      expect(getByText("count: "+topTags[tag].length))
+      expect(getByText(topTags[tag].length))
       expect(getByText(tag)).toBeVisible();
       topTags[tag].slice(0,5).forEach(file => {
         expect(getByText(file.title)).toBeVisible();

@@ -3,8 +3,12 @@
   border: 0;
 }
 
-@media (max-width : 768px){
+/* @media (max-width : 768px){
   .iconButton > span {
+    font-size: 4vw !important;
+  }
+
+  .iconButton > div > span {
     font-size: 4vw !important;
   }
 }
@@ -13,8 +17,12 @@
   .iconButton > span {
     font-size: 6vw !important;
   }
-}
 
+  .iconButton > div > span {
+    font-size: 6vw !important;
+  }
+}
+ */
 .iconGroup {
     position: absolute;
     right: 10%;
