@@ -71,7 +71,7 @@ const SearchBarComponent = () => {
                     ref={ref}
                     onFocus={() => setActive(true)}
                     onKeyDown={(e) => {setActive(true);onEnterClick(e)}}
-                    className={["w-50", "pt-2 pb-2", Style.searchBar].join(" ")}>
+                    className={["w-50", "pt-2 pb-2", "mr-2", Style.searchBar].join(" ")}>
                     <FormControl
                         className={["border-0", "shadow-none", ((query || filters.length > 0) && results.length) ? Style.borderRadius : ""].join(" ")}
                         placeholder="How to.."
