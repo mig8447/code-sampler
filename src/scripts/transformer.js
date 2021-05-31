@@ -1,4 +1,4 @@
-// available utilities are: "unist-util-is", "unist-util-visit", and "unist-util-visit-parents"
+
 const visit = require("unist-util-visit");
 
 function getMetaData(metadataString) {
@@ -52,7 +52,7 @@ function getLabel(language, metaData) {
 let languages = {};
 let localLanguages ={};
 let labels = {};
-let matter;
+let matter = null;
 const transform = (node) => {
     let tmpSampleNode = {};
     let previousChildrenIsCode = false;

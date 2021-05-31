@@ -16,7 +16,10 @@ function languageArrayToIndexFormat(arr){
         object = JSON.stringify(object);
         indexFormat.push(object);
     });
-    return `export const languageIndex = [${indexFormat.toString()}]`;
+    if(indexFormat){
+        return `export const languageIndex = [${indexFormat.toString()}]`;
+    }
+    return `export const languageIndex = []`;
 }
 
 function getTopTags(tags){
@@ -42,6 +45,27 @@ function getTopTags(tags){
     return topTags;
 }
 
+function validateMetaData(metadata){
+    if(!metadata.title){
+        throw `Error file ${metadata.id} doesn't have a title`
+    }
+    if(!metadata.created || Object.prototype.toString.call(metadata.created) !== "[object Date]"){
+        throw `Error file ${metadata.id} doesn't have a created date`
+    }
+    if(!metadata.lastUpdated || Object.prototype.toString.call(metadata.lastUpdated) !== "[object Date]"){
+        throw `Error file ${metadata.id} doesn't have a last updated date`
+    }
+    if(!metadata.tags || Object.prototype.toString.call(metadata.tags) !== "[object Array]"){
+        throw `Error file ${metadata.id} doesn't have an array of tags`
+    }
+    if(!metadata.published || typeof(metadata.published) !== "boolean"){
+        throw `Error file ${metadata.id} doesn't have a published date`
+    }
+    if(!metadata.description){
+        throw `Error file ${metadata.id} doesn't have a description`
+    }
+}
+
 
 
 function saveParsedFiles(){
@@ -60,11 +84,17 @@ function saveParsedFiles(){
         let matterResult = {
             id,
             title: fileMetaData.title,
-            created: fileMetaData.created.toString(),
-            lastUpdated: fileMetaData.lastUpdated.toString(),
+            created: fileMetaData.created,
+            lastUpdated: fileMetaData.lastUpdated,
             tags: fileMetaData.tags,
             published: fileMetaData.published,
             description: fileMetaData.description
+        }
+        try {
+            validateMetaData(matterResult);
+        } catch (error) {
+            console.log(error);
+            return error;
         }
         matterResult.tags.forEach(tag => {
             tag = tag.toLowerCase();
