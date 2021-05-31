@@ -19,7 +19,7 @@ const Post = ({ metaData, content, filename }) => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
     const [favorites, setFavorites] = useState();
-    const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-warning" : "fa fa-bookmark-o fa-lg fa-2x text-light";
+    const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-light" : "fa fa-bookmark-o fa-lg fa-2x text-light";
     const action = favorites && favorites[filename] ? "delete" : "add";
     const isFavorite = favorites ? "favorite bookmark selected" : "favorite bookmark";
 
@@ -72,7 +72,7 @@ const Post = ({ metaData, content, filename }) => {
     const onClickFavorite = (action, filename, metadata) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);
-            addAlert("Bookmark removed succesfully!");
+            addAlert("Bookmark removed successfully!");
         } else if (action === "add") {
             let newFavorites = { ...favorites }
             newFavorites[filename] = {
@@ -81,7 +81,7 @@ const Post = ({ metaData, content, filename }) => {
 
             setFavorites(newFavorites)
             localStorage.setItem("favorites", JSON.stringify(newFavorites));
-            addAlert("Bookmark added succesfully!");
+            addAlert("Bookmark added successfully!");
         }
     }
 
@@ -105,11 +105,11 @@ const Post = ({ metaData, content, filename }) => {
                     <>
                         <Container fluid>
                             <Row>
-                                <Col xs={9} sm={10} md={8} >
+                                <Col xs={9} sm={10} md={8} className={["p-0"].join("")}>
                                     <h1 className={classes.sampleTitle}>{props.children}</h1>
                                     <Tags tags={metaData.tags} />
                                 </Col>
-                                <Col className="d-flex justify-content-end" xs={3} sm={2} md={4}>
+                                <Col className="d-flex justify-content-end p-0" xs={3} sm={2} md={4}>
                                     <button data-bookmark aria-label={isFavorite} tabIndex="0" onClick={() => onClickFavorite(action, filename, metaData)} style={{ backgroundColor: "transparent" }} className="border-0" >
                                         <span className={[icon, classes.iconButton].join(" ")} aria-hidden="true"></span>
                                     </button>
@@ -134,7 +134,7 @@ const Post = ({ metaData, content, filename }) => {
                 <title>{metaData.title}</title>
                 <meta title='description' content={metaData.description}></meta>
             </Head>
-            <div style={{ width: "80%", margin: "auto" }} className="text-light">
+            <div style={{ width: "80%", margin: "auto", marginBottom: "3rem" }} className="text-light">
                 {markDownContent}
             </div>
             <div style={{ "position": "fixed", "top": "4rem", "right": "2rem" }}>

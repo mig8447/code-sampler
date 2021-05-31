@@ -5,3 +5,7 @@
 .postLink:hover {
     color: var(--code-sample-badge-hover-color);
 }
+
+.borderBottomLight {
+    border-bottom: 1px solid hsl(239, 10%, 60%)!important;
+}

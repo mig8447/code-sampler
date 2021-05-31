@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const ItemResult = ({ title, description, tags, version, favorite, onClickFavorite, filename }) => {
 
-    const icon = favorite ? "fa fa-bookmark fa-sm fa-2x text-warning" : "fa fa-bookmark-o fa-sm fa-2x"
+    const icon = favorite ? "fa fa-bookmark fa-sm fa-2x" : "fa fa-bookmark-o fa-sm fa-2x"
     const action = favorite ? "delete" : "add";
     const isFavorite = favorite ? "favorite bookmark selected" : "favorite bookmark";
     return (

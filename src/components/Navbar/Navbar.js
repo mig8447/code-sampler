@@ -45,7 +45,7 @@ const NavbarComponent = () => {
         <div aria-label="Code Sampler Navbar">
             <Navbar aria-label="Bar Menu" role="menubar" className={Style.navbarColor} >
                 
-                <Navbar.Brand className={"text-white ml-3 btn"}  role="none">
+                <Navbar.Brand className={"text-white btn"}  role="none">
                     <a role="menuitem" aria-label="Code Sampler" tabIndex="0" aria-haspopup="false" >
                         <Link href={"/"}>
                             <h6 className={"mb-1"}>Code Sampler</h6>
@@ -68,9 +68,9 @@ const NavbarComponent = () => {
                 </Navbar.Collapse>
             </Navbar>
             <GenerateModal show={show} handleClose={handleClose} title={"Settings"} aria-label="Settings modal" aria-modal="true" role="dialog" >
-                    <h6>Preferred languages</h6>
+                    <h6>Preferred Languages</h6>
                 <LanguageFilter query={query} setQuery={onSearch} />
-                <Container fluid className={["mt-2", Style.selectLanguages, "scroll"].join(" ")}>
+                <Container fluid className={["pb-3 mt-2", Style.selectLanguages, "scroll"].join(" ")}>
                     {results.map(lang => (
                         <SelectBadges key={lang.item.id}
                             label={lang.item.name}

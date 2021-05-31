@@ -6,3 +6,13 @@
 .selected:hover {
     background-color: var(--code-sample-badge-hover-color);
 }
+
+.btnOutlined {
+    color: var(--code-sample-search-bar-bg-color) !important;
+    border-color: var(--code-sample-search-bar-bg-color) !important;
+}
+
+.btnOutlined:hover {
+    color: white !important;
+    background-color: var(--code-sample-badge-hover-color) !important;
+}

@@ -3,13 +3,12 @@
     flex-flow: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding-top: 20px;
     padding-left: 20px;
 }
 
 .recentCards > div {
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
 
@@ -21,5 +20,9 @@
 
     .recentCards > * + *{
         margin: 13px 0 0 0;
+    }
+
+    .recentCards > div {
+        margin-right: 0;
     }
 }
