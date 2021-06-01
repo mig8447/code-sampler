@@ -39,7 +39,7 @@ const CodeSnippets = (props) => {
                                 <div className={[classes.iconGroup, "my-2", "mx-2"].join(" ")}>
                                     <button aria-label="toggle theme" tabIndex="0" className={classes.iconButton} onClick={toggleTheme}>
                                         <OverlayTrigger placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Change code theme</Tooltip>}>
-                                            <span className={["fa fa-sun-o fa-lg ", theme === "a11yDark" ? "text-light" : "text-dark"].join(" ")} aria-hidden="true">
+                                            <span className={["fa fa-sun-o fa-lg", theme === "a11yDark" ? "text-light" : "text-dark"].join(" ")} aria-hidden="true">
                                             </span>
                                         </OverlayTrigger>
                                     </button>

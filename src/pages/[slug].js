@@ -12,20 +12,38 @@ import AlertNotification from '../components/UI/AlertNotification';
 import classes from '../styles/CodeSample.module.css';
 import remarkGfm from "remark-gfm";
 
+
+/** 
+ * @param {Object} props
+ * @param {{title: string, 
+ * created: string, lastUpdated: 
+ * string, tags: Array<string>, 
+ * published: boolean, labels: Array<String>, 
+ * description: string, languages:Array<string>}} props.metaData 
+ * @param {string} props.content -Markdown Content that is going to be parsed.
+ * @param {string} props.filename -Name of the mark down file. 
+ */
+
 const Post = ({ metaData, content, filename }) => {
+/**
+ * 
+ */
     const [theme, setTheme] = useState(getInitialTheme);
     const labels = metaData.labels;
     const [selected, setSelected] = useState(labels[0]);
     const toggleTheme = () => {
         theme === "a11yDark" ? setTheme("a11yLight") : setTheme("a11yDark");
     }
-    const [favorites, setFavorites] = useState();
+    const [favorites, setFavorites] = useState({});
     const icon = favorites && favorites[filename] ? "fa fa-bookmark fa-lg fa-2x text-light" : "fa fa-bookmark-o fa-lg fa-2x text-light";
     const action = favorites && favorites[filename] ? "delete" : "add";
     const isFavorite = favorites ? "favorite bookmark selected" : "favorite bookmark";
 
-    //Check if the process is running on the browser and get the theme
-    //from local storage
+    /**
+     * Get the theme stored in the localStorage
+     * The key is theme and can store a11yLight or a11yDark
+     * @returns {string}
+     */
     function getInitialTheme(){
         if(process.browser){
             return localStorage.getItem("theme") || "a11yLight";
@@ -33,6 +51,10 @@ const Post = ({ metaData, content, filename }) => {
         return "a11yLight";
     }
 
+    /**
+     * 
+     * @returns {{title:string,description:string,tags:Array<string>} | {}}
+     */
     function getInitialFavorites(){
         if(process.browser){
             return JSON.parse(localStorage.getItem("favorites"))
@@ -40,6 +62,11 @@ const Post = ({ metaData, content, filename }) => {
         return {};
     }
 
+    /**
+     * 
+     * @date 2021-06-01
+     * @returns {any}
+     */
     function getPreferredLanguage(){
         let languages = [];
         languages = Object.keys(JSON.parse(localStorage.getItem("preferredLanguages") || "{}"));
@@ -91,9 +118,7 @@ const Post = ({ metaData, content, filename }) => {
         if(selected !== preferredLanguage){
             setSelected(preferredLanguage);
         }
-        if(!favorites){
-            setFavorites(getInitialFavorites());
-        }
+        setFavorites(getInitialFavorites());
     }, []);
 
     const markDownContent = remark()
@@ -165,6 +190,7 @@ export const getStaticPaths = async () => {
         fallback: false
     }
 };
+
 
 export const getStaticProps = async ({ params: { slug } }) => {
 
