@@ -10,6 +10,7 @@ import Tags from '../components/UI/Tags';
 import { Container, Row, Col } from "react-bootstrap";
 import AlertNotification from '../components/UI/AlertNotification';
 import classes from '../styles/CodeSample.module.css';
+import remarkGfm from "remark-gfm";
 
 const Post = ({ metaData, content, filename }) => {
     const [theme, setTheme] = useState(getInitialTheme);
@@ -96,6 +97,7 @@ const Post = ({ metaData, content, filename }) => {
     }, []);
 
     const markDownContent = remark()
+        .use(remarkGfm)
         .use(remark2react, {
             remarkReactComponents: {
                 code: props => {
@@ -123,6 +125,11 @@ const Post = ({ metaData, content, filename }) => {
                 ),
                 h2: props => (
                     <h2 className="ml-0">{props.children}</h2>
+                ),
+                table: props => (
+                    <table border="1" cellPadding="5" style={{marginBottom:"1rem"}}>
+                        {props.children}
+                    </table>
                 )
             }
         }).processSync(content).result;
