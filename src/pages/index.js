@@ -1,12 +1,12 @@
-import PostCard from '../components/PostCard/PostCard';
-import ContentCards from '../components/ContentCards/ContentCards';
-import Head from 'next/head';
 import { Container } from "react-bootstrap";
-import TopTagCard from "../components/TopTagCard/TopTagCard";
-import { topTags } from "../search/topTags-index";
-import { searchIndex } from '../search/search-index';
 import { useEffect, useState } from "react";
+import Head from 'next/head';
 import AlertNotification from "../components/UI/AlertNotification";
+import ContentCards from '../components/ContentCards/ContentCards';
+import TopTagCard from "../components/TopTagCard/TopTagCard";
+import PostCard from '../components/PostCard/PostCard';
+import { searchIndex } from '../search/search-index';
+import { topTags } from "../search/topTags-index";
 
 /**
  * Render the Index page - Display the recent
@@ -19,13 +19,11 @@ const Index = ({ recentContent, tags }) => {
  * Alert states to map, notification.
  * @constant {Array<string>} alerts - State list of strings alerts.
  */
-  const [alerts, setAlerts] = useState([]);
-  
+  const [alerts, setAlerts] = useState([]); 
 /**
  * @constant {Object} favorites - Current favorite posts information saved on your local storage.
  */
   const [favorites, setFavorites] = useState();
-
 /**
  * addAlert() - Function for add an alert.
  * @param {!string} description - String that will be displayed in he alert.
@@ -35,7 +33,6 @@ const Index = ({ recentContent, tags }) => {
     const newAlerts = [...tempAlerts, description];
     setAlerts(newAlerts);
   }
-
   useEffect(() => {
     setFavorites(JSON.parse(localStorage.getItem("favorites")));
   }, []);
@@ -46,11 +43,9 @@ const Index = ({ recentContent, tags }) => {
  */
   const deleteKeyFromObject = (key) => {
     const { [key]: tmp, ...rest } = favorites
-
     setFavorites(rest);
     localStorage.setItem("favorites", JSON.stringify(rest));
   }
-
 /**
  * onClickFavorite() - Function that controls the click of an element to delete it or add it to favorites.
  * @param  {!string} action - Action that will be executed.
@@ -73,14 +68,12 @@ const Index = ({ recentContent, tags }) => {
       addAlert("Bookmark added successfully!");
     }
   }
-
-
   return (
     <div>
       <Head>
         <title>Code Sampler</title>
-
       </Head>
+      
       <Container fluid className="mt-3">
         <h2>Recent content</h2>
         <ContentCards>
@@ -95,7 +88,6 @@ const Index = ({ recentContent, tags }) => {
               favorite={favorites && favorites[metaData.id]}
             />
           ))}
-
         </ContentCards>
       </Container>
 
@@ -110,18 +102,14 @@ const Index = ({ recentContent, tags }) => {
             countPosts={topTags[tag].length}
             />
           ))}
-
         </ContentCards>
       </Container>
 
       <div style={{ "position": "fixed", "top": "4rem", "right": "2rem" }}>
           {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc}/>) : ""}
       </div>
-
     </div >
   )
-
-
 }
 
 export const getStaticProps = async () => {
@@ -143,5 +131,3 @@ export const getStaticProps = async () => {
 };
 
 export default Index;
-
-

@@ -1,26 +1,29 @@
+import { Container, Row, Col } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import fs from "fs";
-import path from "path";
 import matter, { language } from "gray-matter";
+import remark2react from 'remark-react';
+import remarkGfm from "remark-gfm";
 import Head from "next/head";
 import remark from 'remark';
-import remark2react from 'remark-react';
-import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
-import Tags from '../components/UI/Tags';
-import { Container, Row, Col } from "react-bootstrap";
+import path from "path";
+import fs from "fs";
 import AlertNotification from '../components/UI/AlertNotification';
+import CodeSnippets from "../components/CodeSnippets/CodeSnippets";
 import classes from '../styles/CodeSample.module.css';
-import remarkGfm from "remark-gfm";
-
+import Tags from '../components/UI/Tags';
 
 /** 
- * Rneder the post pahe - Generic Static Page Post
+ * Render the post page  - Generic Static Page Post
  * @param {Object} props
- * @param {{title: string, 
- * created: string, lastUpdated: 
- * string, tags: Array<string>, 
- * published: boolean, labels: Array<String>, 
- * description: string, languages:Array<string>}} props.metaData 
+ * @param {{
+ *  title: string, 
+ *  created: string, 
+ *  lastUpdated: string, 
+ *  tags: Array<string>, 
+ *  published: boolean, 
+ *  labels: Array<String>, 
+ *  description: string, 
+ *  languages:Array<string>}} props.metaData 
  * @param {string} props.content -Markdown Content that is going to be parsed.
  * @param {string} props.filename -Name of the mark down file. 
  */
@@ -40,11 +43,11 @@ const Post = ({ metaData, content, filename }) => {
     const action = favorites && favorites[filename] ? "delete" : "add";
     const isFavorite = favorites ? "favorite bookmark selected" : "favorite bookmark";
 
-    /**
-     * Get the theme stored in the localStorage
-     * The key is theme and can store a11yLight or a11yDark
-     * @returns {string}
-     */
+/**
+ * Get the theme stored in the localStorage
+ * The key is theme and can store a11yLight or a11yDark
+ * @returns {string}
+ */
     function getInitialTheme(){
         if(process.browser){
             return localStorage.getItem("theme") || "a11yLight";
@@ -52,10 +55,10 @@ const Post = ({ metaData, content, filename }) => {
         return "a11yLight";
     }
 
-    /**
-     * 
-     * @returns {{title:string,description:string,tags:Array<string>} | {}}
-     */
+/**
+ * 
+ * @returns {{title:string,description:string,tags:Array<string>} | {}}
+ */
     function getInitialFavorites(){
         if(process.browser){
             return JSON.parse(localStorage.getItem("favorites"))
@@ -63,11 +66,11 @@ const Post = ({ metaData, content, filename }) => {
         return {};
     }
 
-    /**
-     * 
-     * @date 2021-06-01
-     * @returns {any}
-     */
+/**
+ * 
+ * @date 2021-06-01
+ * @returns {any}
+ */
     function getPreferredLanguage(){
         let languages = [];
         languages = Object.keys(JSON.parse(localStorage.getItem("preferredLanguages") || "{}"));

@@ -1,6 +1,12 @@
 import { Container, InputGroup, FormControl } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-
+/**
+ * Render the LanguageFilter compnent
+ * @param {!Object} props
+ * @param {!string} props.query
+ * @param {!Function} props.setQuery
+ */
 const LanguageFilter = ({ query, setQuery }) => (
     <Container className={"d-flex justify-content-center"} >
         <InputGroup className={"my-2"}>
@@ -21,6 +27,11 @@ const LanguageFilter = ({ query, setQuery }) => (
 
     </Container>
 )
+
+LanguageFilter.propTypes = {
+    string: PropTypes.string.isRequired,
+    setQuery: PropTypes.func.isRequired
+};
 
 
 export default LanguageFilter;

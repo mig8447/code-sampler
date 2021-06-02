@@ -1,12 +1,12 @@
 import { Row, Container, Card, Badge, ListGroup, Pagination } from 'react-bootstrap';
-import Style from '../styles/results.module.css';
-import { searchIndex } from '../search/search-index';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useFuse } from '../components/useFuse/useFuse';
+import { useRouter } from 'next/router';
 import AlertNotification from "../components/UI/AlertNotification";
-import Tags from '../components/UI/Tags';
+import { useFuse } from '../components/useFuse/useFuse';
 import PostCard from '../components/PostCard/PostCard';
+import { searchIndex } from '../search/search-index';
+import Style from '../styles/results.module.css';
+import Tags from '../components/UI/Tags';
 
 /**
  * Render the results page - where the result for the posts cards will be displayed.

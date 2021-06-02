@@ -1,16 +1,14 @@
-import Head from 'next/head';
-import PostCard from '../components/PostCard/PostCard';
+import { Pagination, Container, Row, Toast } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import ContentCards from '../components/ContentCards/ContentCards';
 import AlertNotification from '../components/UI/AlertNotification';
-import { Pagination, Container, Row, Toast } from 'react-bootstrap';
+import PostCard from '../components/PostCard/PostCard';
 
 /**
  * Render the Favorites page - Display the examples stored on the local storage of the user.
  */
 const favorites = () => {
-
-    
 /**
  * pageHandler() - Function for increasing or decreasing page within the limits, from 0 to totalPages-1.
  * @param {!number} addToPage - Variable to sum current page.
@@ -21,7 +19,6 @@ const favorites = () => {
             setCurrentPage(page);
         }
     }
-    
 /**
  * deleteKeyFromObject() - Function for delete an element form favorites.
  * @param {!number} key - Variable key to accessed and deleted.
@@ -31,14 +28,11 @@ const favorites = () => {
         setFavorites(rest);
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
-    
-
 /**
  * Alert states to map, notification.
  * @constant {!Array<string>} alerts - State list of strings alerts.
  */
     const [alerts, setAlerts] = useState([]);
-
 /**
  * addAlert() - Function for add an alert.
  * @param {!string} description - String that will be displayed in he alert.
@@ -48,7 +42,6 @@ const favorites = () => {
         const newAlerts = [...tempAlerts, description];
         setAlerts(newAlerts);
     }
-
 /**
  * onClickFavorite() - Function that controls the click of an element to delete it or add it to favorites.
  * @param  {!string} action - Action that will be executed.
@@ -73,7 +66,6 @@ const favorites = () => {
             addAlert("Bookmark added successfully!");
         }
     }
-
 /**
  * @constant {!number} cardsPerPage - Number of cards or examples shown per page.
  */
@@ -92,10 +84,9 @@ const favorites = () => {
  * @constant {!number} currentPage - Number of page you are currently on.
  */
         const [currentPage, setCurrentPage] = useState(0);
-
-
     useEffect(() => {
 /**
+ * The bookmarks saved on the local storage are requesting on the browser side, therefore this request for the localsotrage is used on the useEffect
  * @constant {{title : string, 
  * description : string,
  * tags:Array<string>}} favoritesLocal - Object json with favorite posts info saved on your local storage.
@@ -104,19 +95,16 @@ const favorites = () => {
         setFavorites(favoritesLocal);
         setTotalPages(Math.ceil((Object.keys(favoritesLocal).length) / cardsPerPage));
     }, [])
-
     return (
         <>
             <Head>
                 <title>Favorites</title>
             </Head>
-
+        
             <h4 className={"mt-3"}>Bookmarks</h4>
-
+            
             <Container fluid>
-
                 <ContentCards>
-
                     {Object.keys(favorites).length>0 ? Object.keys(favorites).slice(currentPage * cardsPerPage, (currentPage * cardsPerPage) + cardsPerPage).map(filename => (
                         <PostCard
                             key={filename}
@@ -127,40 +115,26 @@ const favorites = () => {
                             onClickFavorite={onClickFavorite}
                             favorite={favorites && favorites[filename]}
                         />
-
                     )) : <p className="text-white">You don't have any bookmarks yet  :'(</p>}
                 </ContentCards>
-
-
-
                 {totalPages ? <Row className={"d-flex justify-content-center "}>
                     <Pagination >
                         {currentPage === 0
                             ? <Pagination.Prev disabled onClick={() => pageHandler(-1)} />
                             : <Pagination.Prev onClick={() => pageHandler(-1)} />
                         }
-                        
                         <Pagination.Item disabled>{currentPage + 1}</Pagination.Item>
-                        
                         {totalPages === (currentPage + 1)
                             ? <Pagination.Next disabled onClick={() => pageHandler(1)} />
                             : <Pagination.Next onClick={() => pageHandler(1)} />
                         }
                     </Pagination>
                 </Row> : ""}
-
-               
-                    
-
-               
-
-
             </Container>
             
             <div style={{ "position": "fixed", "top": "4rem", "right": "2rem" }}>
                 {alerts ? alerts.map((desc, key) => <AlertNotification key={key} description={desc} />) : ""}
             </div>
-
         </>
     )
 }
