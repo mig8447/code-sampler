@@ -8,10 +8,18 @@ import AlertNotification from "../components/UI/AlertNotification";
 import Tags from '../components/UI/Tags';
 import PostCard from '../components/PostCard/PostCard';
 
-
+/**
+ * Render the results page - where the result for the posts cards will be displayed.
+ */
 const Results = () => {
     const router = useRouter();
+/**
+ * @constant {Object} favorites - Current favorite posts information saved on your local storage.
+ */
     const [favorites, setFavorites] = useState(process.browser ? JSON.parse(localStorage.getItem("favorites")) : {});
+/**
+ * @constant {!number} currentPage - Number of page you are currently on.
+ */
     const [currentPage, setCurrentPage] = useState(0);
     const { results, query, setQuery, setFilters, filtersSelected } = useFuse(searchIndex, {
         includeScore: true,
@@ -29,6 +37,10 @@ const Results = () => {
     }, [router.query.keyword, router.query.filters])
 
 
+/**
+ * PageHandler() - Function for increasing or decreasing page within the limits, from 0 to totalPages-1.
+ * @param {!number} addToPage - Variable to sum current page.
+ */
     const pageHandler = (value) => {
         const page = currentPage + value;
 
@@ -37,14 +49,28 @@ const Results = () => {
         }
 
     }
+/**
+ * Alert states to map, notification.
+ * @constant {!Array<string>} alerts - State list of strings alerts.
+ */
     const [alerts, setAlerts] = useState([]);
 
+/**
+ * addAlert() - Function for add an alert.
+ * @param {!string} description - String that will be displayed in he alert.
+ */
     const addAlert = (description) => {
         let tempAlerts = alerts;
         const newAlerts = [...tempAlerts, description];
         setAlerts(newAlerts);
     }
 
+/**
+ * getURLParams() - Function that obtains the params of the URL and returns the values.
+ * @returns {Array<!string | !Object>} Array with the keyword in the first index and the filters.
+ * - keyword - String to be search.
+ * - filters - Object with the filter as key and a boolean as value. 
+ */
     function getURLParams() {
         let keyword = router.query.keyword;
         let filters = router.query.filters;
@@ -59,12 +85,22 @@ const Results = () => {
         return [keyword, filters];
     }
 
+/**
+ * deleteKeyFromObject() - Function for delete an element form favorites.
+ * @param {!number} key - Variable key to accessed and deleted.
+ */
     const deleteKeyFromObject = (key) => {
         const { [key]: tmp, ...rest } = favorites;
         setFavorites(rest);
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
 
+/**
+ * onClickFavorite() - Function that controls the click of an element to delete it or add it to favorites.
+ * @param  {!string} action - Action that will be executed.
+ * @param  {!string} filename - Name of the element.
+ * @param  {!Object} metaData - Metadata of the element.
+ */
     const onClickFavorite = (action, filename, metaData) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);

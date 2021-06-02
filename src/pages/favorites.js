@@ -7,24 +7,24 @@ import { Pagination, Container, Row, Toast } from 'react-bootstrap';
 
 /**
  * Render the Favorites page - Display the examples stored on the local storage of the user.
- *  
  */
 const favorites = () => {
 
     
 /**
- *  Function for increasing or decreasing page within the limits, from 0 to totalPages-1
- *  @param {!number} value Variable to sum current page
+ * pageHandler() - Function for increasing or decreasing page within the limits, from 0 to totalPages-1.
+ * @param {!number} addToPage - Variable to sum current page.
  */
-    const pageHandler = (value) => {
-        const page = currentPage + value;
+    const pageHandler = (addToPage) => {
+        const page = currentPage + addToPage;
         if (page >= 0 && page < totalPages) {
             setCurrentPage(page);
         }
     }
+    
 /**
- *  Function for delete an element form favorites
- *  @param {!number} key - Variable key to 
+ * deleteKeyFromObject() - Function for delete an element form favorites.
+ * @param {!number} key - Variable key to accessed and deleted.
  */
     const deleteKeyFromObject = (key) => {
         const { [key]: tmp, ...rest } = favorites
@@ -32,14 +32,29 @@ const favorites = () => {
         localStorage.setItem("favorites", JSON.stringify(rest));
     }
     
+
+/**
+ * Alert states to map, notification.
+ * @constant {!Array<string>} alerts - State list of strings alerts.
+ */
     const [alerts, setAlerts] = useState([]);
 
+/**
+ * addAlert() - Function for add an alert.
+ * @param {!string} description - String that will be displayed in he alert.
+ */
     const addAlert = (description) => {
         let tempAlerts = alerts;
         const newAlerts = [...tempAlerts, description];
         setAlerts(newAlerts);
     }
 
+/**
+ * onClickFavorite() - Function that controls the click of an element to delete it or add it to favorites.
+ * @param  {!string} action - Action that will be executed.
+ * @param  {!string} filename - Name of the element.
+ * @param  {!Object} metaData - Metadata of the element.
+ */
     const onClickFavorite = (action, filename, metaData) => {
         if (action === "delete") {
             deleteKeyFromObject(filename);
@@ -58,13 +73,14 @@ const favorites = () => {
             addAlert("Bookmark added successfully!");
         }
     }
-    /**
-     * @constant {!number} cardsPerPage - Number of cards or examples shown per page.
-     */
+
+/**
+ * @constant {!number} cardsPerPage - Number of cards or examples shown per page.
+ */
         const cardsPerPage = 3;
 
 /**
- * @constant {object} favorites - Current favorite posts information saved on your local storage.
+ * @constant {Object} favorites - Current favorite posts information saved on your local storage.
  */
         const [favorites, setFavorites] = useState({});
 /**
@@ -73,7 +89,7 @@ const favorites = () => {
  */
         const [totalPages, setTotalPages] = useState(1);
 /**
- * @constant {!number} currentPage -Number of page you are currently on
+ * @constant {!number} currentPage - Number of page you are currently on.
  */
         const [currentPage, setCurrentPage] = useState(0);
 
@@ -82,7 +98,7 @@ const favorites = () => {
 /**
  * @constant {{title : string, 
  * description : string,
- * tags:Array<string>} | {}} favoritesLocal - Object json with favorite posts info saved on your local storage
+ * tags:Array<string>}} favoritesLocal - Object json with favorite posts info saved on your local storage.
  */
         const favoritesLocal = JSON.parse(localStorage.getItem("favorites")) || {};
         setFavorites(favoritesLocal);

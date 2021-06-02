@@ -14,6 +14,7 @@ import remarkGfm from "remark-gfm";
 
 
 /** 
+ * Rneder the post pahe - Generic Static Page Post
  * @param {Object} props
  * @param {{title: string, 
  * created: string, lastUpdated: 
