@@ -10,7 +10,7 @@ const GenerateModal = ({show, handleClose, title, children}) => (
         </Modal.Body>
         <Modal.Footer>
           
-          <Button style={{backgroundColor: "--code-sample-badge-hover-color"}} onClick={handleClose}>
+          <Button style={{backgroundColor: "var(--code-sample-search-bar-bg-color)", borderColor: "var(--code-sample-search-bar-bg-color)"}} onClick={handleClose}>
             Close
           </Button>
 
