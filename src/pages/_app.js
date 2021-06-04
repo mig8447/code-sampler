@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/font-apex.min.css';
 import Head from 'next/head';
+
 import Searchbar from '../components/Searchbar/Searchbar';
 import Navbar from '../components/Navbar/Navbar';
 import '../styles/styles.css';
-
 
 /**
  * Render the main page element which includes the navbar and body of every page of the site.
@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
             </Head>
             <Navbar />
             <Searchbar />
-            <Component {...pageProps} />
+            <Component { ...pageProps } />
         </>
     )
 }

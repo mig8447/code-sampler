@@ -1,4 +1,4 @@
-import Document, {Html, Head, NextScript, Main}  from 'next/document';
+import Document, { Html, Head, NextScript, Main }  from 'next/document';
 
 /**
  * Document class
@@ -13,7 +13,6 @@ export default class myDocument extends Document {
                     <NextScript/>
                 </body>
             </Html>
-        )
-    }
-}
-
+        );
+    };
+};

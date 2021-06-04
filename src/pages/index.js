@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Head from 'next/head';
+
 import AlertNotification from "../components/UI/AlertNotification";
 import ContentCards from '../components/ContentCards/ContentCards';
 import TopTagCard from "../components/TopTagCard/TopTagCard";
@@ -11,8 +12,8 @@ import { topTags } from "../search/topTags-index";
 /**
  * Render the Index page - Display the recent
  * @param {Object} props
- * @param {Object} props.recentContent - Object with information of the 3 recent content cards to display
- * @param {Array<string>} props.tags - Top tags with most main posts links
+ * @param {Array<{id: string, title: string, created: string, lastUpdated: string, tags: Array<string>, published: boolean, description: string}>} props.recentContent - Object with information of the 3 recent content cards to display
+ * @param {Array<string>} props.tags - Top tags with most main posts links.
  */
 const Index = ({ recentContent, tags }) => {
 /**
@@ -97,9 +98,10 @@ const Index = ({ recentContent, tags }) => {
           {tags.map(tag => (
             <TopTagCard 
             key={tag} 
-            categoryName={tag} 
+            tagName={tag} 
             posts={topTags[tag].slice(0,5)} 
             countPosts={topTags[tag].length}
+            style={{ flexBasis: "30%" }}
             />
           ))}
         </ContentCards>
