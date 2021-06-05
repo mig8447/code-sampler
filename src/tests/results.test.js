@@ -56,7 +56,7 @@ describe("results renders correctly without url params", () => {
   it("Render with not params on url", () => {
     const { getByText } = render(<Results />);
     expect(getByText("Results for:")).toBeVisible();
-    expect(getByText("Your search did not match any document")).toBeVisible();
+    expect(getByText("Your search did not match any document 🙁")).toBeVisible();
   });
 
 });
