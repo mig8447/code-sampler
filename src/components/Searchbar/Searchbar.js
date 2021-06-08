@@ -123,9 +123,9 @@ const SearchBarComponent = () => {
                 {/*React Drop down for displaying tags*/}
                 <Dropdown  
                     onToggle={ (isClose) => isClose ? setFilterActive(true) : setFilterActive(false) }
-                    show={ filterActive }
+                    show={ filterActive } id="testhello"
                 >
-                    <Dropdown.Toggle style={{ backgroundColor: "transparent", boxShadow: "none" }} className={ "border-0 px-1" }>
+                    <Dropdown.Toggle style={{ backgroundColor: "transparent", boxShadow: "none" }} className={ "border-0 px-1" } aria-label="filter-button">
                         {
                         filtersSelected && filtersSelected.length > 0
                             ? <span className="fa fa-filter fa-lg fam-blank fam-is-success" aria-hidden="true"></span>
