@@ -6,7 +6,7 @@ import Style from '../../../styles/ResultsDropDown.module.css';
 /**
  * Render the ResultsDropDown component.
  * @param {Object} props 
- * @param {!Objet} props.results - The results for the search done.
+ * @param {!Object} props.results - The results for the search done.
  * @param {!string} props.query - Search done or keyword.
  * @param {!boolean} props.active - Indicate if the component is currently active shown.
  * @param {!Function} props.setActive - Function bring from the state active to change if shown.
